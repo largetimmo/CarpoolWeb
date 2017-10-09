@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- description of this web-->
+    <meta name="description" content="S & S Carpool">
+
+    <title>Safe & Sound Carpool</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/firstpage.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <script src="js/jquery3.2.1.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/firstpage.js"></script>
+</head>
+
+<body>
+<div id="navbar" class="navbar navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand hidden-sm" href="/index.html">Title</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <!--Add more tags use <li></li>-->
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a id = "a_login" href="login.html">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id = "heading"></div>
+<div id = "leftnavbar"></div>
+<div id="content" class="container jumbotron">
+    <h1 id="heading1">Welcome to Safe & Sound Carpool</h1>
+    <p id="description">Search your trip below!!!</p>
+    <div class="col-sm-3">
+        <input id="departure" type="text" class="form-control" placeholder="Departure Eg.Ottawa" autocomplete="off" spellcheck="off">
+    </div>
+    <div class="col-sm-3">
+        <input id="destination" type="text" class="form-control" placeholder="Destination Eg.Toronto" autocomplete="off" spellcheck="off">
+    </div>
+    <div class="col-sm-2">
+        <input id="passenger" class="form-control" placeholder="Passenger(s)" autocomplete="off" spellcheck="off">
+    </div>
+    <div class="col-sm-3">
+        <div class="container">
+            <div class="row">
+                <div class="input-group date" id="datepicker">
+                    <input type="text" class="form-control" id="date" placeholder="Departure Date"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                $('#datepicker').datepicker({
+                    format: 'yyyy-mm-dd'
+                });
+            })
+        </script>
+    </div>
+    <button id="send" class="btn btn-primary">Submit</button>
+	<button id="register">Register</button>
+</div>
+
+<div id="results" class="container">
+    <div id="loading" style="visibility: hidden">
+        <label class="">Loading</label>
+    </div>
+    <div id="results_area"  class="listgroup"></div>
+</div>
+
+<div style= "float: left"><img src = "\pic\car.jpg" width=350px height=384px></div>
+<div style= "align-content: center"><img src = "\pic\aboard.jpg" width=400px height=403px></div>
+<div style= "float: right"><img src = "\pic\welcome.jpg" width=408px height=244px></div>
+
+<div id="footer"></div>
+</body>
+</html>
