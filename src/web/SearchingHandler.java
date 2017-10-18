@@ -28,7 +28,7 @@ public class SearchingHandler extends HttpServlet{
         /*
             从DAO类中获取符合上述信息的carpoo列表
          */
-        List<CarpoolInfo> carpoolInfoList = CarpoolDAO.searchAvaliableVehicle(departure,destination,passenger,date);
+        List<CarpoolInfo> carpoolInfoList = CarpoolDAO.getInstance().searchAvaliableVehicle(departure,destination,passenger,date);
         List<JSONObject> results = new ArrayList<>();
 
         for(CarpoolInfo current: carpoolInfoList){

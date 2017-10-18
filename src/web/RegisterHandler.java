@@ -19,7 +19,7 @@ public class RegisterHandler extends HttpServlet{
         String email = req.getParameter("email");
         String nickname = req.getParameter("nickname");
         UserReg userReg = new UserReg(username,password,email,nickname);
-        int code = UserManagementDAO.Register(userReg);
+        int code = UserManagementDAO.getInstance().Register(userReg);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code",code);
         res.setContentType("text/html");

@@ -21,7 +21,7 @@ public class UserManagementDAO extends AbstractDAO{
     public static UserManagementDAO getInstance() {
         return instance;
     }
-    public static int Login(String username, String password){
+    public int Login(String username, String password){
         /*
             log in with username and password
             return uid if username and password corrent
@@ -55,7 +55,7 @@ public class UserManagementDAO extends AbstractDAO{
 
 
 
-    public static int Register(UserReg userReg){
+    public int Register(UserReg userReg){
         /*
             Register new user
             return 1 for success

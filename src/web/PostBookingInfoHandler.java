@@ -16,7 +16,7 @@ import java.io.IOException;
 public class PostBookingInfoHandler extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         String uid = req.getSession().getAttribute("uid").toString();
-        if(!CarpoolOwnerInfoDAO.verifyCarpoolOwner(uid)){
+        if(!CarpoolOwnerInfoDAO.getInstance().verifyCarpoolOwner(uid)){
             //用户尚未提交车辆信息
             JSONObject a = new JSONObject();
             a.put("code",-100);
@@ -27,7 +27,7 @@ public class PostBookingInfoHandler extends HttpServlet {
             String passenger = req.getParameter("passengers");
             String date = req.getParameter("date");
             String price = req.getParameter("price");
-            Boolean success = CarpoolDAO.storageCarpoolInfo(departure,destination,passenger,price,date,uid);
+            Boolean success = CarpoolDAO.getInstance().storageCarpoolInfo(departure,destination,passenger,price,date,uid);
             JSONObject jsonObject = new JSONObject();
             if(success){
                 jsonObject.put("code",1);

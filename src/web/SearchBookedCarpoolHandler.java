@@ -17,7 +17,7 @@ public class SearchBookedCarpoolHandler extends HttpServlet{
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException{
         JSONObject jsonObject = new JSONObject();
         String uid = req.getSession().getAttribute("uid").toString();
-        List<BookedCarpoolInfo> list = dao.CarpoolDAO.searchAllBookedCarpool(uid);
+        List<BookedCarpoolInfo> list = dao.CarpoolDAO.getInstance().searchAllBookedCarpool(uid);
         if(list.size()==0) {
             jsonObject.put("code", 0);
         }else {

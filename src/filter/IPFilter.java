@@ -24,11 +24,9 @@ public class IPFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         System.out.println(System.nanoTime()+req.getRemoteAddr());
         try {
-            if(!dao.IPAddrDAO.checkBlockIP(req.getRemoteAddr())) {
+            if(!dao.IPAddrDAO.getInstance().checkBlockIP(req.getRemoteAddr())) {
                 filterChain.doFilter(servletRequest, servletResponse);
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }

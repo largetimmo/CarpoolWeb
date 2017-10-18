@@ -20,7 +20,7 @@ public class BookingHandler extends HttpServlet{
             return;
         }
         JSONObject jsonObject = new JSONObject();
-        Boolean success = CarpoolDAO.bookCarpool(uid,id,seats);
+        Boolean success = CarpoolDAO.getInstance().bookCarpool(uid,id,seats);
         if(success){
             jsonObject.put("code",1);
         }

@@ -2,73 +2,12 @@
 <Diagram>
   <ID>JAVA</ID>
   <OriginalElement />
-  <nodes>
-    <node x="0.0" y="737.0">core.UserReg</node>
-    <node x="0.0" y="197.0">core.CarpoolInfo</node>
-    <node x="561.25" y="394.0">dao.UserManagementDAO</node>
-    <node x="68.5" y="563.0">core.UserInfo</node>
-    <node x="726.0" y="209.0">dao.AbstractDAO</node>
-    <node x="842.25" y="429.0">dao.IPAddrDAO</node>
-    <node x="560.0" y="0.0">core.VehicleOwnerInfo</node>
-    <node x="1102.25" y="429.0">dao.CarpoolOwnerInfoDAO</node>
-    <node x="84.25" y="429.0">dao.CarpoolDAO</node>
-  </nodes>
+  <nodes />
   <notes />
-  <edges>
-    <edge source="dao.IPAddrDAO" target="dao.AbstractDAO">
-      <point x="0.0" y="-27.0" />
-      <point x="962.25" y="374.0" />
-      <point x="852.25" y="374.0" />
-      <point x="25.25" y="61.5" />
-    </edge>
-    <edge source="dao.CarpoolOwnerInfoDAO" target="core.VehicleOwnerInfo">
-      <point x="66.75" y="-27.0" />
-      <point x="1302.5" y="172.0" />
-      <point x="845.75" y="172.0" />
-      <point x="95.25" y="73.5" />
-    </edge>
-    <edge source="dao.CarpoolDAO" target="core.CarpoolInfo">
-      <point x="-114.25" y="-27.0" />
-      <point x="0.0" y="73.5" />
-    </edge>
-    <edge source="core.CarpoolInfo" target="core.VehicleOwnerInfo">
-      <point x="0.0" y="-73.5" />
-      <point x="198.5" y="172.0" />
-      <point x="655.25" y="172.0" />
-      <point x="-95.25" y="73.5" />
-    </edge>
-    <edge source="core.UserReg" target="core.UserInfo">
-      <point x="0.0" y="-50.5" />
-      <point x="0.0" y="62.0" />
-    </edge>
-    <edge source="dao.CarpoolDAO" target="dao.AbstractDAO">
-      <point x="114.25" y="-27.0" />
-      <point x="427.0" y="364.0" />
-      <point x="751.25" y="364.0" />
-      <point x="-75.75" y="61.5" />
-    </edge>
-    <edge source="dao.UserManagementDAO" target="dao.AbstractDAO">
-      <point x="0.0" y="-62.0" />
-      <point x="691.75" y="374.0" />
-      <point x="801.75" y="374.0" />
-      <point x="-25.25" y="61.5" />
-    </edge>
-    <edge source="dao.CarpoolOwnerInfoDAO" target="dao.AbstractDAO">
-      <point x="-66.75" y="-27.0" />
-      <point x="1169.0" y="364.0" />
-      <point x="902.75" y="364.0" />
-      <point x="75.75" y="61.5" />
-    </edge>
-  </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="724.0" y="260.0" />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="484.0" y="462.5" />
   <SelectedNodes />
-  <Categories>
-    <Category>Constructors</Category>
-    <Category>Methods</Category>
-    <Category>Fields</Category>
-    <Category>Inner Classes</Category>
-    <Category>Properties</Category>
-  </Categories>
+  <Categories />
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
 </Diagram>
