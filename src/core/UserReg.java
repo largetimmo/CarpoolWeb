@@ -6,12 +6,13 @@ package core;
 public class UserReg extends UserInfo{
     private String email;
     private String nickname;
-
-    public UserReg (String username, String password, String email,String nickname) {
+    private String cell;
+    public UserReg (String username, String password, String email,String nickname,String cell) {
         this.username = username;
         this.password = util.Md5encrypt.getMd5(password);
         this.email = email;
         this.nickname = nickname;
+        this.cell = cell;
     }
 
 
@@ -21,5 +22,9 @@ public class UserReg extends UserInfo{
 
     public String getNickname() {
         return nickname;
+    }
+
+    public String getCell() {
+        return cell;
     }
 }

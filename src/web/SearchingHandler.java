@@ -20,8 +20,8 @@ public class SearchingHandler extends HttpServlet{
         /*
         从浏览器提交的表单中获取出发地，到达地，时间，人数
          */
-        String departure = req.getParameter("from").toLowerCase();
-        String destination = req.getParameter("to").toLowerCase();
+        String departure = req.getParameter("from").toUpperCase();
+        String destination = req.getParameter("to").toUpperCase();
         int passenger = Integer.parseInt(req.getParameter("passengers"));
         String date = req.getParameter("date");
 

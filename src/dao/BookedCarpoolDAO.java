@@ -18,7 +18,7 @@ public class BookedCarpoolDAO extends AbstractDAO {
         boolean flag = false;
         try {
             Connection connection = ConnectionPool.getInstance().getBookedCarpoolConnection();
-            String sqlquery = "INSERT INTO carpool_book(uid,id,seat) VALUES (?,?,?)";
+            String sqlquery = "INSERT INTO BOOKED_CARPOOL(uid,id,seat) VALUES (?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
             preparedStatement.setString(1,user_id);
             preparedStatement.setString(2,carpool_id);

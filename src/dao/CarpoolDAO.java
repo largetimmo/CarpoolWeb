@@ -37,7 +37,6 @@ public class CarpoolDAO extends AbstractDAO{
                 carpoolInfoList.add(parseData(resultSet));
             }
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -57,7 +56,6 @@ public class CarpoolDAO extends AbstractDAO{
             preparedStatement.setString(7,capacity);
             preparedStatement.execute();
             preparedStatement.close();
-            connection.close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -85,7 +83,6 @@ public class CarpoolDAO extends AbstractDAO{
                 infoList.add(bookedCarpoolInfo);
             }
             preparedStatement.close();
-            connection.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -132,7 +129,7 @@ public class CarpoolDAO extends AbstractDAO{
         CarpoolInfo carpoolInfo = null;
         try {
             Connection connection = ConnectionPool.getInstance().getCarpoolConnection();
-            String sqlquery = "SELECT * FROM carpool WHERE id = ?";
+            String sqlquery = "SELECT * FROM CARPOOL WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
             preparedStatement.setString(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -140,7 +137,6 @@ public class CarpoolDAO extends AbstractDAO{
                carpoolInfo = parseData(resultSet);
             }
             preparedStatement.close();
-            connection.close();
         }catch (SQLException e){
             e.printStackTrace();
         }

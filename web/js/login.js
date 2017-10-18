@@ -2,7 +2,6 @@
  * Created by admin on 2017/8/20.
  */
 $(document).ready(function () {
-
     $("#submit").click(function () {
         $("#return_message").text("");
         $("#return_message").css("display","none");
@@ -10,6 +9,7 @@ $(document).ready(function () {
         submit_form.password = $("#reg_password").val();
         submit_form.email = $("#reg_email").val();
         submit_form.nickname = $("#reg_nickname").val();
+        submit_form.cell = $("#reg_cell").val();
         $.post("/register",submit_form,function (data) {
             var data_json = JSON.parse(data);
             var message = "";
@@ -49,8 +49,6 @@ $(document).ready(function () {
             $("#return_message").text(message);
             $("#return_message").css("display","block");
         })
-
-
     });
 
     $("#login").click(function () {

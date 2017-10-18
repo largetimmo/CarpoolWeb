@@ -21,22 +21,18 @@ public class ConnectionPool {
     protected static ConnectionPool getInstance(){
         return instance;
     }
-    static {
-        try {
-            Class.forName(MYSQL_CLASS_NAME);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
     private ConnectionPool(){
         try {
+            Class.forName(MYSQL_CLASS_NAME);
             generalConnection = DriverManager.getConnection(ADDR,USERNAME,PASSWORD);
             bookedCarpoolConnection = DriverManager.getConnection(ADDR,USERNAME,PASSWORD);
             carpoolConnection = DriverManager.getConnection(ADDR,USERNAME,PASSWORD);
             userManagementConnection = DriverManager.getConnection(ADDR,USERNAME,PASSWORD);
             carpoolOwnerConnection = DriverManager.getConnection(ADDR,USERNAME,PASSWORD);
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

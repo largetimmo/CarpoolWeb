@@ -30,7 +30,7 @@ public class UserManagementDAO extends AbstractDAO{
          */
         try {
             Connection connection = ConnectionPool.getInstance().getUserManagementConnection();
-            String sqlquery = "SELECT uid FROM user_reg_info WHERE username = ? AND password = ?";
+            String sqlquery = "SELECT uid FROM USER_REG WHERE username = ? AND password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
             preparedStatement.setString(1,username);
             preparedStatement.setString(2,password);
@@ -39,11 +39,9 @@ public class UserManagementDAO extends AbstractDAO{
                 String uid_string = resultSet.getString(1);
                 int uid = Integer.parseInt(uid_string);
                 preparedStatement.close();
-                connection.close();
                 return uid;
             }else {
                 preparedStatement.close();
-                connection.close();
                 return -1;
             }
 
@@ -125,12 +123,13 @@ public class UserManagementDAO extends AbstractDAO{
             if (resultSet.next()){
                 return -1;
             }
-            sqlquery = "INSERT INTO USER_REG (username, password, nickname,email) VALUES (?,?,?,?)";
+            sqlquery = "INSERT INTO USER_REG (username, password, nickname,email,cell) VALUES (?,?,?,?,?)";
             preparedStatement = connection.prepareStatement(sqlquery);
             preparedStatement.setString(1,userReg.getUsername());
             preparedStatement.setString(2,userReg.getPassword());
             preparedStatement.setString(3,userReg.getNickname());
             preparedStatement.setString(4,userReg.getEmail());
+            preparedStatement.setString(5,userReg.getCell());
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

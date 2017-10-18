@@ -20,7 +20,7 @@ public class CarpoolOwnerInfoDAO extends AbstractDAO{
         VehicleOwnerInfo vehicleOwnerInfo = null;
         try {
             Connection connection = ConnectionPool.getInstance().getCarpoolOwnerConnection();
-            String sqlquery = "SELECT * FROM VEHICLE_OWNER INNER JOIN USER_REG ON VEHICLE_OWNER.uid = USER_REG.uid where uid = ?;";
+            String sqlquery = "SELECT * FROM VEHICLE_OWNER INNER JOIN USER_REG ON VEHICLE_OWNER.uid = USER_REG.uid WHERE VEHICLE_OWNER.uid = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
             preparedStatement.setString(1,Integer.toString(uid));
             ResultSet resultSet = preparedStatement.executeQuery();
