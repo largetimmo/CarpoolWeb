@@ -8,50 +8,65 @@ import java.sql.*;
  * Created by admin on 2017/8/15.
  */
 public class CarpoolOwnerInfoDAO extends AbstractDAO{
-    public static VehicleOwnerInfo getUserInfo(int uid){
+    private CarpoolOwnerInfoDAO(){
+
+    }
+    private static CarpoolOwnerInfoDAO instance = new CarpoolOwnerInfoDAO();
+    public  static CarpoolOwnerInfoDAO getInstance(){
+        return instance;
+    }
+    public VehicleOwnerInfo getUserInfo(int uid){
+        //获取用户的车辆信息
         VehicleOwnerInfo vehicleOwnerInfo = null;
         try {
-            Class.forName(MYSQL_CLASS_NAME);
-            Connection connection = DriverManager.getConnection(ADDR,USERNAME,PASSWORD);
-            String sqlquery = "select * from user_carpool_info where uid = ?;";
+            Connection connection = ConnectionPool.getInstance().getCarpoolOwnerConnection();
+            String sqlquery = "SELECT * FROM VEHICLE_OWNER INNER JOIN USER_REG ON VEHICLE_OWNER.uid = USER_REG.uid where uid = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
             preparedStatement.setString(1,Integer.toString(uid));
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 //exist
-                String nickname = resultSet.getString(2);
-                int userlevel = resultSet.getInt(3);
-                String vehicle = resultSet.getString(4);
+                String nickname = resultSet.getString(resultSet.findColumn("nickname"));
+                int userlevel = resultSet.getInt(resultSet.findColumn("userlevel"));
+                String vehicle = resultSet.getString(resultSet.findColumn("vehicle"));
                 vehicleOwnerInfo = new VehicleOwnerInfo(uid,userlevel,nickname,vehicle);
             }
             preparedStatement.close();;
-            connection.close();
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        }catch (SQLException e) {
             e.printStackTrace();
         }
         return vehicleOwnerInfo;
     }
-    public static Boolean verifyCarpoolOwner(String uid){
+    public boolean verifyCarpoolOwner(String uid){
         //验证用户是否已提交车辆信息
         try{
-            Class.forName(MYSQL_CLASS_NAME);
-            Connection connection = DriverManager.getConnection(ADDR,USERNAME,PASSWORD);
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user_carpool_info WHERE uid = ?");
+            Connection connection = ConnectionPool.getInstance().getCarpoolOwnerConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM VEHICLE_OWNER WHERE uid = ?");
             preparedStatement.setString(1,uid);
-            Boolean a = preparedStatement.execute();
+            boolean a = preparedStatement.execute();
             preparedStatement.close();
-            connection.close();
             if(a){
                 return true;
             }
-        }catch (ClassNotFoundException e){
-            e.printStackTrace();
         }catch (SQLException e){
             e.printStackTrace();
         }
         return false;
+    }
+    public boolean AddVehicleOwner(VehicleOwnerInfo vehicleOwnerInfo){
+        boolean flag = false;
+        try {
+            Connection connection = ConnectionPool.getInstance().getCarpoolOwnerConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO VEHICLE_OWNER(uid,vehicle) VALUES (?,?)");
+            preparedStatement.setInt(1,vehicleOwnerInfo.getUid());
+            preparedStatement.setString(2,vehicleOwnerInfo.getNickname());
+            preparedStatement.execute();
+            preparedStatement.close();
+            flag = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
     }
 }

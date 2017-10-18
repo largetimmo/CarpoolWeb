@@ -1,5 +1,6 @@
 package dao;
 
+import com.sun.tools.internal.xjc.model.CArrayInfo;
 import core.BookedCarpoolInfo;
 import core.CarpoolInfo;
 import core.DateTime;
@@ -14,12 +15,18 @@ import java.util.List;
  * Created by admin on 2017/8/15.
  */
 public class CarpoolDAO extends AbstractDAO{
-    public static List<CarpoolInfo> searchAvaliableVehicle(String from, String to, int passenger, String date){
+    private static CarpoolDAO instance = new CarpoolDAO();
+    public static CarpoolDAO getInstance(){
+        return instance;
+    }
+    private CarpoolDAO(){
+
+    }
+    public List<CarpoolInfo> searchAvaliableVehicle(String from, String to, int passenger, String date){
         List<CarpoolInfo> carpoolInfoList = new ArrayList<>();
         try {
-            Class.forName(MYSQL_CLASS_NAME);
-            Connection connection = DriverManager.getConnection(ADDR,USERNAME,PASSWORD);
-            String sqlquery = "select * from carpool where departure = ? AND  destination = ? AND remainseat >= ? AND date LIKE ?";
+            Connection connection = ConnectionPool.getInstance().getCarpoolConnection();
+            String sqlquery = "select * from CARPOOL where departure = ? AND  destination = ? AND remainseat >= ? AND date LIKE ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
             preparedStatement.setString(1,from);
             preparedStatement.setString(2,to);
@@ -27,28 +34,19 @@ public class CarpoolDAO extends AbstractDAO{
             preparedStatement.setString(4,date+"%");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                int id = resultSet.getInt(1);
-                VehicleOwnerInfo vehicleOwnerInfo = CarpoolOwnerInfoDAO.getUserInfo(resultSet.getInt(2));
-                DateTime dateTime = new DateTime(resultSet.getString(3));
-                int price = resultSet.getInt(4);
-                int capacity = resultSet.getInt(5);
-                String remainseat = resultSet.getString(8);
-                carpoolInfoList.add(new CarpoolInfo(vehicleOwnerInfo,id,price,capacity,dateTime,remainseat));
+                carpoolInfoList.add(parseData(resultSet));
             }
             preparedStatement.close();
             connection.close();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return carpoolInfoList;
     }
-    public static boolean storageCarpoolInfo(String departure, String destination,String capacity,String price,String date, String userid){
+    public boolean storageCarpoolInfo(String departure, String destination,String capacity,String price,String date, String userid){
         try{
-            Class.forName(MYSQL_CLASS_NAME);
-            Connection connection = DriverManager.getConnection(ADDR,USERNAME,PASSWORD);
-            String sqlquery = "INSERT INTO carpool(uid,date,price,capacity,departure,destination,remainseat) VALUES(?,?,?,?,?,?,?)";
+            Connection connection = ConnectionPool.getInstance().getCarpoolConnection();
+            String sqlquery = "INSERT INTO CARPOOL(uid,date,price,capacity,departure,destination,remainseat) VALUES(?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
             preparedStatement.setString(1,userid);
             preparedStatement.setString(2,date);
@@ -61,23 +59,20 @@ public class CarpoolDAO extends AbstractDAO{
             preparedStatement.close();
             connection.close();
             return true;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
-    public static List<BookedCarpoolInfo> searchAllBookedCarpool(int uid){
+    public List<BookedCarpoolInfo> searchAllBookedCarpool(int uid){
         return searchAllBookedCarpool(Integer.toString(uid));
     }
-    public static List<BookedCarpoolInfo> searchAllBookedCarpool(String uid){
+    public List<BookedCarpoolInfo> searchAllBookedCarpool(String uid){
 
         List<BookedCarpoolInfo> infoList = new ArrayList<>();
         try {
-            Class.forName(MYSQL_CLASS_NAME);
-            Connection connection = DriverManager.getConnection(ADDR,USERNAME,PASSWORD);
-            String sql = "SELECT * FROM carpool_book WHERE uid = ? ORDER BY booking_ref DESC";
+            Connection connection = ConnectionPool.getInstance().getCarpoolConnection();
+            String sql = "SELECT * FROM BOOKED_CARPOOL WHERE uid = ? ORDER BY booking_ref DESC";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,uid);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -93,12 +88,10 @@ public class CarpoolDAO extends AbstractDAO{
             connection.close();
         }catch (SQLException e){
             e.printStackTrace();
-        }catch (ClassNotFoundException e){
-            e.printStackTrace();
         }
         return infoList;
     }
-    public static boolean bookCarpool(String uid, String id,String seat_string){
+    public boolean bookCarpool(String uid, String id,String seat_string){
         /*
             1.获取剩余座位数
             2.判断如果超过剩余座位，则不进行预订
@@ -106,11 +99,11 @@ public class CarpoolDAO extends AbstractDAO{
             4.在carpool_book中加入详情
             5.
          */
+        boolean flag = false;
         int seats = Integer.parseInt(seat_string);
         try {
-            Class.forName(MYSQL_CLASS_NAME);
-            Connection connection = DriverManager.getConnection(ADDR,USERNAME,PASSWORD);
-            String sqlquery = "SELECT remainseat FROM carpool where id = ?";
+            Connection connection = ConnectionPool.getInstance().getCarpoolConnection();
+            String sqlquery = "SELECT remainseat FROM CARPOOL where id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
             preparedStatement.setString(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -126,52 +119,40 @@ public class CarpoolDAO extends AbstractDAO{
                 preparedStatement.setString(2,id);
                 preparedStatement.execute();
                 preparedStatement.close();
-                sqlquery = "INSERT INTO carpool_book(uid,id,seat) VALUES (?,?,?)";
-                preparedStatement = connection.prepareStatement(sqlquery);
-                preparedStatement.setString(1,uid);
-                preparedStatement.setString(2,id);
-                preparedStatement.setString(3,seat_string);
-                preparedStatement.execute();
-                preparedStatement.close();
-                connection.close();
-                return true;
+                if (BookedCarpoolDAO.getInstance().BookCarpool(uid,id,seat_string)){
+                    flag = true;
+                }
             }
-            connection.close();
-
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return flag;
     }
-    public static CarpoolInfo getCarpoolInfo(String id){
+    public CarpoolInfo getCarpoolInfo(String id){
         CarpoolInfo carpoolInfo = null;
         try {
-            Class.forName(MYSQL_CLASS_NAME);
-            Connection connection = DriverManager.getConnection(ADDR,USERNAME,PASSWORD);
+            Connection connection = ConnectionPool.getInstance().getCarpoolConnection();
             String sqlquery = "SELECT * FROM carpool WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
             preparedStatement.setString(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                VehicleOwnerInfo vehicleOwnerInfo = CarpoolOwnerInfoDAO.getUserInfo(resultSet.getInt(2));
-                DateTime dateTime = new DateTime(resultSet.getString(3));
-                int price = resultSet.getInt(4);
-                int capacity = resultSet.getInt(5);
-                String from = resultSet.getString(6);
-                String to = resultSet.getString(7);
-                String remainseat = resultSet.getString(8);
-                carpoolInfo = new CarpoolInfo(vehicleOwnerInfo,price,capacity,dateTime,remainseat,from,to);
+               carpoolInfo = parseData(resultSet);
             }
             preparedStatement.close();
             connection.close();
         }catch (SQLException e){
             e.printStackTrace();
-        }catch (ClassNotFoundException e){
-            e.printStackTrace();
         }
         return carpoolInfo;
+    }
+    private CarpoolInfo parseData(ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt(resultSet.findColumn("id"));
+        VehicleOwnerInfo vehicleOwnerInfo = CarpoolOwnerInfoDAO.getInstance().getUserInfo(resultSet.getInt(resultSet.findColumn("uid")));
+        DateTime dateTime = new DateTime(resultSet.getString(resultSet.findColumn("date")));
+        int price = resultSet.getInt(resultSet.findColumn("price"));
+        int capacity = resultSet.getInt(resultSet.findColumn("capacity"));
+        String remainseat = resultSet.getString(resultSet.findColumn("remainseat"));
+        return new CarpoolInfo(vehicleOwnerInfo,id,price,capacity,dateTime,remainseat);
     }
 }

@@ -14,6 +14,13 @@ public class UserManagementDAO extends AbstractDAO{
     private static final String REG_EXP_EMAIL = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
     private static final String REG_EXP_USERNAME_PASSWORD = "^[A-Za-z0-9]+$";
 
+    private UserManagementDAO(){
+
+    }
+    private static UserManagementDAO instance = new UserManagementDAO();
+    public static UserManagementDAO getInstance() {
+        return instance;
+    }
     public static int Login(String username, String password){
         /*
             log in with username and password
@@ -22,8 +29,7 @@ public class UserManagementDAO extends AbstractDAO{
             return -2 for internal error
          */
         try {
-            Class.forName(MYSQL_CLASS_NAME);
-            Connection connection = DriverManager.getConnection(ADDR,USERNAME,PASSWORD);
+            Connection connection = ConnectionPool.getInstance().getUserManagementConnection();
             String sqlquery = "SELECT uid FROM user_reg_info WHERE username = ? AND password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
             preparedStatement.setString(1,username);
@@ -41,8 +47,6 @@ public class UserManagementDAO extends AbstractDAO{
                 return -1;
             }
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -113,24 +117,21 @@ public class UserManagementDAO extends AbstractDAO{
         }
 
         try {
-            Class.forName(MYSQL_CLASS_NAME);
-            Connection connection = DriverManager.getConnection(ADDR,USERNAME,PASSWORD);
-            String sqlquery = "SELECT * FROM user_reg_info where username = ?";
+            Connection connection = ConnectionPool.getInstance().getUserManagementConnection();
+            String sqlquery = "SELECT * FROM USER_REG where username = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
             preparedStatement.setString(1,userReg.getUsername());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()){
                 return -1;
             }
-            sqlquery = "INSERT INTO user_reg_info (username, password, nickname,email) VALUES (?,?,?,?)";
+            sqlquery = "INSERT INTO USER_REG (username, password, nickname,email) VALUES (?,?,?,?)";
             preparedStatement = connection.prepareStatement(sqlquery);
             preparedStatement.setString(1,userReg.getUsername());
             preparedStatement.setString(2,userReg.getPassword());
             preparedStatement.setString(3,userReg.getNickname());
             preparedStatement.setString(4,userReg.getEmail());
             preparedStatement.execute();
-        }catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
             return 0;

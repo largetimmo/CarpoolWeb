@@ -20,6 +20,11 @@ public class VehicleOwnerInfo {
         this.vehicle = vehicle;
     }
 
+    public VehicleOwnerInfo(int uid, String vehicle) {
+        this.uid = uid;
+        this.vehicle = vehicle;
+    }
+
     public int getUid() {
         return uid;
     }
