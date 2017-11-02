@@ -1,11 +1,14 @@
 package web;
 
 import core.BookedCarpoolInfo;
+import core.CarpoolInfo;
+import dao.CarpoolDAO;
 import net.sf.json.JSONObject;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.ListView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +18,20 @@ import java.util.List;
  */
 public class SearchBookedCarpoolHandler extends HttpServlet{
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException{
-        JSONObject jsonObject = new JSONObject();
+        String type = req.getParameter("type");
         String uid = req.getSession().getAttribute("uid").toString();
+        JSONObject jsonObject;
+        if(type.equals("1")){
+            //get booked
+            jsonObject = getBookedCarpool(uid);
+        }else {
+            //get posted
+            jsonObject = getPostedCarpool(uid);
+        }
+        res.getWriter().print(jsonObject);
+    }
+    private JSONObject getBookedCarpool(String uid){
+        JSONObject jsonObject = new JSONObject();
         List<BookedCarpoolInfo> list = dao.CarpoolDAO.getInstance().searchAllBookedCarpool(uid);
         if(list.size()==0) {
             jsonObject.put("code", 0);
@@ -36,6 +51,30 @@ public class SearchBookedCarpoolHandler extends HttpServlet{
             }
             jsonObject.put("record",carpoolinfo_json_list.toArray());
         }
-        res.getWriter().print(jsonObject);
+        return jsonObject;
+    }
+    private JSONObject getPostedCarpool(String uid){
+        JSONObject result = new JSONObject();
+        List<CarpoolInfo> list =CarpoolDAO.getInstance().getPostedCarpool(uid);
+        if (list.size() == 0){
+            result.put("code", 0);
+
+        }else {
+            result.put("code",1);
+            List<JSONObject> carpool_list = new ArrayList<>();
+            for (CarpoolInfo carpoolInfo:list){
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("id",carpoolInfo.getId());
+                jsonObject.put("capacity",carpoolInfo.getCapacity());
+                jsonObject.put("remain_seat",carpoolInfo.getRemainseat());
+                jsonObject.put("datetime",carpoolInfo.getDateTime().toString());
+                jsonObject.put("departure",carpoolInfo.getFrom());
+                jsonObject.put("destination",carpoolInfo.getTo());
+                jsonObject.put("price",carpoolInfo.getPrice());
+                carpool_list.add(jsonObject);
+            }
+            result.put("record",carpool_list.toArray());
+        }
+        return result;
     }
 }

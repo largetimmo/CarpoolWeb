@@ -1,0 +1,63 @@
+<script src="js/jquery3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<link href = "css/bootstrap.min.css" rel="stylesheet">
+<style>
+    #result_content{
+        padding-top: 60px;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $.get("/user/searchbooking?type=1",function (data) {
+            var data_json = JSON.parse(data);
+            if(data_json.code === 0){
+                var label = document.createElement("label");
+                label.setAttribute("class","label-primary");
+                $(label).text("We cannot find any record of your booking.");
+                var container = document.getElementsByClassName("container");
+                container.appendChild(label);
+            }else if(data_json.code === 1) {
+                var record_array = data_json.record;
+                for(var i = 0; i<record_array.length;i++){
+                    var tr = document.createElement("tr");
+                    var td_ref = document.createElement("td");
+                    var td_dep = document.createElement("td");
+                    var td_des = document.createElement("td");
+                    var td_seat = document.createElement("td");
+                    var td_date = document.createElement("td");
+                    var td_vehicle = document.createElement("td");
+                    var td_nickname = document.createElement("td");
+                    $(td_ref).text(record_array[i].reference);
+                    $(td_dep).text(record_array[i].departure);
+                    $(td_des).text(record_array[i].destination);
+                    $(td_seat).text(record_array[i].seat);
+                    $(td_date).text(record_array[i].date);
+                    $(td_vehicle).text(record_array[i].vehicle);
+                    $(td_nickname).text(record_array[i].name);
+                    tr.appendChild(td_ref);
+                    tr.appendChild(td_dep);
+                    tr.appendChild(td_des);
+                    tr.appendChild(td_seat);
+                    tr.appendChild(td_date);
+                    tr.appendChild(td_vehicle);
+                    tr.appendChild(td_nickname);
+                    document.getElementById("table").appendChild(tr);
+                }
+            }
+        })
+    })
+</script>
+<div id = "result_content" class="container">
+    <table id = "table" class= "table table-bordered">
+        <tr class="bg-primary">
+            <th id = "reference">Reference Number</th>
+            <th id = "departure">Departure</th>
+            <th id = "destination">Destination</th>
+            <th id = "seat">Seat(s)</th>
+            <th id = "date">Date</th>
+            <th id = "vehicletype">Vehicle</th>
+            <th id = "name">Name</th>
+        </tr>
+    </table>
+</div>

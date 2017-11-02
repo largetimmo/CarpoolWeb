@@ -29,9 +29,18 @@ public class CarpoolInfo {
         return to;
     }
 
-    public CarpoolInfo(VehicleOwnerInfo user, int price, int capacity, DateTime dateTime, String remainseat, String from, String to) {
-
+    public CarpoolInfo(VehicleOwnerInfo user, int id, int price, int capacity, DateTime dateTime, String remainseat, String from, String to) {
         this.user = user;
+        this.id = id;
+        this.price = price;
+        this.capacity = capacity;
+        this.dateTime = dateTime;
+        this.remainseat = remainseat;
+        this.from = from;
+        this.to = to;
+    }
+
+    public CarpoolInfo(int price, int capacity, DateTime dateTime, String remainseat, String from, String to) {
         this.price = price;
         this.capacity = capacity;
         this.dateTime = dateTime;

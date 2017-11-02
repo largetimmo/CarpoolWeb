@@ -19,9 +19,7 @@ public class CarpoolDAO extends AbstractDAO{
     public static CarpoolDAO getInstance(){
         return instance;
     }
-    private CarpoolDAO(){
-
-    }
+    private CarpoolDAO(){}
     public List<CarpoolInfo> searchAvaliableVehicle(String from, String to, int passenger, String date){
         List<CarpoolInfo> carpoolInfoList = new ArrayList<>();
         try {
@@ -66,7 +64,6 @@ public class CarpoolDAO extends AbstractDAO{
         return searchAllBookedCarpool(Integer.toString(uid));
     }
     public List<BookedCarpoolInfo> searchAllBookedCarpool(String uid){
-
         List<BookedCarpoolInfo> infoList = new ArrayList<>();
         try {
             Connection connection = ConnectionPool.getInstance().getCarpoolConnection();
@@ -76,7 +73,7 @@ public class CarpoolDAO extends AbstractDAO{
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 String refnumber = resultSet.getString(1);
-                String id = resultSet.getString(3);
+                String id = resultSet.getString(resultSet.findColumn("id"));
                 String seat = resultSet.getString(4);
                 CarpoolInfo carpoolInfo = getCarpoolInfo(id);
                 BookedCarpoolInfo bookedCarpoolInfo = new BookedCarpoolInfo(carpoolInfo,refnumber,seat);
@@ -149,6 +146,24 @@ public class CarpoolDAO extends AbstractDAO{
         int price = resultSet.getInt(resultSet.findColumn("price"));
         int capacity = resultSet.getInt(resultSet.findColumn("capacity"));
         String remainseat = resultSet.getString(resultSet.findColumn("remainseat"));
-        return new CarpoolInfo(vehicleOwnerInfo,id,price,capacity,dateTime,remainseat);
+        String departure = resultSet.getString(resultSet.findColumn("departure"));
+        String dest = resultSet.getString(resultSet.findColumn("destination"));
+        return new CarpoolInfo(vehicleOwnerInfo,id,price,capacity,dateTime,remainseat,departure,dest);
+    }
+    public ArrayList<CarpoolInfo> getPostedCarpool(String uid){
+        String sqlquery = "SELECT * FROM CARPOOL WHERE uid = ?";
+        ArrayList<CarpoolInfo> list = new ArrayList<>();
+        try {
+            Connection connection = ConnectionPool.getInstance().getCarpoolConnection();
+            PreparedStatement preparedStatement =connection.prepareStatement(sqlquery);
+            preparedStatement.setString(1,uid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                list.add(parseData(resultSet));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return list;
     }
 }

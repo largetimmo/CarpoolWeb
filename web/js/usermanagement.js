@@ -6,9 +6,11 @@ $(document).ready(function () {
     $("#content").load("/postbookingpage.html");
 
     $("#checkingbooking").click(function () {
-        $("#content").load("/checkingpage.html");
+        $("#content").load("/checkbookingpage.html");
     });
-
+    $("#checkingposting").click(function () {
+        $("#content").load("/checkpostingpage.html")
+    })
    $("#postbooking").click(function () {
        $("#content").load("/postbookingpage.html");
    })
