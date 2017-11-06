@@ -1,18 +1,16 @@
 package dao;
 
-import com.sun.org.apache.regexp.internal.RE;
 import core.UserReg;
+import util.Md5encrypt;
+import util.RegExpVerify;
 
 import java.sql.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by admin on 2017/8/21.
  */
 public class UserManagementDAO extends AbstractDAO{
-    private static final String REG_EXP_EMAIL = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
-    private static final String REG_EXP_USERNAME_PASSWORD = "^[A-Za-z0-9]+$";
+
 
     private UserManagementDAO(){
 
@@ -54,6 +52,7 @@ public class UserManagementDAO extends AbstractDAO{
 
 
     public int Register(UserReg userReg){
+        //Todo: move verify part to another Java class
         /*
             Register new user
             return 1 for success
@@ -70,33 +69,25 @@ public class UserManagementDAO extends AbstractDAO{
         /*
             Checking invalid character in email
         */
-        Pattern pattern = Pattern.compile(REG_EXP_EMAIL);
-        Matcher matcher = pattern.matcher(userReg.getEmail());
-        if(!matcher.find()){
+        if(!RegExpVerify.verifyEmail(userReg.getEmail())){
             return -5;
         }
         /*
         checking invalid character in username
          */
-        pattern = Pattern.compile(REG_EXP_USERNAME_PASSWORD);
-        matcher = pattern.matcher(userReg.getUsername());
-        if(!matcher.find()){
+        if (!RegExpVerify.verifyUNPS(userReg.getUsername())){
             return -2;
         }
         /*
         checking invalid character in password
          */
-        matcher = pattern.matcher(userReg.getPassword());
-        if(!matcher.find()){
+        if (!RegExpVerify.verifyUNPS(userReg.getPassword())){
             return -3;
         }
-
         /*
         checking invalid character in nickname
          */
-
-        matcher = pattern.matcher(userReg.getNickname());
-        if (!matcher.find()){
+        if(!RegExpVerify.verifyUNPS(userReg.getNickname())){
             return -7;
         }
         /*
@@ -136,6 +127,47 @@ public class UserManagementDAO extends AbstractDAO{
             return 0;
         }
         return 1;
+    }
+
+    public int RecoverPass(String username, String email){
+        if (RegExpVerify.verifyUNPS(username)){
+            if(RegExpVerify.verifyEmail(email)){
+                String sqlquery = "SELECT * FROM USER_REG WHERE username = ? AND email = ?";
+                try {
+                    Connection connection = ConnectionPool.getInstance().getUserManagementConnection();
+                    PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
+                    preparedStatement.setString(1,username);
+                    preparedStatement.setString(2,email);
+                    if (preparedStatement.executeQuery().next()){
+                        //the username and email are matched
+                        return 1;
+                    }
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        //username or email cannot pass reg_exp
+        //or
+        //cannot found the pair matched the username and email
+        return 0;
+    }
+    public boolean setPass(String username, String password){
+        if (RegExpVerify.verifyUNPS(username) && RegExpVerify.verifyUNPS(password)){
+            String pass_md5 = Md5encrypt.getMd5(password);
+            String sqlquery = "UPDATE USER_REG SET password = ? WHERE username = ?";
+            try {
+                Connection connection = ConnectionPool.getInstance().getUserManagementConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
+                preparedStatement.setString(1,pass_md5);
+                preparedStatement.setString(2,username);
+                preparedStatement.execute();
+                return true;
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
 }

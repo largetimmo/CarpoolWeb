@@ -11,8 +11,6 @@
         <servlet-name>SearchingHandler</servlet-name>
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
-
-
     <servlet>
         <servlet-name>LoginHandler</servlet-name>
         <servlet-class>web.LoginHandler</servlet-class>
@@ -21,8 +19,6 @@
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
-
-
     <servlet>
         <servlet-name>VerifyLogingInHandler</servlet-name>
         <servlet-class>web.VerifyLogingInHandler</servlet-class>
@@ -65,6 +61,26 @@
         <servlet-name>SearchBookedCarpoolHandler</servlet-name>
         <url-pattern>/user/searchbooking</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ForgetPass</servlet-name>
+        <servlet-class>web.ForgetPassHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ForgetPass</servlet-name>
+        <url-pattern>/forgetpass.do</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ResetPass</servlet-name>
+        <servlet-class>web.Resetpass</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ResetPass</servlet-name>
+        <url-pattern>/resetpass.do</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+    
     <!-- filter Below-->
 
 

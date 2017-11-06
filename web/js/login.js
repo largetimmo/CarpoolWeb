@@ -1,7 +1,9 @@
 /**
  * Created by admin on 2017/8/20.
  */
+
 $(document).ready(function () {
+
     $("#submit").click(function () {
         $("#return_message").text("");
         $("#return_message").css("display","none");
@@ -75,3 +77,4 @@ $(document).ready(function () {
         })
     })
 })
+

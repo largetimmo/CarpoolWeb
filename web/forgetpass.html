@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Forget Password</title>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery3.2.1.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
         .form {
@@ -17,6 +18,15 @@
             align-items: center;
         }
     </style>
+    <script src="js/GeneralFunction.js"></script>
+    <script>
+        $(document).ready(function () {
+            if (getParameterByName('code') ==='-1'){
+                alert("Sorry. We cannot find the user match the information you provided")
+                //Todo:Replace with dialog
+            }
+        })
+    </script>
 </head>
 <body>
 <div class="navbar-header">
@@ -30,11 +40,11 @@
             <h2>Forget Password</h2>
             <div class="col-sm-12">
                 <br>
-                <input id="username" class="form-control" placeholder="Username">
+                <input name="username" id="username" class="form-control" placeholder="Username">
                 <br>
             </div>
             <div class="col-md-12">
-                <input id="email" class=" form-control col-sm-12" placeholder="Email">
+                <input name="email" id="email" class=" form-control col-sm-12" placeholder="Email">
                 <br>
             </div>
             <div class="col-sm-12">
