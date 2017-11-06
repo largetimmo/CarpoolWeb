@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forget Password</title>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form {
+            border: 1px solid #afd0f1;
+        }
+
+        h2 {
+            text-align: center;
+        }
+        #submit{
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar-header">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Title</a>
+    </div>
+</div>
+<form action="/forgetpass.do" method="post">
+    <div class="container">
+        <div class="col-sm-6 form">
+            <h2>Forget Password</h2>
+            <div class="col-sm-12">
+                <br>
+                <input id="username" class="form-control" placeholder="Username">
+                <br>
+            </div>
+            <div class="col-md-12">
+                <input id="email" class=" form-control col-sm-12" placeholder="Email">
+                <br>
+            </div>
+            <div class="col-sm-12">
+                <br>
+                <input id = "submit" type="submit" value="Submit" class="center-block btn btn-primary">
+                <br>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+</body>
+</html>
