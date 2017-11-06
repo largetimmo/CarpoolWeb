@@ -8,7 +8,7 @@ $(document).ready(function () {
         if(data_json.code === 1){
             console.log("success");
             $("#a_login").text("User Management");
-            $("#a_login").attr("href","usermanagement.html");
+            $("#a_login").attr("href","/user/usermanagement.html");
         }
     });
 

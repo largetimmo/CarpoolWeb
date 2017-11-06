@@ -3,15 +3,15 @@
  */
 
 $(document).ready(function () {
-    $("#content").load("/postbookingpage.html");
+    $("#content").load("postbookingpage.html");
 
     $("#checkingbooking").click(function () {
-        $("#content").load("/checkbookingpage.html");
+        $("#content").load("checkbookingpage.html");
     });
     $("#checkingposting").click(function () {
-        $("#content").load("/checkpostingpage.html")
-    })
+        $("#content").load("checkpostingpage.html")
+    });
    $("#postbooking").click(function () {
-       $("#content").load("/postbookingpage.html");
+       $("#content").load("postbookingpage.html");
    })
 });
