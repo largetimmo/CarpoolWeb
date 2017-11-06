@@ -1,6 +1,5 @@
 package dao;
 
-import com.sun.tools.internal.xjc.model.CArrayInfo;
 import core.BookedCarpoolInfo;
 import core.CarpoolInfo;
 import core.DateTime;
