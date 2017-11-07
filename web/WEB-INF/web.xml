@@ -77,7 +77,14 @@
         <servlet-name>ResetPass</servlet-name>
         <url-pattern>/resetpass.do</url-pattern>
     </servlet-mapping>
-    
+    <servlet>
+        <servlet-name>UserProfile</servlet-name>
+        <servlet-class>web.UserInformationHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserProfile</servlet-name>
+        <url-pattern>/user/profile.do</url-pattern>
+    </servlet-mapping>
     
     
     

@@ -2,11 +2,6 @@
 <script src="../js/bootstrap.min.js"></script>
 
 <link href = "../css/bootstrap.min.css" rel="stylesheet">
-<style>
-    #result_content{
-        padding-top: 60px;
-    }
-</style>
 <script>
     $(document).ready(function () {
         $.get("/user/searchbooking?type=0",function (data) {
@@ -49,7 +44,7 @@
     })
 </script>
 <div id = "result_content" >
-    <div class="container">
+    <div class="container jumbotron">
         <table id = "table" class= "table table-bordered">
             <tr class="bg-primary">
                 <th id = "id">ID</th>

@@ -9,6 +9,34 @@
     <script src="usermanagement.js"></script>
     <script src="../js/bootstrap-datetimepicker.js"></script>
     <link href="../css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <script src="../js/GeneralFunction.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#content").load("postbookingpage.html");
+
+            if (getParameterByName('code') === '1'){
+                $("#content").load("profile.html");
+                alert("Information update success");
+            }
+            if (getParameterByName('code') === '0'){
+                $("#content").load("profile.html");
+                alert("Information update failed");
+            }
+            $("#checkingbooking").click(function () {
+                $("#content").load("checkbookingpage.html");
+            });
+            $("#checkingposting").click(function () {
+                $("#content").load("checkpostingpage.html")
+            });
+            $("#postbooking").click(function () {
+                $("#content").load("postbookingpage.html");
+            });
+            $("#profile").click(function () {
+                $("#content").load("profile.html");
+            })
+        });
+    </script>
+
     <title>UserManagement</title>
 </head>
 <body>
@@ -27,7 +55,8 @@
         </div>
     </div>
 
-    <div id = "content">
+    <div id = "content" style="background-color: #ffffff">
+
     </div>
 </body>
 </html>

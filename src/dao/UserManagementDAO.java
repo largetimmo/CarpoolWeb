@@ -3,6 +3,7 @@ package dao;
 import core.UserReg;
 import util.Md5encrypt;
 import util.RegExpVerify;
+import web.Resetpass;
 
 import java.sql.*;
 
@@ -48,8 +49,6 @@ public class UserManagementDAO extends AbstractDAO{
         }
         return -2;
     }
-
-
 
     public int Register(UserReg userReg){
         //Todo: move verify part to another Java class
@@ -122,6 +121,7 @@ public class UserManagementDAO extends AbstractDAO{
             preparedStatement.setString(4,userReg.getEmail());
             preparedStatement.setString(5,userReg.getCell());
             preparedStatement.execute();
+            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
             return 0;
@@ -169,5 +169,57 @@ public class UserManagementDAO extends AbstractDAO{
         }
         return false;
     }
+
+    public UserReg getUserRegInfo(String uid) {
+        String sqlquery = "SELECT * FROM USER_REG WHERE UID = ?";
+        UserReg userinfo = null;
+        Connection connection = ConnectionPool.getInstance().getUserManagementConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
+            preparedStatement.setString(1,uid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                String username = resultSet.getString(resultSet.findColumn("username"));
+                String email = resultSet.getString(resultSet.findColumn("email"));
+                String cell = resultSet.getString(resultSet.findColumn("cell"));
+                String nickname = resultSet.getString(resultSet.findColumn("nickname"));
+                userinfo = new UserReg(username,email,nickname,cell);
+                preparedStatement.close();
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return userinfo;
+    }
+    public boolean updateUserInfo(UserReg userinfo,String uid){
+        //TODO:ERROR CHECKING
+        boolean flag = false;
+        String sqlquery = "UPDATE USER_REG SET ";
+        if(userinfo.getPassword() != null){
+            sqlquery += "password = ?, ";
+        }
+        sqlquery += "nickname = ?, email = ?, cell = ? WHERE uid = ?";
+        Connection connection = ConnectionPool.getInstance().getUserManagementConnection();
+        try {
+            int index = 1;
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
+            if (userinfo.getPassword()!=null){
+                preparedStatement.setString(index++,userinfo.getPassword());
+            }
+            preparedStatement.setString(index++,userinfo.getNickname());
+            preparedStatement.setString(index++,userinfo.getEmail());
+            preparedStatement.setString(index++, userinfo.getCell());
+            preparedStatement.setString(index,uid);
+            preparedStatement.execute();
+            preparedStatement.close();
+            flag = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+
+    }
+
 
 }
