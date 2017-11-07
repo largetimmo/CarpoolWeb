@@ -40,5 +40,4 @@ public class PostBookingInfoHandler extends HttpServlet {
             res.getWriter().print(jsonObject);
         }
     }
-
 }

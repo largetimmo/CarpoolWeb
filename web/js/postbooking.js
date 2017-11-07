@@ -2,8 +2,11 @@
  * Created by admin on 2017/8/27.
  */
 $(document).ready(function () {
-    $("#submit").click(function () {
-        $.post("")
+    $.get("/user/newvehicaluser.do",function (data) {
+        var json_result = JSON.parse(data)
+        if (json_result.code === '-1'){
+            $("#dialog").modal();
+        }
     });
     $("#send").click(function(){
         var jsonobj = {"from":$("#from").val(),"to":$("#to").val(),"date":$("#date").val(),"passengers":$("#passenger").val(),"price":$("#price").val()};

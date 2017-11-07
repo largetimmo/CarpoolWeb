@@ -40,27 +40,27 @@ public class CarpoolOwnerInfoDAO extends AbstractDAO{
     }
     public boolean verifyCarpoolOwner(String uid){
         //验证用户是否已提交车辆信息
+        boolean flag = false;
         try{
             Connection connection = ConnectionPool.getInstance().getCarpoolOwnerConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM VEHICLE_OWNER WHERE uid = ?");
             preparedStatement.setString(1,uid);
-            boolean a = preparedStatement.execute();
-            preparedStatement.close();
-            if(a){
-                return true;
+            if (preparedStatement.executeQuery().next()){
+                flag = true;
             }
+            preparedStatement.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return false;
+        return flag;
     }
-    public boolean AddVehicleOwner(VehicleOwnerInfo vehicleOwnerInfo){
+    public boolean AddVehicleOwner(String uid, String vehicle){
         boolean flag = false;
         try {
             Connection connection = ConnectionPool.getInstance().getCarpoolOwnerConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO VEHICLE_OWNER(uid,vehicle) VALUES (?,?)");
-            preparedStatement.setInt(1,vehicleOwnerInfo.getUid());
-            preparedStatement.setString(2,vehicleOwnerInfo.getNickname());
+            preparedStatement.setString(1,uid);
+            preparedStatement.setString(2,vehicle);
             preparedStatement.execute();
             preparedStatement.close();
             flag = true;

@@ -13,7 +13,9 @@
     <script>
         $(document).ready(function () {
             $("#content").load("postbookingpage.html");
-
+            if (getParameterByName('code') ==='2'){
+                alert("Add vehicle information sudccess")
+            }
             if (getParameterByName('code') === '1'){
                 $("#content").load("profile.html");
                 alert("Information update success");
@@ -30,6 +32,7 @@
             });
             $("#postbooking").click(function () {
                 $("#content").load("postbookingpage.html");
+
             });
             $("#profile").click(function () {
                 $("#content").load("profile.html");
