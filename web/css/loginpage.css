@@ -12,3 +12,10 @@ h2{
 .book{
     align-items: center;
 }
+.form{
+    margin-left: 25%;
+    margin-top: 1.5em;
+}
+.navbar-brand{
+    color:#ffffff;
+}

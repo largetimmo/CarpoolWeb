@@ -3,84 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <title>Log in</title>
-    <script src = "js/jquery3.2.1.min.js"></script>
+    <script src="js/jquery3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/login.js"></script>
     <script src="js/GeneralFunction.js"></script>
     <script>
-        if(getParameterByName('code')=== '1'){
+        if (getParameterByName('code') === '1') {
             alert("Reset password successful");
         }
     </script>
+    <link href="css/generalcss.css" rel="stylesheet">
     <link href="css/loginpage.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="navbar-header">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">Title</a>
-        </div>
+<div id = "navbar" class="navbar-default">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Title</a>
     </div>
-    <div class="login">
-        <div class="container">
-            <div class="col-sm-6 loginform">
-                <h2 class="logintitle">Log in</h2>
-                <div class="col-sm-10">
-                    <input class="form-control"type="text" id="username" placeholder="Username:" autocomplete="off">
-                </div>
-                <div class="col-sm-2">
-                    <a data-toggle="modal" data-target="#register">Register</a>
-                </div>
-                <div class="col-sm-10">
-                    <br>
-                    <input class="form-control" type="password" id="password" placeholder="Password:" autocomplete="off">
-                </div>
-                <div class="col-sm-2">
-                    <br>
-                    <a href="/forgetpass.html">Forget Password?</a>
-                </div>
-                <div  class="col-sm-12">
-                    <label class="text-danger" id = "login_message"></label>
-                </div>
+</div>
+<div class="login">
+    <div class="container">
+        <div class="col-sm-6 loginform form">
+            <h2 class="logintitle">Log in</h2>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="username" placeholder="Username:" autocomplete="off">
+            </div>
+            <div class="col-sm-2">
+                <a data-toggle="modal" data-target="#register">Register</a>
+            </div>
+            <div class="col-sm-10">
+                <br>
+                <input class="form-control" type="password" id="password" placeholder="Password:" autocomplete="off">
+            </div>
+            <div class="col-sm-2">
+                <br>
+                <a href="/forgetpass.html">Forget Password?</a>
+            </div>
+            <div class="col-sm-12">
+                <label class="text-danger" id="login_message"></label>
+            </div>
 
-                <div class="col-sm-12">
-                    <br>
-                    <button id="login" class="btn btn-primary center-block">Login</button>
-                    <br>
-                </div>
+            <div class="col-sm-12">
+                <br>
+                <button id="login" class="btn btn-primary center-block">Login</button>
+                <br>
             </div>
         </div>
     </div>
-    <div id="footer">
-    </div>
-    <div id ="register" class = "modal fade" role = "dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Register</h4>
+</div>
+<div id="footer">
+</div>
+<div id="register" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Register</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input id="reg_username" class="username form-control" placeholder="Username (8 to 30 characters)"
+                           autocomplete="off" spellcheck="off">
+                    <br>
+                    <input id="reg_password" class="password form-control" type="password"
+                           placeholder="Password (6 to 16 characters)" autocomplete="off" spellcheck="off">
+                    <br>
+                    <input id="reg_email" class="email form-control" placeholder="Email" autocomplete="off"
+                           spellcheck="off">
+                    <br>
+                    <input id="reg_nickname" class="form-control" placeholder="Nickname (8 to 30 characters)"
+                           autocomplete="off" spellcheck="off">
+                    <br>
+                    <input id="reg_cell" class="form-control" placeholder="Cell Phone Number" autocomplete="off"
+                           spellcheck="off">
+                    <label id="return_message" class="label-danger" style="display: none"></label>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <input id = "reg_username" class="username form-control" placeholder="Username (8 to 30 characters)" autocomplete="off" spellcheck="off">
-                        <br>
-                        <input id = "reg_password" class="password form-control" type="password" placeholder="Password (6 to 16 characters)" autocomplete="off" spellcheck="off">
-                        <br>
-                        <input id = "reg_email" class="email form-control" placeholder="Email" autocomplete="off" spellcheck="off">
-                        <br>
-                        <input id = "reg_nickname" class="form-control" placeholder="Nickname (8 to 30 characters)" autocomplete="off" spellcheck="off">
-                        <br>
-                        <input id = "reg_cell" class="form-control" placeholder="Cell Phone Number" autocomplete="off" spellcheck="off" >
-                        <label id = "return_message" class="label-danger" style="display: none"></label>
-                    </div>
-                </div>
+            </div>
 
-                <div class="modal-footer">
-                    <button id = "submit" class="btn-primary btn">Register</button>
-                    <button type="button" class="btn btn-danger" data-dismiss = "modal">Close</button>
-                </div>
+            <div class="modal-footer">
+                <button id="submit" class="btn-primary btn">Register</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-
+</div>
 </body>
 </html>

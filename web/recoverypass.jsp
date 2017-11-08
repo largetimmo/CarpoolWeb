@@ -36,5 +36,6 @@
         </div>
     </div>
 </form>
+<iframe src="footer.html"></iframe>
 </body>
 </html>

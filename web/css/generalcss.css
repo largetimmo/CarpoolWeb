@@ -1,0 +1,12 @@
+#footer{
+    background-color: #efefef;
+    border-top: solid 1px #1b6d85;
+    padding-top: 0.5em;
+    margin-top: 1.5em;
+}
+#navbar{
+    background-color: #429bc5;
+}
+.navtext{
+    color: #ffffff;
+}

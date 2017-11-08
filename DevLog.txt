@@ -1,4 +1,23 @@
+Priority -1 (Finished):
 Forget Pass web done
 forget pass server done
 Modify profile server side done
-Todo:New Driver verify
+New Driver verify done
+
+Priority 0(DO IT IMMEDIATELY):
+
+
+Priority 1(CURRENTLY WORKING ON):
+TODO: Add footer to all pages
+
+
+Priority 2(Short Term):
+TODO: create better ui
+
+
+Priority 3(Long Term):
+
+
+
+Priority 100:
+
