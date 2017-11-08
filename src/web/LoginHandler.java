@@ -35,9 +35,17 @@ public class LoginHandler extends HttpServlet{
                 req.getSession().setAttribute("uid",userID);
                 res.setContentType("text/html");
                 res.getWriter().print(jsonObject);
-                System.out.println((int)req.getSession().getAttribute("uid"));
+                System.out.println(req.getSession().getAttribute("uid").toString());
                 break;
         }
+    }
+    public void doGet(HttpServletRequest req,HttpServletResponse res){
+        try {
+            req.getSession().removeAttribute("uid");
+            res.sendRedirect("index.html?code=1");
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

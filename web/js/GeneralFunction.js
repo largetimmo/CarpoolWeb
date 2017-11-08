@@ -10,3 +10,8 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
+
+$(document).ready(function () {
+        $("#footer").load("/footer.html");
+    }
+);

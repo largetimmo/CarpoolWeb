@@ -6,10 +6,10 @@
     <link href="../css/usermanagement.css" rel="stylesheet">
     <script src="../js/jquery3.2.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-    <script src="usermanagement.js"></script>
     <script src="../js/bootstrap-datetimepicker.js"></script>
     <link href="../css/bootstrap-datetimepicker.css" rel="stylesheet">
     <script src="../js/GeneralFunction.js"></script>
+    <link href="../css/generalcss.css" rel="stylesheet">
     <script>
         $(document).ready(function () {
             $("#content").load("postbookingpage.html");
@@ -43,23 +43,28 @@
     <title>UserManagement</title>
 </head>
 <body>
-    <div id="heading" class="navbar navbar-fixed-top">
+    <div id="navbar" class="navbar navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand hidden-sm" href="/index.html">Title</a>
+                <a class="navbar-brand hidden-sm navtext" href="/index.html">Title</a>
             </div>
             <ul class="nav navbar-nav">
                     <!--Add more tags use <li></li>-->
-                <li><a href = "#" id = "postbooking">Post Booking</a></li>
-                <li><a href = "#" id = "checkingbooking">Are you a Passenger?</a></li>
-                <li><a href = "#" id = "checkingposting">Are you a Driver?</a></li>
-                <li><a href = "#" id = "profile">Profile</a></li>
+                <li><a href = "#" id = "postbooking" class="navtext">Post Carpool Info</a></li>
+                <li><a href = "#" id = "checkingbooking" class="navtext">Ridding History</a></li>
+                <li><a href = "#" id = "checkingposting" class="navtext">Driving History</a></li>
+                <li><a href = "#" id = "profile" class="navtext">Profile</a></li>
+            </ul>
+            <ul class="navbar-nav nav navbar-right">
+                <li>
+                    <a href="/logout" class="navtext">Logout</a>
+                </li>
             </ul>
         </div>
     </div>
 
-    <div id = "content" style="background-color: #ffffff">
+    <div id = "content" style="margin-top:2em;background-color: #ffffff">
     </div>
-    <iframe src="../footer.html"></iframe>
+    <div id = "footer"></div>
 </body>
 </html>

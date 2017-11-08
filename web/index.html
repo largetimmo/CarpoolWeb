@@ -11,13 +11,17 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/firstpage.css" rel="stylesheet">
     <link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
-
-
     <script src="js/jquery3.2.1.min.js"></script>
     <script src="js/bootstrap-datepicker.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/firstpage.js"></script>
     <link href="css/generalcss.css" rel="stylesheet">
+    <script src="js/GeneralFunction.js"></script>
+    <script>
+        if(getParameterByName('code')==='1'){
+            alert("Logout success");
+        }
+    </script>
 
 </head>
 <body>
@@ -31,6 +35,11 @@
                 <!--Add more tags use <li></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="navtext" id = "a_logout" href="/logout">Logout</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-right navbar-nav">
                 <li>
                     <a class="navtext" id = "a_login" href="login.html">Login</a>
                 </li>

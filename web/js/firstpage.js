@@ -2,13 +2,15 @@
  * Created by admin on 2017/8/15.
  */
 $(document).ready(function () {
-
+    $("#a_logout").hide();
     $.get("verify",function (data) {
         var data_json = JSON.parse(data);
         if(data_json.code === 1){
             console.log("success");
             $("#a_login").text("User Management");
             $("#a_login").attr("href","/user/usermanagement.html");
+            $("#a_logout").show();
+
         }
     });
 
@@ -67,7 +69,7 @@ $(document).ready(function () {
                 }
             })
         });
-    $("#footer").load("footer.html");
+    //$("#footer").load("footer.html");
     });
 
 

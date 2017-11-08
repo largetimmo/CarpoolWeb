@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Forget Password</title>
-    <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/GeneralFunction.js"></script>
+    <link href="css/generalcss.css" rel="stylesheet">
     <style>
         .form {
             border: 1px solid #afd0f1;
@@ -29,14 +31,15 @@
     </script>
 </head>
 <body>
-<div class="navbar-header">
+<div id = "navbar" class="navbar-fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="index.html">Title</a>
+        <a class="navbar-brand navtext" href="index.html">Title</a>
     </div>
+
 </div>
 <form action="/forgetpass.do" method="post">
     <div class="container">
-        <div class="col-sm-6 form">
+        <div class="col-sm-6 form " style="margin-left: 25%;margin-top: 5em;">
             <h2>Forget Password</h2>
             <div class="col-sm-12">
                 <br>
@@ -56,7 +59,7 @@
     </div>
 </form>
 
-<iframe src="footer.html"></iframe>
+<div id="footer"></div>
 
 </body>
 </html>

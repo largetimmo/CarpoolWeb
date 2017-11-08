@@ -10,7 +10,9 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="js/jquery3.2.1.min.js"></script>
     <script src="js/GeneralFunction.js"></script>
+    <link href="css/generalcss.css" rel="stylesheet">
     <script>
         if (getParameterByName('code')=== '-1'){
             alert("The password that you provided is not meet the regulation");
@@ -36,6 +38,6 @@
         </div>
     </div>
 </form>
-<iframe src="footer.html"></iframe>
+<div id="footer"></div>
 </body>
 </html>
