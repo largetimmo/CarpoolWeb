@@ -7,7 +7,7 @@ create table BLOCKED_IP
 
 create table BOOKED_CARPOOL
 (
-	booking_ref int auto_increment
+	booking_ref int not null auto_increment
 		primary key,
 	uid int not null,
 	id int not null,
@@ -25,7 +25,7 @@ create index carpool_book_user_reg_info_uid_fk
 
 create table CARPOOL
 (
-	id int auto_increment
+	id int not null auto_increment
 		primary key,
 	uid int not null,
 	date datetime not null,
@@ -43,7 +43,8 @@ create index carpool_user_reg_info_uid_fk
 
 alter table BOOKED_CARPOOL
 	add constraint BOOKED_CARPOOL_CARPOOL_id_fk
-		foreign key (id) references CARPOOL (id)
+foreign key (id) references carpooweb.CARPOOL (id)
+	on update cascade on delete cascade
 ;
 
 create table SUPPORTCITY
@@ -55,36 +56,38 @@ create table SUPPORTCITY
 
 create table USER_REG
 (
-	uid int auto_increment
+	uid int not null auto_increment
 		primary key,
 	username varchar(30) not null,
 	password varchar(32) not null,
 	nickname varchar(30) not null,
 	email varchar(32) not null,
-	cell varchar(10) not null
+	cell char(12) not null
 )
 ;
 
 alter table BOOKED_CARPOOL
 	add constraint BOOKED_CARPOOL_USER_REG_uid_fk
-		foreign key (uid) references USER_REG (uid)
+foreign key (uid) references carpooweb.USER_REG (uid)
+	on update cascade on delete cascade
 ;
 
 alter table CARPOOL
 	add constraint CARPOOL_USER_REG_uid_fk
-		foreign key (uid) references USER_REG (uid)
+foreign key (uid) references carpooweb.USER_REG (uid)
+	on update cascade on delete cascade
 ;
 
 create table VEHICLE_OWNER
 (
-	uid int auto_increment
+	uid int not null auto_increment
 		primary key,
-	userlevel int not null,
+	userlevel int default '0' not null,
 	vehicle varchar(30) not null,
-	exp int not null,
+	exp int default '0' not null,
 	constraint VEHICLE_OWNER_USER_REG_uid_fk
-		foreign key (uid) references USER_REG (uid)
+	foreign key (uid) references carpooweb.USER_REG (uid)
+		on update cascade on delete cascade
 )
 ;
-
 

@@ -21,8 +21,6 @@ public class ForgetPassHandler extends HttpServlet{
                 req.getRequestDispatcher("recoverypass.jsp").forward(req,res);
             } catch (ServletException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }else {
             res.sendRedirect("/forgetpass.html?code=-1");

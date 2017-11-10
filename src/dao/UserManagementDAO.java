@@ -2,8 +2,7 @@ package dao;
 
 import core.UserReg;
 import util.Md5encrypt;
-import util.RegExpVerify;
-import web.Resetpass;
+import util.VerifyInput;
 
 import java.sql.*;
 
@@ -68,25 +67,25 @@ public class UserManagementDAO extends AbstractDAO{
         /*
             Checking invalid character in email
         */
-        if(!RegExpVerify.verifyEmail(userReg.getEmail())){
+        if(!VerifyInput.verifyEmail(userReg.getEmail())){
             return -5;
         }
         /*
         checking invalid character in username
          */
-        if (!RegExpVerify.verifyUNPS(userReg.getUsername())){
+        if (!VerifyInput.verifyUNPS(userReg.getUsername())){
             return -2;
         }
         /*
         checking invalid character in password
          */
-        if (!RegExpVerify.verifyUNPS(userReg.getPassword())){
+        if (!VerifyInput.verifyUNPS(userReg.getPassword())){
             return -3;
         }
         /*
         checking invalid character in nickname
          */
-        if(!RegExpVerify.verifyUNPS(userReg.getNickname())){
+        if(!VerifyInput.verifyUNPS(userReg.getNickname())){
             return -7;
         }
         /*
@@ -130,8 +129,8 @@ public class UserManagementDAO extends AbstractDAO{
     }
 
     public int RecoverPass(String username, String email){
-        if (RegExpVerify.verifyUNPS(username)){
-            if(RegExpVerify.verifyEmail(email)){
+        if (VerifyInput.verifyUNPS(username)){
+            if(VerifyInput.verifyEmail(email)){
                 String sqlquery = "SELECT * FROM USER_REG WHERE username = ? AND email = ?";
                 try {
                     Connection connection = ConnectionPool.getInstance().getUserManagementConnection();
@@ -153,7 +152,7 @@ public class UserManagementDAO extends AbstractDAO{
         return 0;
     }
     public boolean setPass(String username, String password){
-        if (RegExpVerify.verifyUNPS(username) && RegExpVerify.verifyUNPS(password)){
+        if (VerifyInput.verifyUNPS(username) && VerifyInput.verifyUNPS(password)){
             String pass_md5 = Md5encrypt.getMd5(password);
             String sqlquery = "UPDATE USER_REG SET password = ? WHERE username = ?";
             try {

@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import net.sf.json.JSONObject;
+import util.VerifyInput;
+
 /**
  * Created by admin on 2017/8/15.
  */
@@ -24,7 +27,19 @@ public class SearchingHandler extends HttpServlet{
         String destination = req.getParameter("to").toUpperCase();
         int passenger = Integer.parseInt(req.getParameter("passengers"));
         String date = req.getParameter("date");
-
+        JSONObject jsonresult = new JSONObject();
+        //ERROR CHECKING BELOW
+            //verify input param valid or not
+            if (!(VerifyInput.verifyCity(departure) & VerifyInput.verifyCity(destination) & VerifyInput.dateAfterToday(date))){
+                //Input Error
+                //TODO: different code for different error ref-->1
+                jsonresult.put("code","-1");
+                res.getWriter().write(jsonresult.toString());
+                return;
+            }
+        //ERROR CHECKING UP
+        departure = departure.toUpperCase();
+        destination = destination.toUpperCase();
         /*
             从DAO类中获取符合上述信息的carpoo列表
          */
@@ -60,7 +75,7 @@ public class SearchingHandler extends HttpServlet{
          */
         req.getSession().setAttribute("seats",passenger);
         res.setContentType("text/html");
-        JSONObject jsonresult = new JSONObject();
+
         jsonresult.put("results",results.toArray());
         System.out.print(jsonresult);
         res.getWriter().print(jsonresult);

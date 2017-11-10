@@ -23,6 +23,7 @@ public class BookingHandler extends HttpServlet{
         Boolean success = CarpoolDAO.getInstance().bookCarpool(uid,id,seats);
         if(success){
             jsonObject.put("code",1);
+
         }
         else {
             jsonObject.put("code",0);

@@ -1,23 +1,31 @@
 Priority -1 (Finished):
-Forget Pass web done
-forget pass server done
-Modify profile server side done
-New Driver verify done
+Forget Pass web
+forget pass server
+Modify profile server side
+New Driver verify
+Add footer to all pages
 
 Priority 0(DO IT IMMEDIATELY):
 
 
 Priority 1(CURRENTLY WORKING ON):
-TODO: Add footer to all pages
+TODO: ERROR Checking
 
 
 Priority 2(Short Term):
 TODO: create better ui
+TODO: optimize all web pages
+TODO: Administrator page
 
 
 Priority 3(Long Term):
-
+TODO:Use Spring + Spring MVC+ Mybatis
 
 
 Priority 100:
 
+
+
+TODO REF:
+CODE        Detail
+1           Switch code in index.html
