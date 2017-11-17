@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by chenjunhao on 2017/11/9.
  */
-public class SupportCityDAO extends AbstractDAO {
+public class SupportCityDAO {
     private static SupportCityDAO instance = new SupportCityDAO();
     public static SupportCityDAO getInstance(){
         return instance;

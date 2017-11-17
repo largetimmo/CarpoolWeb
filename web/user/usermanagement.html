@@ -12,15 +12,16 @@
     <link href="../css/generalcss.css" rel="stylesheet">
     <script>
         $(document).ready(function () {
+            $("#detail").modal();
             $("#content").load("checkbookingpage.html");
-            if (getParameterByName('code') ==='2'){
+            if (getParameterByName('code') === '2') {
                 alert("Add vehicle information sudccess")
             }
-            if (getParameterByName('code') === '1'){
+            if (getParameterByName('code') === '1') {
                 $("#content").load("profile.html");
                 alert("Information update success");
             }
-            if (getParameterByName('code') === '0'){
+            if (getParameterByName('code') === '0') {
                 $("#content").load("profile.html");
                 alert("Information update failed");
             }
@@ -36,35 +37,48 @@
             });
             $("#profile").click(function () {
                 $("#content").load("profile.html");
-            })
+            });
         });
     </script>
-
+    <style>
+        table{
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+        }
+        #dialog_cancel{
+            float: right;
+        }
+    </style>
     <title>UserManagement</title>
 </head>
 <body>
-    <div id="navbar" class="navbar navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand hidden-sm navtext" href="/index.html">Title</a>
-            </div>
-            <ul class="nav navbar-nav">
-                    <!--Add more tags use <li></li>-->
-                <li><a href = "#" id = "postbooking" class="navtext">Post Carpool Info</a></li>
-                <li><a href = "#" id = "checkingbooking" class="navtext">Ridding History</a></li>
-                <li><a href = "#" id = "checkingposting" class="navtext">Driving History</a></li>
-                <li><a href = "#" id = "profile" class="navtext">Profile</a></li>
-            </ul>
-            <ul class="navbar-nav nav navbar-right">
-                <li>
-                    <a href="/logout" class="navtext">Logout</a>
-                </li>
-            </ul>
+<div id="navbar" class="navbar navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand hidden-sm navtext" href="/index.html">Title</a>
         </div>
+        <ul class="nav navbar-nav">
+            <!--Add more tags use <li></li>-->
+            <li><a href="#" id="postbooking" class="navtext">Post Carpool Info</a></li>
+            <li><a href="#" id="checkingbooking" class="navtext">Ridding History</a></li>
+            <li><a href="#" id="checkingposting" class="navtext">Driving History</a></li>
+            <li><a href="#" id="profile" class="navtext">Profile</a></li>
+        </ul>
+        <ul class="navbar-nav nav navbar-right">
+            <li>
+                <a href="/logout" class="navtext">Logout</a>
+            </li>
+        </ul>
     </div>
+</div>
 
-    <div id = "content" style="margin-top:2em;background-color: #ffffff">
-    </div>
-    <div id = "footer"></div>
+<div id="content" style="margin-top:2em;background-color: #ffffff">
+</div>
+<div id="footer"></div>
+
 </body>
 </html>

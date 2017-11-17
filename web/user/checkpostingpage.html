@@ -1,20 +1,19 @@
 <script src="../js/jquery3.2.1.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 
-<link href = "../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
 <script>
     $(document).ready(function () {
-        $.get("/user/searchbooking?type=0",function (data) {
+        $.get("/user/searchbooking?type=0", function (data) {
             var data_json = JSON.parse(data);
-            if(data_json.code === 0){
+            if (data_json.code === 0) {
                 var label = document.createElement("label");
-                label.setAttribute("class","label-primary");
+                label.setAttribute("class", "label-primary");
                 $(label).text("We cannot find any record of your booking.");
-                var container = document.getElementsByClassName("container");
-                container.appendChild(label);
-            }else if(data_json.code === 1) {
+                $("#result_content").append(label);
+            } else if (data_json.code === 1) {
                 var record_array = data_json.record;
-                for(var i = 0; i<record_array.length;i++){
+                for (var i = 0; i < record_array.length; i++) {
                     var tr = document.createElement("tr");
                     var td_id = document.createElement("td");
                     var td_dep = document.createElement("td");
@@ -43,20 +42,18 @@
         })
     })
 </script>
-<div id = "result_content" >
 
-    <div class="container jumbotron">
-        <h2>Ridding History</h2>
-        <table id = "table" class= "table table-bordered">
-            <tr class="bg-primary">
-                <th id = "id">ID</th>
-                <th id = "departure">Departure</th>
-                <th id = "destination">Destination</th>
-                <th id = "price">Price</th>
-                <th id = "seat">Seat(s)</th>
-                <th id = "remainseat">Remain seat(s)</th>
-                <th id = "date">Date</th>
-            </tr>
-        </table>
-    </div>
+<div id="result_content" class="container jumbotron">
+    <h2>Ridding History</h2>
+    <table id="table" class="table table-bordered">
+        <tr class="bg-primary">
+            <th id="id">ID</th>
+            <th id="departure">Departure</th>
+            <th id="destination">Destination</th>
+            <th id="price">Price</th>
+            <th id="seat">Seat(s)</th>
+            <th id="remainseat">Remain seat(s)</th>
+            <th id="date">Date</th>
+        </tr>
+    </table>
 </div>

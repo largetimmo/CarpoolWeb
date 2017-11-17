@@ -1,6 +1,5 @@
 package web;
 
-import core.CarpoolInfo;
 import dao.CarpoolDAO;
 import dao.CarpoolOwnerInfoDAO;
 import net.sf.json.JSONObject;

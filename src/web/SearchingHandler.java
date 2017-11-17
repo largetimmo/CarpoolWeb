@@ -1,7 +1,7 @@
 package web;
 
-import core.CarpoolInfo;
-import core.DateTime;
+import pojo.CarpoolInfo;
+import pojo.DateTime;
 import dao.CarpoolDAO;
 
 import javax.servlet.http.HttpServlet;
@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import net.sf.json.JSONObject;

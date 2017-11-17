@@ -4,19 +4,19 @@ forget pass server
 Modify profile server side
 New Driver verify
 Add footer to all pages
+CarpoolInfo Detail Dialog
 
 Priority 0(DO IT IMMEDIATELY):
 
 
 Priority 1(CURRENTLY WORKING ON):
-TODO: ERROR Checking
-
+TODO: Message
 
 Priority 2(Short Term):
 TODO: create better ui
 TODO: optimize all web pages
 TODO: Administrator page
-
+TODO: ERROR Checking
 
 Priority 3(Long Term):
 TODO:Use Spring + Spring MVC+ Mybatis

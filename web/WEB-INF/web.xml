@@ -39,7 +39,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>PostBookingInfoHandler</servlet-name>
-        <url-pattern>/postcarpool</url-pattern>
+        <url-pattern>/user/postcarpool</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>BookingHandler</servlet-name>
@@ -97,8 +97,14 @@
         <servlet-name>NewVehicleUser</servlet-name>
         <url-pattern>/user/newvehicaluser.do</url-pattern>
     </servlet-mapping>
-
-    
+    <servlet>
+        <servlet-name>DeatilBookingInfo</servlet-name>
+        <servlet-class>web.DetailBookingInfoHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeatilBookingInfo</servlet-name>
+        <url-pattern>/user/detailBookinginfo.do</url-pattern>
+    </servlet-mapping>
     
     
     <!-- filter Below-->
