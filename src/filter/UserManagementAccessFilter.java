@@ -20,7 +20,6 @@ public class UserManagementAccessFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
-        System.out.println("1");
         if (req.getSession().getAttribute("uid")!=null){
             filterChain.doFilter(servletRequest,servletResponse);
         }else {
