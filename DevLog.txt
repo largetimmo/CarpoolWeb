@@ -23,8 +23,7 @@ TODO:Use Spring + Spring MVC+ Mybatis
 
 
 Priority 100:
-
-
+TODO:Nginx + Redis
 
 TODO REF:
 CODE        Detail

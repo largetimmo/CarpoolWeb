@@ -22,8 +22,8 @@ public class MessageHandler extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         //Send messgae to user
         String sender_uid = req.getSession().getAttribute("uid").toString();
-        String receiver_uid = req.getAttribute("uid").toString();
-        String message = req.getAttribute("message").toString();
+        String receiver_uid = req.getParameter("uid");
+        String message = req.getParameter("message");
         JSONObject output = new JSONObject();
         /**
          * TODO:Error Checking here

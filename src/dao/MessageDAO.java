@@ -52,15 +52,15 @@ public class MessageDAO extends AbstractDAO<Message> {
                 "FROM MESSAGE" +
                 "  INNER JOIN USER_REG U1 ON sender_uid = U1.uid\n" +
                 "  INNER JOIN USER_REG U2 ON receiver_uid = U2.uid\n" +
-                "WHERE receiiver_uid = ? AND read = 0";
+                "WHERE receiiver_uid = ? AND `read` = 0";
         return executeQuery(sqlquery,new String[]{uid});
     }
     public boolean readMessage(String MID){
-        String sqlquery = "UPDATE Message SET read = 1 WHERE M_ID = ?";
+        String sqlquery = "UPDATE Message SET `read` = 1 WHERE M_ID = ?";
         return execute(sqlquery,new Object[]{MID});
     }
     public boolean addMessage(String senderid,String receiverid,String message){
-        String sqlquery = "INSERT INTO Message(sender_id,receiver_id,message,read) VALUES (?,?,?,'0')";
+        String sqlquery = "INSERT INTO Message(sender_uid,receiver_uid,message,`read`) VALUES (?,?,?,'0')";
         return execute(sqlquery,new Object[]{senderid,receiverid,message});
     }
     @Override

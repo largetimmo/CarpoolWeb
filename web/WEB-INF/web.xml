@@ -105,7 +105,14 @@
         <servlet-name>DeatilBookingInfo</servlet-name>
         <url-pattern>/user/detailBookinginfo.do</url-pattern>
     </servlet-mapping>
-    
+    <servlet>
+        <servlet-name>MessageHandler</servlet-name>
+        <servlet-class>web.MessageHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MessageHandler</servlet-name>
+        <url-pattern>/user/message</url-pattern>
+    </servlet-mapping>
     
     <!-- filter Below-->
 
