@@ -8,6 +8,11 @@ public class Message {
     private String sender;
     private String receiver;
     private String message;
+    private String ref;
+
+    public String getRef() {
+        return ref;
+    }
 
     public String getSender() {
         return sender;
@@ -25,10 +30,18 @@ public class Message {
         return M_ID;
     }
 
-    public Message(String MID, String sender, String receiver, String message) {
+    public Message(String MID, String sender, String receiver, String message, String ref) {
         this.M_ID = MID;
         this.sender = sender;
         this.receiver = receiver;
         this.message = message;
+        this.ref = ref;
+    }
+
+    public Message(String sender, String receiver, String message, String ref) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.message = message;
+        this.ref = ref;
     }
 }

@@ -24,12 +24,13 @@ public class MessageHandler extends HttpServlet {
         String sender_uid = req.getSession().getAttribute("uid").toString();
         String receiver_uid = req.getParameter("uid");
         String message = req.getParameter("message");
+        String ref = req.getParameter("ref");
         JSONObject output = new JSONObject();
         /**
          * TODO:Error Checking here
          * message too long
          */
-        if (MessageDAO.getInstance().addMessage(sender_uid,receiver_uid,message)){
+        if (MessageDAO.getInstance().addMessage(new Message(sender_uid,receiver_uid,message,ref))){
             output.put("code","1");
         }else {
             output.put("code","-1");

@@ -21,6 +21,7 @@ public class MessageDAO extends AbstractDAO<Message> {
     public ArrayList<Message> getSenderMessage(String uid) {
         String sqlquery = "SELECT" +
                 " M_ID,"+
+                " Carpool_ID,"+
                 "  U1.nickname AS 'SN'," +
                 "  U2.nickname AS 'RN'," +
                 "  message" +
@@ -34,6 +35,7 @@ public class MessageDAO extends AbstractDAO<Message> {
     public ArrayList<Message> getReceiverMessage(String uid) {
         String sqlquery = "SELECT" +
                 " M_ID,"+
+                " Carpool_ID,"+
                 "  U1.nickname AS 'SN'," +
                 "  U2.nickname AS 'RN'," +
                 "  message" +
@@ -46,6 +48,7 @@ public class MessageDAO extends AbstractDAO<Message> {
     public ArrayList<Message> getUnReadMessage(String uid){
         String sqlquery = "SELECT" +
                 " M_ID,"+
+                " Carpool_ID,"+
                 "  U1.nickname AS 'SN'," +
                 "  U2.nickname AS 'RN'," +
                 "  message" +
@@ -59,9 +62,9 @@ public class MessageDAO extends AbstractDAO<Message> {
         String sqlquery = "UPDATE Message SET `read` = 1 WHERE M_ID = ?";
         return execute(sqlquery,new Object[]{MID});
     }
-    public boolean addMessage(String senderid,String receiverid,String message){
-        String sqlquery = "INSERT INTO Message(sender_uid,receiver_uid,message,`read`) VALUES (?,?,?,'0')";
-        return execute(sqlquery,new Object[]{senderid,receiverid,message});
+    public boolean addMessage(Message message){
+        String sqlquery = "INSERT INTO Message(sender_uid,receiver_uid,message,`read`,Carpool_ID) VALUES (?,?,?,'0',?)";
+        return execute(sqlquery,new Object[]{message.getSender(),message.getReceiver(),message.getMessage(),message.getRef()});
     }
     @Override
     protected Message parseCursor(ResultSet resultSet){
@@ -70,7 +73,8 @@ public class MessageDAO extends AbstractDAO<Message> {
             String SN = resultSet.getString(resultSet.findColumn("SN"));
             String RN = resultSet.getString(resultSet.findColumn("RN"));
             String message = resultSet.getString(resultSet.findColumn("message"));
-            return new Message(mid,SN,RN,message);
+            String ref = resultSet.getString(resultSet.findColumn("Carpool_ID"));
+            return new Message(mid,SN,RN,message,ref);
         }catch (Exception e){
             e.printStackTrace();
         }
