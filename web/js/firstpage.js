@@ -25,7 +25,7 @@ $(document).ready(function () {
                 alert("Booking success");
             } else if (data_json.code === -1) {
                 alert("Please login first");
-                window.location.href = "/login.html";
+                window.location.href = "/login.jsp";
             }
             else {
                 alert("Booking failed");

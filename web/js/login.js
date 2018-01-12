@@ -52,7 +52,6 @@ $(document).ready(function () {
             $("#return_message").css("display","block");
         })
     });
-    $("#footer").load("/footer.html")
     $("#login").click(function () {
         var userinfo ={"username":$("#username").val()};
         userinfo.password = $("#password").val();

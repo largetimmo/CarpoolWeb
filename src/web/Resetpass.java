@@ -19,7 +19,7 @@ public class Resetpass extends HttpServlet {
             req.getSession().removeAttribute("USERNAME_TEMP");
             try {
                 //Send back to login page with param code = 1
-                res.sendRedirect("/login.html?code=1");
+                res.sendRedirect("/login.jsp?code=1");
             } catch (IOException e) {
                 e.printStackTrace();
             }

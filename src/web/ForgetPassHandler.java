@@ -23,7 +23,7 @@ public class ForgetPassHandler extends HttpServlet{
                 e.printStackTrace();
             }
         }else {
-            res.sendRedirect("/forgetpass.html?code=-1");
+            res.sendRedirect("/forgetpass.jsp?code=-1");
         }
     }
 }
