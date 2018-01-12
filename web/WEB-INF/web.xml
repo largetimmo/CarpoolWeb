@@ -21,7 +21,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
-        <url-pattern>/logout</url-pattern>
+        <url-pattern>/user/logout</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>VerifyLogingInHandler</servlet-name>
@@ -39,7 +39,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>PostBookingInfoHandler</servlet-name>
-        <url-pattern>/postcarpool</url-pattern>
+        <url-pattern>/user/postcarpool</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>BookingHandler</servlet-name>
@@ -97,9 +97,22 @@
         <servlet-name>NewVehicleUser</servlet-name>
         <url-pattern>/user/newvehicaluser.do</url-pattern>
     </servlet-mapping>
-
-    
-    
+    <servlet>
+        <servlet-name>DeatilBookingInfo</servlet-name>
+        <servlet-class>web.DetailBookingInfoHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeatilBookingInfo</servlet-name>
+        <url-pattern>/user/detailBookinginfo.do</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>MessageHandler</servlet-name>
+        <servlet-class>web.MessageHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MessageHandler</servlet-name>
+        <url-pattern>/user/message</url-pattern>
+    </servlet-mapping>
     
     <!-- filter Below-->
 

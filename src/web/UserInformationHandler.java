@@ -1,6 +1,6 @@
 package web;
 
-import core.UserReg;
+import pojo.UserReg;
 import dao.UserManagementDAO;
 import net.sf.json.JSONObject;
 

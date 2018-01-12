@@ -5,7 +5,7 @@ import java.sql.*;
 /**
  * Created by admin on 2017/8/22.
  */
-public class IPAddrDAO extends AbstractDAO {
+public class IPAddrDAO {
     private IPAddrDAO(){
 
     }

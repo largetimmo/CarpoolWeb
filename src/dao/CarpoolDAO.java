@@ -1,11 +1,10 @@
 package dao;
 
-import core.BookedCarpoolInfo;
-import core.CarpoolInfo;
-import core.DateTime;
-import core.VehicleOwnerInfo;
+import pojo.BookedCarpoolInfo;
+import pojo.CarpoolInfo;
+import pojo.DateTime;
+import pojo.VehicleOwnerInfo;
 
-import java.awt.print.Book;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
 /**
  * Created by admin on 2017/8/15.
  */
-public class CarpoolDAO extends AbstractDAO{
+public class CarpoolDAO extends AbstractDAO<CarpoolInfo>{
     private static CarpoolDAO instance = new CarpoolDAO();
     public static CarpoolDAO getInstance(){
         return instance;
@@ -31,7 +30,7 @@ public class CarpoolDAO extends AbstractDAO{
             preparedStatement.setString(4,date+"%");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                carpoolInfoList.add(parseData(resultSet));
+                carpoolInfoList.add(parseCursor(resultSet));
             }
             preparedStatement.close();
         } catch (SQLException e) {
@@ -90,7 +89,6 @@ public class CarpoolDAO extends AbstractDAO{
             2.判断如果超过剩余座位，则不进行预订
             3.更新剩余座位
             4.在carpool_book中加入详情
-            5.
          */
         boolean flag = false;
         int seats = Integer.parseInt(seat_string);
@@ -130,7 +128,7 @@ public class CarpoolDAO extends AbstractDAO{
             preparedStatement.setString(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-               carpoolInfo = parseData(resultSet);
+               carpoolInfo = parseCursor(resultSet);
             }
             preparedStatement.close();
         }catch (SQLException e){
@@ -138,16 +136,23 @@ public class CarpoolDAO extends AbstractDAO{
         }
         return carpoolInfo;
     }
-    private CarpoolInfo parseData(ResultSet resultSet) throws SQLException {
-        int id = resultSet.getInt(resultSet.findColumn("id"));
-        VehicleOwnerInfo vehicleOwnerInfo = CarpoolOwnerInfoDAO.getInstance().getUserInfo(resultSet.getInt(resultSet.findColumn("uid")));
-        DateTime dateTime = new DateTime(resultSet.getString(resultSet.findColumn("date")));
-        int price = resultSet.getInt(resultSet.findColumn("price"));
-        int capacity = resultSet.getInt(resultSet.findColumn("capacity"));
-        String remainseat = resultSet.getString(resultSet.findColumn("remainseat"));
-        String departure = resultSet.getString(resultSet.findColumn("departure"));
-        String dest = resultSet.getString(resultSet.findColumn("destination"));
-        return new CarpoolInfo(vehicleOwnerInfo,id,price,capacity,dateTime,remainseat,departure,dest);
+    @Override
+    protected CarpoolInfo parseCursor(ResultSet resultSet) {
+        try {
+            int id = resultSet.getInt(resultSet.findColumn("id"));
+            VehicleOwnerInfo vehicleOwnerInfo = CarpoolOwnerInfoDAO.getInstance().getUserInfo(resultSet.getInt(resultSet.findColumn("uid")));
+            DateTime dateTime = new DateTime(resultSet.getString(resultSet.findColumn("date")));
+            int price = resultSet.getInt(resultSet.findColumn("price"));
+            int capacity = resultSet.getInt(resultSet.findColumn("capacity"));
+            String remainseat = resultSet.getString(resultSet.findColumn("remainseat"));
+            String departure = resultSet.getString(resultSet.findColumn("departure"));
+            String dest = resultSet.getString(resultSet.findColumn("destination"));
+            return new CarpoolInfo(vehicleOwnerInfo,id,price,capacity,dateTime,remainseat,departure,dest);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
     public ArrayList<CarpoolInfo> getPostedCarpool(String uid){
         String sqlquery = "SELECT * FROM CARPOOL WHERE uid = ?";
@@ -158,7 +163,7 @@ public class CarpoolDAO extends AbstractDAO{
             preparedStatement.setString(1,uid);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                list.add(parseData(resultSet));
+                list.add(parseCursor(resultSet));
             }
         }catch (SQLException e){
             e.printStackTrace();

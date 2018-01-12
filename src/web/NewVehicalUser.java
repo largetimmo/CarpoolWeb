@@ -1,8 +1,6 @@
 package web;
 
-import core.VehicleOwnerInfo;
 import dao.CarpoolOwnerInfoDAO;
-import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 
 import javax.servlet.http.HttpServlet;

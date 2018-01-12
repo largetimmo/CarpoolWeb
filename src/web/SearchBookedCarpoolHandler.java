@@ -1,14 +1,13 @@
 package web;
 
-import core.BookedCarpoolInfo;
-import core.CarpoolInfo;
+import pojo.BookedCarpoolInfo;
+import pojo.CarpoolInfo;
 import dao.CarpoolDAO;
 import net.sf.json.JSONObject;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.html.ListView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

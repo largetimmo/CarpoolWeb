@@ -42,7 +42,7 @@ public class LoginHandler extends HttpServlet{
     public void doGet(HttpServletRequest req,HttpServletResponse res){
         try {
             req.getSession().removeAttribute("uid");
-            res.sendRedirect("index.html?code=1");
+            res.sendRedirect("index.jsp?code=1");
 
         }catch (Exception e){
             e.printStackTrace();

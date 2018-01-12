@@ -1,20 +1,20 @@
 <script src="../js/jquery3.2.1.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 
-<link href = "../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
 <script>
     $(document).ready(function () {
-        $.get("/user/searchbooking?type=1",function (data) {
+        $.get("/user/searchbooking?type=1", function (data) {
             var data_json = JSON.parse(data);
-            if(data_json.code === 0){
+            if (data_json.code === 0) {
                 var label = document.createElement("label");
-                label.setAttribute("class","label-primary");
+                label.setAttribute("class", "label-primary");
                 $(label).text("We cannot find any record of your booking.");
-                var container = document.getElementsByClassName("container");
-                container.appendChild(label);
-            }else if(data_json.code === 1) {
+                $("#result_content").append(label);
+
+            } else if (data_json.code === 1) {
                 var record_array = data_json.record;
-                for(var i = 0; i<record_array.length;i++){
+                for (var i = 0; i < record_array.length; i++) {
                     var tr = document.createElement("tr");
                     var td_ref = document.createElement("td");
                     var td_dep = document.createElement("td");
@@ -23,6 +23,8 @@
                     var td_date = document.createElement("td");
                     var td_vehicle = document.createElement("td");
                     var td_nickname = document.createElement("td");
+                    $(tr).attr("REF", record_array[i].reference);
+                    $(tr).attr("class", "record");
                     $(td_ref).text(record_array[i].reference);
                     $(td_dep).text(record_array[i].departure);
                     $(td_des).text(record_array[i].destination);
@@ -40,20 +42,159 @@
                     document.getElementById("table").appendChild(tr);
                 }
             }
+        });
+        $("#table").on("click", ".record", function () {
+            var refnum = $(this).attr("REF");
+            $(".chat_row").remove();
+            $.get("/user/detailBookinginfo.do?", {"ref": refnum, "type": "passenger"}, function (data) {
+                var result = JSON.parse(data);
+                if (result.code === '-1') {
+                    alert("ERRRRRRRRRROR");
+                } else {
+                    $("#dialog_ref").text(refnum);
+                    $("#dialog_depat").text(result.detail.departure);
+                    $("#dialog_dest").text(result.detail.destination);
+                    $("#dialog_date").text(result.detail.date);
+                    for (var i = 0; i < result.detail.user.length; i++) {
+                        var table_row = document.createElement("tr");
+                        $(table_row).attr("class", "chat_row");
+                        var col1 = document.createElement("td");
+                        var col2 = document.createElement("td");
+                        $(col1).text(result.detail.user[i].nickname);
+                        var chat_button = document.createElement("button");
+                        $(chat_button).attr("data-toggle", "modal");
+                        $(chat_button).attr("href", "#messagebox");
+                        $(col2).append(chat_button);
+                        $(chat_button).attr("class", "btn btn-primary dialog_msg");
+                        $(chat_button).attr("uid", result.detail.user[i].uid);
+                        $(chat_button).attr("nickname",result.detail.user[i].nickname);
+                        $(chat_button).attr("refnum",refnum);
+                        $(chat_button).text("Chat");
+                        $(table_row).append(col1);
+                        $(table_row).append(col2);
+                        $("#user_list").append(table_row);
+                    }
+                }
+            });
+            $("#detail").modal();
+        });
+        $("#detail").on("click", ".dialog_msg", function () {
+            var uid = $(this).attr("uid");
+            var nickname = $(this).attr("nickname");
+            var ref = $(this).attr("refnum");
+            $("#dialog_msg_nickname").text(nickname);
+            $("#dialog_msg_send").attr("uid",uid);
+            $("#dialog_msg_send").attr("refnum",ref);
+        });
+        $("#dialog_msg_send").click(function () {
+            var uid = $(this).attr("uid");
+            var ref = $(this).attr("refnum");
+            $.post("/user/message",{"uid":uid,"ref":ref,"message":$("#dialog_msg_text").val()},function (data) {
+                var data_json = JSON.parse(data);
+                if (data_json.code === '1'){
+                    alert("Send success");
+                }else {
+                    alert("Send fail");
+                }
+            })
         })
+
     })
 </script>
-<div id = "result_content" class="container jumbotron">
+<div id="result_content" class="container jumbotron">
     <h2>Booking History</h2>
-    <table id = "table" class= "table table-bordered">
+    <table id="table" class="table table-bordered">
         <tr class="bg-primary">
-            <th id = "reference">Reference Number</th>
-            <th id = "departure">Departure</th>
-            <th id = "destination">Destination</th>
-            <th id = "seat">Seat(s)</th>
-            <th id = "date">Date</th>
-            <th id = "vehicletype">Vehicle</th>
-            <th id = "name">Name</th>
+            <th id="reference">Reference Number</th>
+            <th id="departure">Departure</th>
+            <th id="destination">Destination</th>
+            <th id="seat">Seat(s)</th>
+            <th id="date">Date</th>
+            <th id="vehicletype">Vehicle</th>
+            <th id="name">Name</th>
         </tr>
     </table>
+</div>
+<div id="detail" role="dialog" class="fade modal" style="font-size: 18px" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label class="modal-title">Reference ID:</label>
+                <label id="dialog_ref" class="modal-title">TEST</label>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <table id="dialog_content">
+                        <tr>
+                            <td><label class="">Departure:</label></td>
+                            <td id="dialog_depat">TESTTT1</td>
+                        </tr>
+                        <tr>
+                            <td>Destination:</td>
+                            <td id="dialog_dest"></td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+                            <td id="dialog_date"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="background-color: #ddd"><label>Contact User:</label></td>
+                        </tr>
+                    </table>
+                    <!-- dynamically create tr element and insert starts here-->
+                    <!-- index starts 4-->
+                    <!-- format should be
+                    <tr>
+                        <td><label> user nickname</label></td>
+                        <td><button class="btn btn-primary" uid = "xxx">Send Message</button></td>
+                     -->
+                    <table>
+                        <tbody id="user_list">
+                        </tbody>
+                    </table>
+                    <table>
+                        <tr>
+                            <td style="align-items: center">
+                                <button id="dialog_cancel" class="btn btn-danger" style="float: right">Cancel Booking
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--
+                    <div class="col-sm-12">
+                        <label class="label-default">Departure</label>
+                        <label id="dialog_depat" class=" label label-default"></label>
+                    </div>
+                    <br>
+                    <div class="col-sm-12">
+                        <label>Destination</label>
+                        <label id="dialog_dest" class="label label-default"></label>
+                    </div>
+                    <br>
+                    -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="messagebox" role="dialog" class="fade modal">
+    <div class=" modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label>Send Message to:</label>
+                <label id="dialog_msg_nickname"></label>
+            </div>
+            <div class="modal-body">
+                <textarea id="dialog_msg_text" rows="10" style="width: 100%; resize: none;"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="dialog_msg_send" style="float: left" >Send</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
 </div>

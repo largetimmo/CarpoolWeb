@@ -1,13 +1,13 @@
 package dao;
 
-import core.VehicleOwnerInfo;
+import pojo.VehicleOwnerInfo;
 
 import java.sql.*;
 
 /**
  * Created by admin on 2017/8/15.
  */
-public class CarpoolOwnerInfoDAO extends AbstractDAO{
+public class CarpoolOwnerInfoDAO{
     private CarpoolOwnerInfoDAO(){
 
     }

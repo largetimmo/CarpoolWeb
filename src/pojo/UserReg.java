@@ -1,6 +1,4 @@
-package core;
-
-import com.sun.istack.internal.Nullable;
+package pojo;
 
 /**
  * Created by admin on 2017/8/15.

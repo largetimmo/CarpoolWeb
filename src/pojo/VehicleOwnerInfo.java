@@ -1,4 +1,4 @@
-package core;
+package pojo;
 
 /**
  * Created by admin on 2017/8/15.

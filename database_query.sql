@@ -47,6 +47,32 @@ foreign key (id) references carpooweb.CARPOOL (id)
 	on update cascade on delete cascade
 ;
 
+create table MESSAGE
+(
+	M_ID int not null auto_increment
+		primary key,
+	sender_uid int null,
+	receiver_uid int null,
+	message text null,
+	`read` char null,
+	Carpool_ID int null,
+	constraint MESSAGE_BOOKED_CARPOOL_booking_ref_fk
+	foreign key (Carpool_ID) references carpooweb.BOOKED_CARPOOL (booking_ref)
+)
+;
+
+create index receiver_uid
+	on MESSAGE (receiver_uid)
+;
+
+create index sender_uid
+	on MESSAGE (sender_uid)
+;
+
+create index MESSAGE_BOOKED_CARPOOL_booking_ref_fk
+	on MESSAGE (Carpool_ID)
+;
+
 create table SUPPORTCITY
 (
 	city varchar(30) not null
@@ -76,6 +102,16 @@ alter table CARPOOL
 	add constraint CARPOOL_USER_REG_uid_fk
 foreign key (uid) references carpooweb.USER_REG (uid)
 	on update cascade on delete cascade
+;
+
+alter table MESSAGE
+	add constraint message_ibfk_1
+foreign key (sender_uid) references carpooweb.USER_REG (uid)
+;
+
+alter table MESSAGE
+	add constraint message_ibfk_2
+foreign key (receiver_uid) references carpooweb.USER_REG (uid)
 ;
 
 create table VEHICLE_OWNER

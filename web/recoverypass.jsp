@@ -10,9 +10,7 @@
 <html>
 <head>
     <title>Title</title>
-    <script src="js/jquery3.2.1.min.js"></script>
-    <script src="js/GeneralFunction.js"></script>
-    <link href="css/generalcss.css" rel="stylesheet">
+    <%@include file="include/header.jsp"%>
     <script>
         if (getParameterByName('code')=== '-1'){
             alert("The password that you provided is not meet the regulation");
@@ -22,22 +20,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<form action="resetpass.do" method="post">
-    <div class=" container">
-        <div class="col-sm-6">
-            <h1> Hello, <%=request.getSession().getAttribute("USERNAME_TEMP")%></h1>
-            <div class="col-sm-12">
-                <br>
-                <input id = "password" type="password" name="password" class="form-control" autocomplete="off" placeholder="Password(between 6 to 16 characters)">
-                <br>
-            </div>
-            <div class="col-sm-12">
-                <input type="submit" class = "center-block btn-primary">
-            </div>
-
-        </div>
-    </div>
-</form>
-<div id="footer"></div>
+<%@include file="include/navtop.jsp"%>
+<%@include file="include/passrec.jsp"%>
+<%@include file="include/footer.jsp"%>
 </body>
 </html>

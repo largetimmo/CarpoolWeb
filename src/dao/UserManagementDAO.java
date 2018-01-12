@@ -1,6 +1,6 @@
 package dao;
 
-import core.UserReg;
+import pojo.UserReg;
 import util.Md5encrypt;
 import util.VerifyInput;
 
@@ -221,4 +221,8 @@ public class UserManagementDAO extends AbstractDAO{
     }
 
 
+    @Override
+    protected Object parseCursor(ResultSet resultSet) {
+        return null;
+    }
 }

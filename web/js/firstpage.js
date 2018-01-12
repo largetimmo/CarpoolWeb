@@ -2,18 +2,6 @@
  * Created by admin on 2017/8/15.
  */
 $(document).ready(function () {
-    $("#a_logout").hide();
-    $.get("verify", function (data) {
-        var data_json = JSON.parse(data);
-        if (data_json.code === 1) {
-            console.log("success");
-            $("#a_login").text("User Management");
-            $("#a_login").attr("href", "/user/usermanagement.html");
-            $("#a_logout").show();
-
-        }
-    });
-
     $("#results_area").on('click', '.book', function () {
         console.log($(this).attr("bookid"));
         $.post("user/booking", {"bookid": $(this).attr("bookid")}, function (data) {
@@ -22,7 +10,7 @@ $(document).ready(function () {
                 alert("Booking success");
             } else if (data_json.code === -1) {
                 alert("Please login first");
-                window.location.href = "/login.html";
+                window.location.href = "/login.jsp";
             }
             else {
                 alert("Booking failed");
@@ -80,18 +68,4 @@ $(document).ready(function () {
 
         })
     });
-    //$("#footer").load("footer.html");
 });
-
-
-$(document).ajaxStart(function () {
-    $("#loading").show();
-    $("#result_area").hide();
-})
-
-
-$(document).ajaxStop(function () {
-    $("#loading").hide();
-    $("#results_area").show();
-})
-
