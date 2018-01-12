@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Message</title>
-    <script src="/js/jquery3.2.1.min.js"></script>
-    <script src="/js/commonjs.js"></script>
-    <link rel="stylesheet" href="/css/commoncss.css">
-    <script src="/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <%@include file="/include/header.jsp"%>
     <style>
         #message {
             background-color: #ffffff;
@@ -145,98 +141,9 @@
     </script>
 </head>
 <body>
-<div id="navbar" class="nav navbar">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand hidden-sm navtext" href="/index.jsp">Title</a>
-        </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <!--Add more tags use <li></li>-->
-            </ul>
-            <ul class="nav navbar-right navbar-nav">
-                <li>
-                    <a class="navtext" id="a_checkmsg" href="/user/message.html">Messages</a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a class="navtext" id="a_logout" href="/user/logout">Logout</a>
-                </li>
-            </ul>
-            <ul class="nav navbar-right navbar-nav">
-                <li>
-                    <a class="navtext" id="a_login" href="/login.jsp">Login</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div id="message">
-    <div id="msg_list">
-        <!-- message shortlink here-->
-        <div class="msg_srt_link" index="1">
-            <div class="msg_header" >
-                <!-- large font-->
-                XXXX
-            </div>
-            <div class="msg_srt_txt">
-                <!-- small font-->
-                XXXX
-            </div>
-        </div>
-        <div class="msg_srt_link" index="2">
-            <div class="msg_header">
-                <!-- large font-->
-                XXXX1
-            </div>
-            <div class="msg_srt_txt">
-                <!-- small font-->
-                XXXXtext-overflow: ellipsis;text-overflow: ellipsis;text-overflow: ellipsis;text-overflow: ellipsis;text-overflow: ellipsis;text-overflow: ellipsis;text-overflow: ellipsis;text-overflow: ellipsis;1
-            </div>
-        </div>
-        <div class="msg_srt_link" index="3">
-            <div class="msg_header">
-                <!-- large font-->
-                XXXX2
-            </div>
-            <div class="msg_srt_txt">
-                <!-- small font-->
-                XXXX2
-            </div>
-        </div>
-        <div class="msg_srt_link" index="4">
-            <div class="msg_header">
-                <!-- large font-->
-                XXXX3
-            </div>
-            <div class="msg_srt_txt">
-                <!-- small font-->
-                XXXX3
-            </div>
-        </div>
-    </div>
-    <div id="msg_detail">
-        <!-- detail here-->
-        <div id="msg_info">
-            <div id = "msg_sender_div" class = "msg_sender_list">
-                <span>From:</span>
-                <span id = "msg_sender_label">12345</span>
-            </div>
-            <div id="msg_ref_div">
-                <span>Related Carpool Reference#:</span>
-                <span><a id="msg_ref_span" href = "#">1234</a></span>
-            </div>
-        </div>
 
-        <div id="msg_text">ahjdbjhasbdjbajsdbjasbdjasbdjba</div>
-
-        <div id="msg_send">
-            <h3>Reply:</h3>
-            <textarea id="send_text" rows="10">qsbdjhbqwjhbdjqw</textarea>
-            <input id="send" type="submit" class="btn btn-primary">
-        </div>
-    </div>
-</div>
+<%@include file="/include/navtop.jsp"%>
+<%@include file="/include/user/message.jsp"%>
+<%@include file="/include/footer.jsp"%>
 </body>
 </html>
