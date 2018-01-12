@@ -21,7 +21,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
-        <url-pattern>/logout</url-pattern>
+        <url-pattern>/user/logout</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>VerifyLogingInHandler</servlet-name>

@@ -3,17 +3,20 @@
  */
 $(document).ready(function () {
     $("#a_logout").hide();
+    $("#a_checkmsg").hide();
+    /*
     $.get("verify", function (data) {
         var data_json = JSON.parse(data);
         if (data_json.code === 1) {
             console.log("success");
-            $("#a_login").text("User Management");
-            $("#a_login").attr("href", "/user/usermanagement.html");
+            $("#a_login").text("");
+            $("#a_login").attr("href","");
             $("#a_logout").show();
+            $("#a_checkmsg").show();
 
         }
     });
-
+    */
     $("#results_area").on('click', '.book', function () {
         console.log($(this).attr("bookid"));
         $.post("user/booking", {"bookid": $(this).attr("bookid")}, function (data) {

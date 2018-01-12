@@ -61,7 +61,7 @@ $(document).ready(function () {
             if(data_json.code === 1){
                 //success login
                 alert("Login Successful");
-                window.location.href="/index.html"
+                window.location.href="/index.jsp"
 
             }
             else if(data_json.code === -1){
