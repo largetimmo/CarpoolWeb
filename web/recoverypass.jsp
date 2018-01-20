@@ -17,7 +17,6 @@
             //Todo:alert --> dialog
         }
     </script>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <%@include file="include/navtop.jsp"%>
