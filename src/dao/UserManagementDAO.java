@@ -220,7 +220,23 @@ public class UserManagementDAO extends AbstractDAO{
 
     }
 
-
+    public String getUserNicknameByUID(String uid){
+        String sqlquery = "SELECT nickname from USER_REG WHERE uid = ?";
+        String name = "";
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getInstance().getGeneralConnection().prepareStatement(sqlquery);
+            preparedStatement.setString(1,uid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                name = resultSet.getString(1);
+            }
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return name;
+    }
     @Override
     protected Object parseCursor(ResultSet resultSet) {
         return null;

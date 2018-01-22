@@ -26,8 +26,10 @@ public abstract class AbstractDAO<T> {
         Connection connection = ConnectionPool.getInstance().getGeneralConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
-            for (int i = 0 ;i<params.length;i++){
-                preparedStatement.setString(i+1,params[i].toString());
+            if(params != null){
+                for (int i = 0 ;i<params.length;i++){
+                    preparedStatement.setString(i+1,params[i].toString());
+                }
             }
             preparedStatement.execute();
             preparedStatement.close();

@@ -1,6 +1,7 @@
 package web;
 
 import dao.MessageDAO;
+import dao.UserManagementDAO;
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 import pojo.Message;
@@ -16,17 +17,11 @@ import java.util.List;
 /**
  * Created by chenjunhao on 2017/11/15.
  */
-public class MessageHandler extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req,HttpServletResponse res){
-        //get All messages related to user
-        String uid = req.getSession().getAttribute("uid").toString();
-        String type = req.getParameter("type");
-
-
-    }
+public class MessageServlet extends BaseServlet {
+    /*
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        //v1
         //Send messgae to user
         String sender_uid = req.getSession().getAttribute("uid").toString();
         String receiver_uid = req.getParameter("uid");
@@ -34,17 +29,16 @@ public class MessageHandler extends HttpServlet {
         String ref = req.getParameter("ref");
         JSONObject output = new JSONObject();
         MessageDAO.getInstance().getUnReadMessage(sender_uid);
-        /**
-         * TODO:Error Checking here
-         * message too long
-         */
         if (MessageDAO.getInstance().addMessage(new Message(sender_uid,receiver_uid,message,ref))){
             output.put("code","1");
         }else {
             output.put("code","-1");
         }
+
         res.getWriter().write(output.toString());
     }
+    */
+    /*
     private JSONObject getUnreadMessageAsReceiver(String uid){
         JSONObject output = new JSONObject();
         ArrayList<Message> allmessages = MessageDAO.getInstance().getUnReadMessage(uid);
@@ -60,18 +54,37 @@ public class MessageHandler extends HttpServlet {
         output.put("result",messages);
         return output;
     }
-    private JSONObject getAllMessageAsSender(String uid){
-        JSONObject output = new JSONObject();
-        return output;
+    */
+    public String list(HttpServletRequest req, HttpServletResponse res){
+        //get user id
+        String uid = req.getSession().getAttribute("uid").toString();
+        //get message instance
+        MessageDAO messageDAO = MessageDAO.getInstance();
+        List<Message> msg_list = messageDAO.getReceiverMessage(uid);
+        req.getSession().setAttribute("messages",msg_list);
+        return "/user/message.jsp";
     }
-    private JSONObject getAllMessageAsReceiver(String uid){
-        //TODO
-        JSONObject output = new JSONObject();
-        return output;
+    public String read(HttpServletRequest req,HttpServletResponse res){
+        String mid = req.getParameter("mid");
+        MessageDAO messageDAO = MessageDAO.getInstance();
+        Message m = messageDAO.getMessageByID(mid);
+        req.getSession().setAttribute("message",m);
+        messageDAO.readMessage(mid);
+        return "/user/message_reply.jsp";
     }
-    public JSONObject list(String uid){
-        //TODO:
-        JSONObject jsonObject = new JSONObject();
-        return jsonObject;
+    public String send(HttpServletRequest req, HttpServletResponse res){
+        Message prev_m = (Message)req.getSession().getAttribute("message");
+        String rec_uid = prev_m.getSender_uid();
+        String sd_uid = prev_m.getReceiver_uid();
+        String message_send = req.getParameter("message_send");
+        String nickname = UserManagementDAO.getInstance().getUserNicknameByUID(sd_uid);
+        String ref = prev_m.getRef();
+        Message newMsg = new Message(sd_uid,rec_uid,message_send,ref,nickname);
+        if(MessageDAO.getInstance().addMessage(newMsg)){
+            req.getSession().setAttribute("msg","Send message successfully");
+        }else {
+            req.getSession().setAttribute("msg","Send message failed");
+        }
+        return "@user_message_list";
     }
 }

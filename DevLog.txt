@@ -5,12 +5,13 @@ Modify profile server side
 New Driver verify
 Add footer to all pages
 CarpoolInfo Detail Dialog
+Message
 
 Priority 0(DO IT IMMEDIATELY):
 
 
 Priority 1(CURRENTLY WORKING ON):
-TODO: Message
+TODO: Change Message feature to Servlet + JSP+ reflection and avoid AJAX
 
 Priority 2(Short Term):
 TODO: create better ui

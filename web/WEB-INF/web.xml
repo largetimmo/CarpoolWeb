@@ -106,17 +106,24 @@
         <url-pattern>/user/detailBookinginfo.do</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>MessageHandler</servlet-name>
-        <servlet-class>web.MessageHandler</servlet-class>
+        <servlet-name>MessageServlet</servlet-name>
+        <servlet-class>web.MessageServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MessageHandler</servlet-name>
-        <url-pattern>/user/message</url-pattern>
+        <servlet-name>MessageServlet</servlet-name>
+        <url-pattern>/messageServlet</url-pattern>
     </servlet-mapping>
     
     <!-- filter Below-->
 
-
+    <filter>
+        <filter-name>BaseFilter</filter-name>
+        <filter-class>filter.BaseFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>BaseFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <filter>
         <filter-name>UserManagementAccessFilter</filter-name>
         <filter-class>filter.UserManagementAccessFilter</filter-class>

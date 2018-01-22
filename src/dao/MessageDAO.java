@@ -7,6 +7,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by chenjunhao on 2017/11/15.
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 public class MessageDAO extends AbstractDAO<Message> {
     //read == 0 unread
     //read ==1 read
+    //replied == 0 not replied
+    //replied == 1 replied
     private static MessageDAO INSTANCE = new MessageDAO();
 
     public static MessageDAO getInstance() {
@@ -22,6 +25,8 @@ public class MessageDAO extends AbstractDAO<Message> {
     private MessageDAO() {
         super();
     }
+    /*
+    //V1 method
     public ArrayList<Message> getSenderMessage(String uid) {
         String sqlquery = "SELECT M_ID, Carpool_ID, U2.nickname AS RN, message FROM MESSAGE INNER JOIN USER_REG U2 ON receiver_uid = U2.uid WHERE sender_uid = ?";
         Connection connection = ConnectionPool.getInstance().getGeneralConnection();
@@ -33,22 +38,15 @@ public class MessageDAO extends AbstractDAO<Message> {
         }
         return executeQuery(sqlquery,new String[]{uid});
     }
-
+    */
     public ArrayList<Message> getReceiverMessage(String uid) {
-        String sqlquery = "SELECT" +
-                " M_ID,"+
-                " Carpool_ID,"+
-                "  U1.nickname AS 'SN'," +
-                "  U2.nickname AS 'RN'," +
-                "  message" +
-                "FROM MESSAGE" +
-                "  INNER JOIN USER_REG U1 ON sender_uid = U1.uid\n" +
-                "  INNER JOIN USER_REG U2 ON receiver_uid = U2.uid\n" +
-                "WHERE receiver_uid = ?";
-       return executeQuery(sqlquery,new String[]{uid});
+        //V2 method
+        String sqlquery = "SELECT * FROM MESSAGE WHERE receiver_uid = ?";
+        return executeQuery(sqlquery,new String[]{uid});
     }
     public ArrayList<Message> getUnReadMessage(String uid){
-        String sqlquery = "SELECT M_ID,nickname AS sender,Carpool_ID AS ref,message FROM MESSAGE INNER JOIN USER_REG ON MESSAGE.sender_uid = USER_REG.uid WHERE `read` = 0 AND receiver_uid = ?";
+        //V2
+        String sqlquery = "SELECT * FROM MESSAGE WHERE sender_uid = ?";
 
         ArrayList<Message> messages = new ArrayList<>();
         Connection connection = ConnectionPool.getInstance().getGeneralConnection();
@@ -78,16 +76,62 @@ public class MessageDAO extends AbstractDAO<Message> {
         return messages;
     }
     public boolean readMessage(String MID){
-        String sqlquery = "UPDATE Message SET `read` = 1 WHERE M_ID = ?";
+        //V2
+        String sqlquery = "UPDATE MESSAGE SET `read` = 1 WHERE M_ID = ?";
         return execute(sqlquery,new Object[]{MID});
     }
+    public boolean replyMessage(String mid){
+        //V2
+        String sqlquery = "UPDATE MESSAGE SET replied = 1 WHERE M_ID = ?";
+        return execute(sqlquery,null);
+    }
     public boolean addMessage(Message message){
-        String sqlquery = "INSERT INTO Message(sender_uid,receiver_uid,message,`read`,Carpool_ID) VALUES (?,?,?,'0',?)";
-        return execute(sqlquery,new Object[]{message.sender,message.receiver,message.message,message.ref});
+        //V2
+        return add(message);
+    }
+    public Message getMessageByID(String id){
+        //V2
+        String sqlquery = "SELECT * FROM MESSAGE WHERE M_ID = ?";
+        Message m = null;
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getInstance().getGeneralConnection().prepareStatement(sqlquery);
+            preparedStatement.setString(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                m = parseCursor(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return m;
+    }
+    private boolean add(Message message){
+        //V2
+        String sqlquery = "INSERT INTO MESSAGE(sender_uid,receiver_uid,message,Carpool_ID,sender_name) VALUES (?,?,?,?,?)";
+        return execute(sqlquery,new String[]{message.getSender_uid(),message.getReceiver_uid(),message.getMessage(),message.getRef(),message.getSender_name()});
+
+    }
+    @Override
+    protected Message parseCursor(ResultSet resultSet){
+        Message m = null;
+        //using JAVA reflection is very convenient way to acquire all data
+        Field[] allfield = Message.class.getDeclaredFields();
+        String[] parms = new String[allfield.length];
+        try {
+            for (int i = 0;i<allfield.length;i++){
+                String data = resultSet.getString(resultSet.findColumn(allfield[i].getName()));
+                parms[i] = data;
+            }
+            m = new Message(parms[0],parms[1],parms[2],parms[3],parms[4],parms[5],parms[6],parms[7]);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return m;
     }
     /*
     @Override
     protected Message parseCursor(ResultSet resultSet){
+    //V1 method
         try {
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
             Message message = new Message();
