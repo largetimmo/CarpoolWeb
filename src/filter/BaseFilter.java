@@ -28,6 +28,7 @@ public class BaseFilter implements Filter {
             String method = StringUtils.substringAfterLast(uri,"_");
             req.getSession().setAttribute("invMethod",method);
             req.getRequestDispatcher("/"+servlet).forward(req,res);
+            return;
         }
         filterChain.doFilter(req,res);
     }
