@@ -87,4 +87,13 @@ public class MessageServlet extends BaseServlet {
         }
         return "@user_message_list";
     }
+    public String remove(HttpServletRequest req, HttpServletResponse res){
+        String mid= req.getParameter("mid");
+        if(MessageDAO.getInstance().delete(mid)){
+            req.getSession().setAttribute("msg","Delete Message success");
+        }else{
+            req.getSession().setAttribute("msg","Delete Message failed");
+        }
+        return "@user_message_list";
+    }
 }

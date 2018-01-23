@@ -111,6 +111,10 @@ public class MessageDAO extends AbstractDAO<Message> {
         return execute(sqlquery,new String[]{message.getSender_uid(),message.getReceiver_uid(),message.getMessage(),message.getRef(),message.getSender_name()});
 
     }
+    public boolean delete(String mid){
+        String sqlquery = "DELETE FROM MESSAGE WHERE M_ID = ?";
+        return execute(sqlquery,new String[]{mid});
+    }
     @Override
     protected Message parseCursor(ResultSet resultSet){
         Message m = null;
