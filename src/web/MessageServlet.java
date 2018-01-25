@@ -18,43 +18,6 @@ import java.util.List;
  * Created by chenjunhao on 2017/11/15.
  */
 public class MessageServlet extends BaseServlet {
-    /*
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        //v1
-        //Send messgae to user
-        String sender_uid = req.getSession().getAttribute("uid").toString();
-        String receiver_uid = req.getParameter("uid");
-        String message = req.getParameter("message");
-        String ref = req.getParameter("ref");
-        JSONObject output = new JSONObject();
-        MessageDAO.getInstance().getUnReadMessage(sender_uid);
-        if (MessageDAO.getInstance().addMessage(new Message(sender_uid,receiver_uid,message,ref))){
-            output.put("code","1");
-        }else {
-            output.put("code","-1");
-        }
-
-        res.getWriter().write(output.toString());
-    }
-    */
-    /*
-    private JSONObject getUnreadMessageAsReceiver(String uid){
-        JSONObject output = new JSONObject();
-        ArrayList<Message> allmessages = MessageDAO.getInstance().getUnReadMessage(uid);
-        ArrayList<JSONObject> messages = new ArrayList<>();
-        for (Message m: allmessages){
-            JSONObject msg_json = new JSONObject();
-            msg_json.put("ref",m.ref);
-            msg_json.put("msg",m.message);
-            msg_json.put("sender",m.sender);
-            msg_json.put("id",m.M_ID);
-            messages.add(msg_json);
-        }
-        output.put("result",messages);
-        return output;
-    }
-    */
     public String list(HttpServletRequest req, HttpServletResponse res){
         //get user id
         String uid = req.getSession().getAttribute("uid").toString();
