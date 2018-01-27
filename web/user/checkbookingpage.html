@@ -67,8 +67,8 @@
                         $(col2).append(chat_button);
                         $(chat_button).attr("class", "btn btn-primary dialog_msg");
                         $(chat_button).attr("uid", result.detail.user[i].uid);
-                        $(chat_button).attr("nickname",result.detail.user[i].nickname);
-                        $(chat_button).attr("refnum",refnum);
+                        $(chat_button).attr("nickname", result.detail.user[i].nickname);
+                        $(chat_button).attr("refnum", refnum);
                         $(chat_button).text("Chat");
                         $(table_row).append(col1);
                         $(table_row).append(col2);
@@ -83,17 +83,17 @@
             var nickname = $(this).attr("nickname");
             var ref = $(this).attr("refnum");
             $("#dialog_msg_nickname").text(nickname);
-            $("#dialog_msg_send").attr("uid",uid);
-            $("#dialog_msg_send").attr("refnum",ref);
+            $("#dialog_msg_send").attr("uid", uid);
+            $("#dialog_msg_send").attr("refnum", ref);
         });
         $("#dialog_msg_send").click(function () {
             var uid = $(this).attr("uid");
             var ref = $(this).attr("refnum");
-            $.post("/user/message",{"uid":uid,"ref":ref,"message":$("#dialog_msg_text").val()},function (data) {
+            $.post("/user/message", {"uid": uid, "ref": ref, "message": $("#dialog_msg_text").val()}, function (data) {
                 var data_json = JSON.parse(data);
-                if (data_json.code === '1'){
+                if (data_json.code === '1') {
                     alert("Send success");
-                }else {
+                } else {
                     alert("Send fail");
                 }
             })
@@ -191,7 +191,7 @@
                 <textarea id="dialog_msg_text" rows="10" style="width: 100%; resize: none;"></textarea>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" id="dialog_msg_send" style="float: left" >Send</button>
+                <button class="btn btn-primary" id="dialog_msg_send" style="float: left">Send</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>

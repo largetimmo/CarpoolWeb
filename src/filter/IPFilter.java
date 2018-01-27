@@ -20,14 +20,7 @@ public class IPFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         System.out.println(System.nanoTime()+req.getRemoteAddr());
-        try {
-            if(!dao.IPAddrDAO.getInstance().checkBlockIP(req.getRemoteAddr())) {
-                filterChain.doFilter(servletRequest, servletResponse);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+        filterChain.doFilter(servletRequest,servletResponse);
     }
 
     @Override

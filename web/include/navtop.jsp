@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div id="navbar" class="navbar navbar-fixed-top">
+<div id="navbar" class="navbar">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand hidden-sm navtext" href="/index.jsp">Title</a>
@@ -23,7 +23,7 @@
                 </ul>
                 <ul class="nav navbar-right navbar-nav">
                     <li>
-                        <a class="navtext" id = "a_checkmsg" href="/user/message">Messages</a>
+                        <a class="navtext" id = "a_checkmsg" href="/user_message_list">Messages</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
