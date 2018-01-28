@@ -238,6 +238,27 @@ public class UserManagementDAO extends AbstractDAO{
         }
         return name;
     }
+    public boolean changePassword(String uid, String oldpass, String newpass){
+        boolean flag = false;
+        String sqlquery = "SELECT COUNT(*) FROM USER_REG WHERE uid = ? AND password = ?";
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getInstance().getUserManagementConnection().prepareStatement(sqlquery);
+            preparedStatement.setString(1,uid);
+            preparedStatement.setString(2,oldpass);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                sqlquery = "UPDATE USER_REG SET password = ? WHERE uid = ?";
+                preparedStatement = ConnectionPool.getInstance().getUserManagementConnection().prepareStatement(sqlquery);
+                preparedStatement.setString(1,newpass);
+                preparedStatement.setString(2,uid);
+                preparedStatement.execute();
+            }
+            flag = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
     @Override
     protected Object parseCursor(ResultSet resultSet) {
         return null;

@@ -40,9 +40,16 @@ public class UserServlet extends BaseServlet {
         return "@user_user_changeinfo";
     }
     public String changepass(HttpServletRequest req, HttpServletResponse res){
-        String password = req.getParameter("password");
+        String oldpass = req.getParameter("oldpass");
+        String newpass = req.getParameter("newpass");
         String uid = req.getSession().getAttribute("uid").toString();
-        return null;
+        if (UserManagementDAO.getInstance().changePassword(uid,oldpass,newpass)){
+            req.setAttribute("msg","Change password success");
+        }else {
+            req.setAttribute("msg","Change password failed");
+        }
+        return "/index.jsp";
+        //return "forehome";
     }
 
 }
