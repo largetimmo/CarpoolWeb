@@ -1,10 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <nav id="navbar" class="navbar-expand-lg">
-    <script src="/js/jquery3.2.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <div class="container">
+    <div class="">
         <div class="navbar-header">
             <a class="navbar-brand hidden-sm navtext" href="/index.jsp">Title</a>
         </div>
@@ -22,20 +19,21 @@
             <c:if test="${!empty uid}">
                 <ul class="nav navbar-right navbar-nav">
                     <li class="dropdown">
-                        <a id="userManagementDW" class="navtext dropdown-toggle" data-toggle="dropdown">User
+                        <a class="navtext nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false"
+                           data-toggle="dropdown">User
                             Management</a>
-                        <div class="dropdown-menu" aria-labelledby="userManagementDW">
-                            <a class="dropdown-item" href="/user_user_changeinfo">Profile</a>
-                            <a class="dropdown-item" href="/user_carpool_ridelist">Ride list</a>
-                            <a class="dropdown-item" href="/user_carpool_drivelist">Drive list</a>
-                            <
-                        </div>
+                        <ul class="dropdown-menu">
+                            <ul><a href="/user_carpool_ridelist">Ride list</a></ul>
+                            <ul><a href="/user_carpool_drivelist">Drive list</a></ul>
+                            <ul><a href="/user_carpool_postinfo">Post Carpool Info</a></ul>
+                            <ul><a href="/user_user_changeinfo">Profile</a></ul>
+                        </ul>
                     </li>
                     <li>
-                        <a class="navtext" id="a_checkmsg" href="/user_message_list">Messages</a>
+                        <a class="nav-item navtext" id="a_checkmsg" href="/user_message_list">Messages</a>
                     </li>
                     <li>
-                        <a class="navtext" id="a_logout" href="/user_user_logout">Logout</a>
+                        <a class="nav-item navtext" id="a_logout" href="/user_user_logout">Logout</a>
                     </li>
                 </ul>
             </c:if>
