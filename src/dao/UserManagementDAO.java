@@ -193,6 +193,7 @@ public class UserManagementDAO extends AbstractDAO{
     }
     public boolean updateUserInfo(UserReg userinfo,String uid){
         //TODO:ERROR CHECKING
+        //v1 method
         boolean flag = false;
         String sqlquery = "UPDATE USER_REG SET ";
         if(userinfo.getPassword() != null){
@@ -217,8 +218,8 @@ public class UserManagementDAO extends AbstractDAO{
             e.printStackTrace();
         }
         return flag;
-
     }
+
 
     public String getUserNicknameByUID(String uid){
         String sqlquery = "SELECT nickname from USER_REG WHERE uid = ?";

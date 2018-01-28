@@ -1,5 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="message">
+    <c:if test="${!empty msg}">
+        <script>
+            alert(${msg});
+        </script>
+    </c:if>
     <div id="msg_list">
         <!-- message shortlink here-->
         <c:forEach items="${messages}" var="m">

@@ -24,7 +24,7 @@ public class MessageServlet extends BaseServlet {
         //get message instance
         MessageDAO messageDAO = MessageDAO.getInstance();
         List<Message> msg_list = messageDAO.getReceiverMessage(uid);
-        req.getSession().setAttribute("messages",msg_list);
+        req.setAttribute("messages",msg_list);
         return "/user/message.jsp";
     }
     public String read(HttpServletRequest req,HttpServletResponse res){
@@ -44,18 +44,20 @@ public class MessageServlet extends BaseServlet {
         String ref = prev_m.getRef();
         Message newMsg = new Message(sd_uid,rec_uid,message_send,ref,nickname);
         if(MessageDAO.getInstance().addMessage(newMsg)){
-            req.getSession().setAttribute("msg","Send message successfully");
+            req.setAttribute("msg","Send message successfully");
         }else {
-            req.getSession().setAttribute("msg","Send message failed");
+            req.setAttribute("msg","Send message failed");
         }
+        req.getSession().removeAttribute("messgae");
+
         return "@user_message_list";
     }
     public String remove(HttpServletRequest req, HttpServletResponse res){
         String mid= req.getParameter("mid");
         if(MessageDAO.getInstance().delete(mid)){
-            req.getSession().setAttribute("msg","Delete Message success");
+            req.setAttribute("msg","Delete Message success");
         }else{
-            req.getSession().setAttribute("msg","Delete Message failed");
+            req.setAttribute("msg","Delete Message failed");
         }
         return "@user_message_list";
     }

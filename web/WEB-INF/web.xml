@@ -113,7 +113,14 @@
         <servlet-name>MessageServlet</servlet-name>
         <url-pattern>/messageServlet</url-pattern>
     </servlet-mapping>
-    
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>web.UserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/userServlet</url-pattern>
+    </servlet-mapping>
     <!-- filter Below-->
 
     <filter>
