@@ -27,6 +27,7 @@
                             <ul><a href="/user_carpool_drivelist">Drive list</a></ul>
                             <ul><a href="/user_carpool_postinfo">Post Carpool Info</a></ul>
                             <ul><a href="/user_user_changeinfo">Profile</a></ul>
+                            <ul><a href="/user/changepass.jsp">Change password</a></ul>
                         </ul>
                     </li>
                     <li>
