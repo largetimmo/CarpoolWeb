@@ -2,7 +2,6 @@ package web;
 
 
 import dao.UserManagementDAO;
-import pojo.UserInfo;
 import pojo.UserReg;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,5 +50,6 @@ public class UserServlet extends BaseServlet {
         return "/index.jsp";
         //return "forehome";
     }
+
 
 }

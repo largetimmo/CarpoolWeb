@@ -17,7 +17,7 @@ public class LoginHandler extends HttpServlet{
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String password_md5 = Md5encrypt.getMd5(password);
-        int userID = dao.UserManagementDAO.getInstance().Login(username,password_md5);
+        int userID = dao.UserManagementDAO.getInstance().Login(username,password);
         JSONObject jsonObject;
         switch (userID){
             case -1:

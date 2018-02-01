@@ -16,4 +16,8 @@ public class ForeServlet extends BaseServlet {
     public String register(HttpServletRequest req, HttpServletResponse res){
         return null;
     }
+    public String search(HttpServletRequest req, HttpServletResponse res){
+        //Search for new
+        return null;
+    }
 }
