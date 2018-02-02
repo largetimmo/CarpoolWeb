@@ -39,7 +39,7 @@ public class SearchBookedCarpoolHandler extends HttpServlet{
             List<JSONObject> carpoolinfo_json_list = new ArrayList<>();
             for(BookedCarpoolInfo b:list){
                 JSONObject carpoolinfo_json = new JSONObject();
-                carpoolinfo_json.put("reference",b.getReference_number());
+                carpoolinfo_json.put("reference",b.getRef());
                 carpoolinfo_json.put("seat",b.getSeats());
                 carpoolinfo_json.put("departure",b.getCarpoolInfo().getDeparture());
                 carpoolinfo_json.put("destination",b.getCarpoolInfo().getDestination());

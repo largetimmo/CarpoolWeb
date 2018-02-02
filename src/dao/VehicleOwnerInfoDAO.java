@@ -7,12 +7,12 @@ import java.sql.*;
 /**
  * Created by admin on 2017/8/15.
  */
-public class CarpoolOwnerInfoDAO{
-    private CarpoolOwnerInfoDAO(){
+public class VehicleOwnerInfoDAO {
+    private VehicleOwnerInfoDAO(){
 
     }
-    private static CarpoolOwnerInfoDAO instance = new CarpoolOwnerInfoDAO();
-    public  static CarpoolOwnerInfoDAO getInstance(){
+    private static VehicleOwnerInfoDAO instance = new VehicleOwnerInfoDAO();
+    public  static VehicleOwnerInfoDAO getInstance(){
         return instance;
     }
     public VehicleOwnerInfo getUserInfo(int uid){
@@ -29,7 +29,7 @@ public class CarpoolOwnerInfoDAO{
                 //exist
                 String nickname = resultSet.getString(resultSet.findColumn("nickname"));
                 int userlevel = resultSet.getInt(resultSet.findColumn("userlevel"));
-                String vehicle = resultSet.getString(resultSet.findColumn("vehicle"));
+                String vehicle = resultSet.getString(resultSet.findColumn("vehicletype"));
                 vehicleOwnerInfo = new VehicleOwnerInfo(uid,userlevel,nickname,vehicle);
             }
             preparedStatement.close();;

@@ -1,9 +1,6 @@
 package dao;
 
-import pojo.BookedCarpoolDetail;
-import pojo.BookedCarpoolInfo;
-import pojo.CarpoolInfo;
-import pojo.DateTime;
+import pojo.*;
 import util.Pair;
 
 import java.sql.Connection;
@@ -69,7 +66,43 @@ public class BookedCarpoolDAO extends AbstractDAO {
         }
         return bookedCarpoolDetail;
     }
-
+    public List<BookedCarpoolInfo> getCarpoolInfoAsPassenger(String uid){
+        LinkedList<BookedCarpoolInfo> allinfos = new LinkedList<>();
+        try {
+            Connection connection = ConnectionPool.getInstance().getBookedCarpoolConnection();
+            String sqlquery = "SELECT * FROM BOOKED_CARPOOL INNER JOIN CARPOOL ON BOOKED_CARPOOL.id = CARPOOL.id INNER JOIN (SELECT uid, nickname FROM USER_REG) AS T ON CARPOOL.uid = T.uid  WHERE BOOKED_CARPOOL.uid = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
+            preparedStatement.setString(1,uid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                String bookingref = resultSet.getString(resultSet.findColumn("booking_ref"));
+                int price = resultSet.getInt(resultSet.findColumn("price"));
+                String departure = resultSet.getString(resultSet.findColumn("departure"));
+                String destination = resultSet.getString(resultSet.findColumn("destination"));
+                int remainseat = resultSet.getInt(resultSet.findColumn("remainseat"));
+                String date_str = resultSet.getString(resultSet.findColumn("date"));
+                DateTime date = new DateTime(date_str);
+                int seat = resultSet.getInt(resultSet.findColumn("seat"));
+                int driver_id = resultSet.getInt(resultSet.findColumn("CARPOOL.uid"));
+                VehicleOwnerInfo vehicleOwnerInfo = VehicleOwnerInfoDAO.getInstance().getUserInfo(driver_id);
+                CarpoolInfo carpoolInfo = new CarpoolInfo();
+                carpoolInfo.setDateTime(date);
+                carpoolInfo.setPrice(price);
+                carpoolInfo.setTo(destination);
+                carpoolInfo.setFrom(departure);
+                carpoolInfo.setUser(vehicleOwnerInfo);
+                carpoolInfo.setRemainseat(remainseat);
+                BookedCarpoolInfo bookedCarpoolInfo = new BookedCarpoolInfo();
+                bookedCarpoolInfo.setCarpoolInfo(carpoolInfo);
+                bookedCarpoolInfo.setReference_number(bookingref);
+                bookedCarpoolInfo.setSeats(seat);
+                allinfos.add(bookedCarpoolInfo);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return allinfos;
+    }
     //TODO:getBookedCarpoolDetailAsDriver-->BookedCarpoolDetail
     //TODO:getBookedCarpoolUserList-->ArrayList<Pair<String,String>>
     @Override

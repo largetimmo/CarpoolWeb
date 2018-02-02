@@ -1,6 +1,6 @@
 package web;
 
-import dao.CarpoolOwnerInfoDAO;
+import dao.VehicleOwnerInfoDAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 public class DriverManagementServlet extends BaseServlet {
     public String verifydriver(HttpServletRequest req, HttpServletResponse res) {
         String uid = req.getSession().getAttribute("uid").toString();
-        CarpoolOwnerInfoDAO carpoolOwnerInfoDAO = CarpoolOwnerInfoDAO.getInstance();
-        if (carpoolOwnerInfoDAO.verifyCarpoolOwner(uid)) {
+        VehicleOwnerInfoDAO vehicleOwnerInfoDAO = VehicleOwnerInfoDAO.getInstance();
+        if (vehicleOwnerInfoDAO.verifyCarpoolOwner(uid)) {
             req.getSession().setAttribute("driver", "1");
         } else {
             req.getSession().setAttribute("driver", "0");
@@ -25,8 +25,8 @@ public class DriverManagementServlet extends BaseServlet {
         String platenum = req.getParameter("platenum");
         String vehicle = req.getParameter("vehicle");
         String uid = req.getSession().getAttribute("uid").toString();
-        CarpoolOwnerInfoDAO carpoolOwnerInfoDAO = CarpoolOwnerInfoDAO.getInstance();
-        if (carpoolOwnerInfoDAO.AddVehicleOwner(uid, vehicle, platenum)) {
+        VehicleOwnerInfoDAO vehicleOwnerInfoDAO = VehicleOwnerInfoDAO.getInstance();
+        if (vehicleOwnerInfoDAO.AddVehicleOwner(uid, vehicle, platenum)) {
             req.setAttribute("msg", "Add vehicle information success");
         } else {
             req.setAttribute("msg", "Add vehicle information fail");

@@ -73,7 +73,7 @@ public class CarpoolDAO extends AbstractDAO<CarpoolInfo>{
             while (resultSet.next()){
                 String refnumber = resultSet.getString(1);
                 String id = resultSet.getString(resultSet.findColumn("id"));
-                String seat = resultSet.getString(4);
+                int seat = resultSet.getInt(4);
                 CarpoolInfo carpoolInfo = getCarpoolInfo(id);
                 BookedCarpoolInfo bookedCarpoolInfo = new BookedCarpoolInfo(carpoolInfo,refnumber,seat);
                 infoList.add(bookedCarpoolInfo);
@@ -141,7 +141,7 @@ public class CarpoolDAO extends AbstractDAO<CarpoolInfo>{
     protected CarpoolInfo parseCursor(ResultSet resultSet) {
         try {
             int id = resultSet.getInt(resultSet.findColumn("id"));
-            VehicleOwnerInfo vehicleOwnerInfo = CarpoolOwnerInfoDAO.getInstance().getUserInfo(resultSet.getInt(resultSet.findColumn("uid")));
+            VehicleOwnerInfo vehicleOwnerInfo = VehicleOwnerInfoDAO.getInstance().getUserInfo(resultSet.getInt(resultSet.findColumn("uid")));
             DateTime dateTime = new DateTime(resultSet.getString(resultSet.findColumn("date")));
             int price = resultSet.getInt(resultSet.findColumn("price"));
             int capacity = resultSet.getInt(resultSet.findColumn("capacity"));
