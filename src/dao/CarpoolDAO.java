@@ -7,6 +7,7 @@ import pojo.VehicleOwnerInfo;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -144,7 +145,7 @@ public class CarpoolDAO extends AbstractDAO<CarpoolInfo>{
             DateTime dateTime = new DateTime(resultSet.getString(resultSet.findColumn("date")));
             int price = resultSet.getInt(resultSet.findColumn("price"));
             int capacity = resultSet.getInt(resultSet.findColumn("capacity"));
-            String remainseat = resultSet.getString(resultSet.findColumn("remainseat"));
+            int remainseat = resultSet.getInt(resultSet.findColumn("remainseat"));
             String departure = resultSet.getString(resultSet.findColumn("departure"));
             String dest = resultSet.getString(resultSet.findColumn("destination"));
             return new CarpoolInfo(vehicleOwnerInfo,id,price,capacity,dateTime,remainseat,departure,dest);
@@ -169,5 +170,38 @@ public class CarpoolDAO extends AbstractDAO<CarpoolInfo>{
             e.printStackTrace();
         }
         return list;
+    }
+
+    public List<CarpoolInfo> getCarpoolInfoAsDriver(String uid) {
+        LinkedList<CarpoolInfo> allinfos = new LinkedList<>();
+        String sqlquery = "SELECT * FROM CARPOOL WHERE uid = ?";
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getInstance().getCarpoolConnection().prepareStatement(sqlquery);
+            preparedStatement.setString(1, uid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int cid = resultSet.getInt(resultSet.findColumn("id"));
+                String departure = resultSet.getString(resultSet.findColumn("departure"));
+                String destination = resultSet.getString(resultSet.findColumn("destination"));
+                int price = resultSet.getInt(resultSet.findColumn("price"));
+                int seat = resultSet.getInt(resultSet.findColumn("capacity"));
+                int remainseat = resultSet.getInt(resultSet.findColumn("remainseat"));
+                String data_str = resultSet.getString(resultSet.findColumn("date"));
+                DateTime date = new DateTime(data_str);
+                CarpoolInfo carpoolInfo = new CarpoolInfo();
+                carpoolInfo.setCapacity(seat);
+                carpoolInfo.setId(cid);
+                carpoolInfo.setFrom(departure);
+                carpoolInfo.setTo(destination);
+                carpoolInfo.setPrice(price);
+                carpoolInfo.setRemainseat(remainseat);
+                carpoolInfo.setDateTime(date);
+                allinfos.add(carpoolInfo);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return allinfos;
     }
 }

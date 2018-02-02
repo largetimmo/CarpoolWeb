@@ -1,16 +1,18 @@
 package web;
 
-
 import dao.CarpoolDAO;
+import pojo.CarpoolInfo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class CarpoolServlet extends BaseServlet {
     public String ridelist(HttpServletRequest req, HttpServletResponse res) {
         String uid = req.getSession().getAttribute("uid").toString();
-
-        return null;
+        List<CarpoolInfo> allinfo = CarpoolDAO.getInstance().getCarpoolInfoAsDriver(uid);
+        req.setAttribute("carpools",allinfo);
+        return "/user/bookingpage.jsp";
     }
 
     public String drivelist(HttpServletRequest req, HttpServletResponse res) {

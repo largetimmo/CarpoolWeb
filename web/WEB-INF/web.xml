@@ -113,6 +113,14 @@
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/userServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>CarpoolServlet</servlet-name>
+        <servlet-class>web.CarpoolServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CarpoolServlet</servlet-name>
+        <url-pattern>/carpoolServlet</url-pattern>
+    </servlet-mapping>
     <!-- filter Below-->
 
     <filter>
