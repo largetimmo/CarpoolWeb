@@ -57,7 +57,7 @@ public class SearchingHandler extends HttpServlet{
             String price = Integer.toString(current.getPrice());
             String capacity = Integer.toString(current.getCapacity());
             DateTime dateTime = current.getDateTime();
-            String remainseat = current.getRemainseat();
+            int remainseat = current.getRemainseat();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("id",carpooID);
             jsonObject.put("nickname",nickname);

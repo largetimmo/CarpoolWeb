@@ -90,14 +90,6 @@
         <url-pattern>/user/profile.do</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>NewVehicleUser</servlet-name>
-        <servlet-class>web.NewVehicalUser</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NewVehicleUser</servlet-name>
-        <url-pattern>/user/newvehicaluser.do</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>DeatilBookingInfo</servlet-name>
         <servlet-class>web.DetailBookingInfoHandler</servlet-class>
     </servlet>
@@ -113,7 +105,22 @@
         <servlet-name>MessageServlet</servlet-name>
         <url-pattern>/messageServlet</url-pattern>
     </servlet-mapping>
-    
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>web.UserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/userServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CarpoolServlet</servlet-name>
+        <servlet-class>web.CarpoolServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CarpoolServlet</servlet-name>
+        <url-pattern>/carpoolServlet</url-pattern>
+    </servlet-mapping>
     <!-- filter Below-->
 
     <filter>

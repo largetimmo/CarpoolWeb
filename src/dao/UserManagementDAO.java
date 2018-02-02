@@ -193,6 +193,7 @@ public class UserManagementDAO extends AbstractDAO{
     }
     public boolean updateUserInfo(UserReg userinfo,String uid){
         //TODO:ERROR CHECKING
+        //v1 method
         boolean flag = false;
         String sqlquery = "UPDATE USER_REG SET ";
         if(userinfo.getPassword() != null){
@@ -217,8 +218,8 @@ public class UserManagementDAO extends AbstractDAO{
             e.printStackTrace();
         }
         return flag;
-
     }
+
 
     public String getUserNicknameByUID(String uid){
         String sqlquery = "SELECT nickname from USER_REG WHERE uid = ?";
@@ -236,6 +237,27 @@ public class UserManagementDAO extends AbstractDAO{
             e.printStackTrace();
         }
         return name;
+    }
+    public boolean changePassword(String uid, String oldpass, String newpass){
+        boolean flag = false;
+        String sqlquery = "SELECT COUNT(*) FROM USER_REG WHERE uid = ? AND password = ?";
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getInstance().getUserManagementConnection().prepareStatement(sqlquery);
+            preparedStatement.setString(1,uid);
+            preparedStatement.setString(2,oldpass);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                sqlquery = "UPDATE USER_REG SET password = ? WHERE uid = ?";
+                preparedStatement = ConnectionPool.getInstance().getUserManagementConnection().prepareStatement(sqlquery);
+                preparedStatement.setString(1,newpass);
+                preparedStatement.setString(2,uid);
+                preparedStatement.execute();
+            }
+            flag = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
     }
     @Override
     protected Object parseCursor(ResultSet resultSet) {

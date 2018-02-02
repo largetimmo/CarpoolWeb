@@ -39,10 +39,10 @@ public class SearchBookedCarpoolHandler extends HttpServlet{
             List<JSONObject> carpoolinfo_json_list = new ArrayList<>();
             for(BookedCarpoolInfo b:list){
                 JSONObject carpoolinfo_json = new JSONObject();
-                carpoolinfo_json.put("reference",b.getReference_number());
+                carpoolinfo_json.put("reference",b.getRef());
                 carpoolinfo_json.put("seat",b.getSeats());
-                carpoolinfo_json.put("departure",b.getCarpoolInfo().getFrom());
-                carpoolinfo_json.put("destination",b.getCarpoolInfo().getTo());
+                carpoolinfo_json.put("departure",b.getCarpoolInfo().getDeparture());
+                carpoolinfo_json.put("destination",b.getCarpoolInfo().getDestination());
                 carpoolinfo_json.put("vehicle",b.getCarpoolInfo().getUser().getVehicle());
                 carpoolinfo_json.put("date",b.getCarpoolInfo().getDateTime().toString());
                 carpoolinfo_json.put("name",b.getCarpoolInfo().getUser().getNickname());
@@ -67,8 +67,8 @@ public class SearchBookedCarpoolHandler extends HttpServlet{
                 jsonObject.put("capacity",carpoolInfo.getCapacity());
                 jsonObject.put("remain_seat",carpoolInfo.getRemainseat());
                 jsonObject.put("datetime",carpoolInfo.getDateTime().toString());
-                jsonObject.put("departure",carpoolInfo.getFrom());
-                jsonObject.put("destination",carpoolInfo.getTo());
+                jsonObject.put("departure",carpoolInfo.getDeparture());
+                jsonObject.put("destination",carpoolInfo.getDestination());
                 jsonObject.put("price",carpoolInfo.getPrice());
                 carpool_list.add(jsonObject);
             }

@@ -17,19 +17,21 @@ public class CarpoolInfo {
     private int price;
     private int capacity;
     private DateTime dateTime;
-    private String remainseat;
+    private int remainseat;
     private String from;
     private String to;
 
-    public String getFrom() {
+    public String getDeparture() {
         return from;
     }
 
-    public String getTo() {
+    public String getDestination() {
         return to;
     }
+    public CarpoolInfo(){
 
-    public CarpoolInfo(VehicleOwnerInfo user, int id, int price, int capacity, DateTime dateTime, String remainseat, String from, String to) {
+    }
+    public CarpoolInfo(VehicleOwnerInfo user, int id, int price, int capacity, DateTime dateTime, int remainseat, String from, String to) {
         this.user = user;
         this.id = id;
         this.price = price;
@@ -40,7 +42,7 @@ public class CarpoolInfo {
         this.to = to;
     }
 
-    public CarpoolInfo(int price, int capacity, DateTime dateTime, String remainseat, String from, String to) {
+    public CarpoolInfo(int price, int capacity, DateTime dateTime, int remainseat, String from, String to) {
         this.price = price;
         this.capacity = capacity;
         this.dateTime = dateTime;
@@ -49,7 +51,7 @@ public class CarpoolInfo {
         this.to = to;
     }
 
-    public CarpoolInfo(VehicleOwnerInfo user, int id, int price, int capacity, DateTime dateTime, String remainseat) {
+    public CarpoolInfo(VehicleOwnerInfo user, int id, int price, int capacity, DateTime dateTime, int remainseat) {
         this.user = user;
         this.id = id;
         this.price = price;
@@ -80,8 +82,39 @@ public class CarpoolInfo {
         return dateTime;
     }
 
-    public String getRemainseat() {
+    public int getRemainseat() {
         return remainseat;
     }
 
+    public void setUser(VehicleOwnerInfo user) {
+        this.user = user;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public void setDateTime(DateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public void setRemainseat(int remainseat) {
+        this.remainseat = remainseat;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
 }

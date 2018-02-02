@@ -7,16 +7,17 @@ import java.sql.*;
 /**
  * Created by admin on 2017/8/15.
  */
-public class CarpoolOwnerInfoDAO{
-    private CarpoolOwnerInfoDAO(){
+public class VehicleOwnerInfoDAO {
+    private VehicleOwnerInfoDAO(){
 
     }
-    private static CarpoolOwnerInfoDAO instance = new CarpoolOwnerInfoDAO();
-    public  static CarpoolOwnerInfoDAO getInstance(){
+    private static VehicleOwnerInfoDAO instance = new VehicleOwnerInfoDAO();
+    public  static VehicleOwnerInfoDAO getInstance(){
         return instance;
     }
     public VehicleOwnerInfo getUserInfo(int uid){
         //获取用户的车辆信息
+        //v 1
         VehicleOwnerInfo vehicleOwnerInfo = null;
         try {
             Connection connection = ConnectionPool.getInstance().getCarpoolOwnerConnection();
@@ -28,7 +29,7 @@ public class CarpoolOwnerInfoDAO{
                 //exist
                 String nickname = resultSet.getString(resultSet.findColumn("nickname"));
                 int userlevel = resultSet.getInt(resultSet.findColumn("userlevel"));
-                String vehicle = resultSet.getString(resultSet.findColumn("vehicle"));
+                String vehicle = resultSet.getString(resultSet.findColumn("vehicletype"));
                 vehicleOwnerInfo = new VehicleOwnerInfo(uid,userlevel,nickname,vehicle);
             }
             preparedStatement.close();;
@@ -54,13 +55,15 @@ public class CarpoolOwnerInfoDAO{
         }
         return flag;
     }
-    public boolean AddVehicleOwner(String uid, String vehicle){
+    public boolean AddVehicleOwner(String uid, String vehicle,String platenum){
+        //v2
         boolean flag = false;
         try {
             Connection connection = ConnectionPool.getInstance().getCarpoolOwnerConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO VEHICLE_OWNER(uid,vehicle) VALUES (?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO VEHICLE_OWNER(uid,vehicletype,platenum) VALUES (?,?,?)");
             preparedStatement.setString(1,uid);
             preparedStatement.setString(2,vehicle);
+            preparedStatement.setString(3,platenum);
             preparedStatement.execute();
             preparedStatement.close();
             flag = true;
