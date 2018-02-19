@@ -16,7 +16,7 @@
     <%@include file="/include/navtop.jsp" %>
     <div class="row" style="padding-top: 6px">
         <div class="col-lg-8">
-            <h3>Riding List:</h3>
+            <h3>Driving List:</h3>
         </div>
         <div class = "col-lg-4">
             <div class="btn-group">
