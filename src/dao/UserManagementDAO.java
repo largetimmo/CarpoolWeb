@@ -288,5 +288,6 @@ public class UserManagementDAO extends AbstractDAO{
         }catch (Exception e){
             e.printStackTrace();
         }
+        return null;
     }
 }
