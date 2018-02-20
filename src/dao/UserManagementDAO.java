@@ -263,4 +263,30 @@ public class UserManagementDAO extends AbstractDAO{
     protected Object parseCursor(ResultSet resultSet) {
         return null;
     }
+
+    public String getUsernameByID(String uid){
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getInstance().getUserManagementConnection().prepareStatement("SELECT uid FROM USER_REG WHERE uid = ?");
+            preparedStatement.setString(1,uid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                return resultSet.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public String getUIDByUsername(String username){
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getInstance().getUserManagementConnection().prepareStatement("SELECT nickanme FROM USER_REG WHERE uid = ?");
+            preparedStatement.setString(1,username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                return resultSet.getString(1);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
