@@ -57,7 +57,6 @@ create table MESSAGE
 	`read` char default '0' null,
 	Carpool_ID int null,
 	replied char default '0' null,
-	sender_name varchar(20) null,
 	constraint MESSAGE_BOOKED_CARPOOL_booking_ref_fk
 	foreign key (Carpool_ID) references BOOKED_CARPOOL (booking_ref)
 )
@@ -120,14 +119,19 @@ foreign key (receiver_uid) references USER_REG (uid)
 
 create table VEHICLE_OWNER
 (
-	uid int auto_increment
-		primary key,
+	uid int null,
 	userlevel int default '0' not null,
-	vehicle varchar(30) not null,
+	vehicletype varchar(30) not null,
 	exp int default '0' not null,
+	platenum varchar(10) not null
+		primary key,
 	constraint VEHICLE_OWNER_USER_REG_uid_fk
 	foreign key (uid) references USER_REG (uid)
 		on update cascade on delete cascade
 )
+;
+
+create index VEHICLE_OWNER_USER_REG_uid_fk
+	on VEHICLE_OWNER (uid)
 ;
 
