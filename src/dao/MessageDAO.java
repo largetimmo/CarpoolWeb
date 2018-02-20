@@ -41,7 +41,7 @@ public class MessageDAO extends AbstractDAO<Message> {
     */
     public ArrayList<Message> getReceiverMessage(String uid) {
         //V2 method
-        String sqlquery = "SELECT * FROM MESSAGE WHERE receiver_uid = ?";
+        String sqlquery = "SELECT M_ID,sender_uid,receiver_uid,message,`read`,Carpool_ID,replied,username AS sender_name FROM MESSAGE LEFT JOIN USER_REG ON message.sender_uid = USER_REG.uid WHERE receiver_uid = ?";
         return executeQuery(sqlquery,new String[]{uid});
     }
     public ArrayList<Message> getUnReadMessage(String uid){
@@ -77,12 +77,12 @@ public class MessageDAO extends AbstractDAO<Message> {
     }
     public boolean readMessage(String MID){
         //V2
-        String sqlquery = "UPDATE MESSAGE SET `read` = 1 WHERE M_ID = ?";
+        String sqlquery = "SELECT M_ID,sender_uid,receiver_uid,message,`read`,Carpool_ID,replied,username AS sender_name FROM MESSAGE LEFT JOIN USER_REG ON message.sender_uid = USER_REG.uid WHERE M_ID = ?";
         return execute(sqlquery,new Object[]{MID});
     }
     public boolean replyMessage(String mid){
         //V2
-        String sqlquery = "UPDATE MESSAGE SET replied = 1 WHERE M_ID = ?";
+        String sqlquery = "SELECT M_ID,sender_uid,receiver_uid,message,`read`,Carpool_ID,replied,username AS sender_name FROM MESSAGE LEFT JOIN USER_REG ON message.sender_uid = USER_REG.uid WHERE M_ID = ?";
         return execute(sqlquery,null);
     }
     public boolean addMessage(Message message){
@@ -91,7 +91,7 @@ public class MessageDAO extends AbstractDAO<Message> {
     }
     public Message getMessageByID(String id){
         //V2
-        String sqlquery = "SELECT * FROM MESSAGE WHERE M_ID = ?";
+        String sqlquery = "SELECT M_ID,sender_uid,receiver_uid,message,`read`,Carpool_ID,replied,username AS sender_name FROM MESSAGE LEFT JOIN USER_REG ON message.sender_uid = USER_REG.uid WHERE M_ID = ?";
         Message m = null;
         try {
             PreparedStatement preparedStatement = ConnectionPool.getInstance().getGeneralConnection().prepareStatement(sqlquery);
@@ -107,8 +107,8 @@ public class MessageDAO extends AbstractDAO<Message> {
     }
     private boolean add(Message message){
         //V2
-        String sqlquery = "INSERT INTO MESSAGE(sender_uid,receiver_uid,message,Carpool_ID,sender_name) VALUES (?,?,?,?,?)";
-        return execute(sqlquery,new String[]{message.getSender_uid(),message.getReceiver_uid(),message.getMessage(),message.getRef(),message.getSender_name()});
+        String sqlquery = "INSERT INTO MESSAGE(sender_uid,receiver_uid,message,Carpool_ID) VALUES (?,?,?,?)";
+        return execute(sqlquery,new String[]{message.getSender_uid(),message.getReceiver_uid(),message.getMessage(),message.getRef()});
 
     }
     public boolean delete(String mid){
