@@ -12,6 +12,9 @@ public class BaseServlet extends HttpServlet{
         try {
             Method method = this.getClass().getMethod(inv_method,HttpServletRequest.class,HttpServletResponse.class);
             String redirAddr = method.invoke(this,req,res).toString();
+            if(req.getParameter("msg")!=null){
+                req.setAttribute("msg",req.getParameter("msg"));
+            }
             if (redirAddr.startsWith("@")){
                 res.sendRedirect(redirAddr.substring(1));
             }else {

@@ -1,5 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:if test="${!empty msg}">
+    <script>
+        alert("${msg}");
+    </script>
+</c:if>
+
 <nav id="navbar" class="navbar-expand-lg">
     <div class="container">
         <div class="navbar-header">
