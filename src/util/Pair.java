@@ -11,4 +11,12 @@ public class Pair<T,W> {
         this.first = first;
         this.second = second;
     }
+
+    public T getFirst() {
+        return first;
+    }
+
+    public W getSecond() {
+        return second;
+    }
 }
