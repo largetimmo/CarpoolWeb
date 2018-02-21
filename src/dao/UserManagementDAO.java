@@ -278,16 +278,17 @@ public class UserManagementDAO extends AbstractDAO{
         return null;
     }
     public String getUIDByNickname(String username){
+        String result = "";
         try {
             PreparedStatement preparedStatement = ConnectionPool.getInstance().getUserManagementConnection().prepareStatement("SELECT uid FROM USER_REG WHERE nickname = ?");
             preparedStatement.setString(1,username);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()){
-                return resultSet.getString(1);
+                result= resultSet.getString(1);
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-        return null;
+        return result;
     }
 }
