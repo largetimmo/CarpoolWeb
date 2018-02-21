@@ -14,15 +14,21 @@ public class Message {
     private String sender_name;
 
 
-    public static Message createBasicMessage(String sender_uid, String receiver_uid, String message, String carpool_ID){
+    public static Message createBasicMessage(String sender_uid, String receiver_uid, String message){
         Message m = new Message();
         m.sender_uid = sender_uid;
         m.receiver_uid = receiver_uid;
         m.message = message;
-        m.Carpool_ID = carpool_ID;
         return m;
     }
-
+    public static Message createCarpoolMessage(String sender_uid, String receiver_uid, String message,String Carpool_ID){
+        Message m = new Message();
+        m.sender_uid = sender_uid;
+        m.receiver_uid = receiver_uid;
+        m.message = message;
+        m.Carpool_ID = Carpool_ID;
+        return m;
+    }
     public static Message createFullMessage(String m_ID, String sender_id, String receiver_uid, String message, String carpool_ID, String read, String relied, String sender_name) {
         Message m = new Message();
         m.M_ID = m_ID;
