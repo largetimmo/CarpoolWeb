@@ -108,7 +108,7 @@ public class MessageDAO extends AbstractDAO<Message> {
     private boolean add(Message message){
         //V2
         String sqlquery = "INSERT INTO MESSAGE(sender_uid,receiver_uid,message,Carpool_ID) VALUES (?,?,?,?)";
-        return execute(sqlquery,new String[]{message.getSender_uid(),message.getReceiver_uid(),message.getMessage(),message.getRef()});
+        return execute(sqlquery,new String[]{message.getSender_uid(),message.getReceiver_uid(),message.getMessage(),(message.getRef() == null)?"-1":message.getRef()});
 
     }
     public boolean delete(String mid){
