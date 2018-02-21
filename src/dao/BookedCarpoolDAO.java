@@ -58,7 +58,7 @@ public class BookedCarpoolDAO extends AbstractDAO {
                 String nickname = resultSet.getString(resultSet.findColumn("nickname"));
                 String cuid = resultSet.getString(resultSet.findColumn("uid"));
                 ArrayList<Pair<String, String>> userlist = new ArrayList<>();
-                userlist.add(new Pair<String, String>(nickname, cuid));
+                userlist.add(new Pair<>(nickname, cuid));
                 bookedCarpoolDetail = new BookedCarpoolDetail(dep, des, date, userlist);
             }
         } catch (SQLException e) {
