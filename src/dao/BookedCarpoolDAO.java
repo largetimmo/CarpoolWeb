@@ -66,6 +66,34 @@ public class BookedCarpoolDAO extends AbstractDAO {
         }
         return bookedCarpoolDetail;
     }
+
+    public BookedCarpoolDetail getBookedCarpoolDetailAsDriver(String id){
+        BookedCarpoolDetail bookedCarpoolDetail = null;
+        String sqlquery = "SELECT departure, destination,date,nickname, USER_REG.uid as uid FROM BOOKED_CARPOOL INNER JOIN CARPOOL ON BOOKED_CARPOOL.id = CARPOOL.id INNER JOIN USER_REG ON CARPOOL.uid = USER_REG.uid WHERE BOOKED_CARPOOL.uid = ?";
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getInstance().getCarpoolConnection().prepareStatement(sqlquery);
+            preparedStatement.setString(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                String dep = resultSet.getString(resultSet.findColumn("departure"));
+                String des = resultSet.getString(resultSet.findColumn("destination"));
+                String date = resultSet.getString(resultSet.findColumn("date"));
+                ArrayList<Pair<String, String>> userlist = new ArrayList<>();
+                do{
+                    String cuid = resultSet.getString(resultSet.findColumn("uid"));
+                    String nickname = resultSet.getString(resultSet.findColumn("nickname"));
+                    userlist.add(new Pair<>(nickname,cuid));
+                }while (resultSet.next());
+                bookedCarpoolDetail = new BookedCarpoolDetail(dep, des, date, userlist);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookedCarpoolDetail;
+    }
+
+
     public List<BookedCarpoolInfo> getCarpoolInfoAsPassenger(String uid){
         LinkedList<BookedCarpoolInfo> allinfos = new LinkedList<>();
         try {

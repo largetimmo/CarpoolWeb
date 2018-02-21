@@ -50,6 +50,4 @@ public class UserServlet extends BaseServlet {
         return "/index.jsp";
         //return "forehome";
     }
-
-
 }
