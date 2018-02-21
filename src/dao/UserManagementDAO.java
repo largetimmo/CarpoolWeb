@@ -264,9 +264,9 @@ public class UserManagementDAO extends AbstractDAO{
         return null;
     }
 
-    public String getUsernameByID(String uid){
+    public String getNicknameByID(String uid){
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getInstance().getUserManagementConnection().prepareStatement("SELECT uid FROM USER_REG WHERE uid = ?");
+            PreparedStatement preparedStatement = ConnectionPool.getInstance().getUserManagementConnection().prepareStatement("SELECT nickname FROM USER_REG WHERE uid = ?");
             preparedStatement.setString(1,uid);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()){
@@ -277,9 +277,9 @@ public class UserManagementDAO extends AbstractDAO{
         }
         return null;
     }
-    public String getUIDByUsername(String username){
+    public String getUIDByNickname(String username){
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getInstance().getUserManagementConnection().prepareStatement("SELECT nickanme FROM USER_REG WHERE uid = ?");
+            PreparedStatement preparedStatement = ConnectionPool.getInstance().getUserManagementConnection().prepareStatement("SELECT uid FROM USER_REG WHERE nickname = ?");
             preparedStatement.setString(1,username);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()){
