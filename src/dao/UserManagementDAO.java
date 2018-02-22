@@ -49,8 +49,7 @@ public class UserManagementDAO extends AbstractDAO{
         return -2;
     }
 
-    public int Register(UserReg userReg){
-        //Todo: move verify part to another Java class
+    public String Register(UserReg userReg){
         /*
             Register new user
             return 1 for success
@@ -68,31 +67,31 @@ public class UserManagementDAO extends AbstractDAO{
             Checking invalid character in email
         */
         if(!VerifyInput.verifyEmail(userReg.getEmail())){
-            return -5;
+            return "Invalid Email";
         }
         /*
         checking invalid character in username
          */
         if (!VerifyInput.verifyUNPS(userReg.getUsername())){
-            return -2;
+            return "Username contains invalid characters";
         }
         /*
         checking invalid character in password
          */
         if (!VerifyInput.verifyUNPS(userReg.getPassword())){
-            return -3;
+            return "Password contains invalid characters";
         }
         /*
         checking invalid character in nickname
          */
         if(!VerifyInput.verifyUNPS(userReg.getNickname())){
-            return -7;
+            return "Nickname contains invalid characters";
         }
         /*
         checking username length
          */
         if(userReg.getUsername().length()>=30 || userReg.getUsername().length()<6){
-            return -6;
+            return "Invalid username length";
         }
 
         /*
@@ -100,7 +99,7 @@ public class UserManagementDAO extends AbstractDAO{
          */
         if(userReg.getPassword().length()!=32){
             System.out.println("Fatal ERROR!!!!! FROM UserManagementDAO");
-            return -4;
+            return "Invalid password length";
         }
 
         try {
@@ -110,7 +109,7 @@ public class UserManagementDAO extends AbstractDAO{
             preparedStatement.setString(1,userReg.getUsername());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()){
-                return -1;
+                return "Username exists";
             }
             sqlquery = "INSERT INTO USER_REG (username, password, nickname,email,cell) VALUES (?,?,?,?,?)";
             preparedStatement = connection.prepareStatement(sqlquery);
@@ -123,9 +122,9 @@ public class UserManagementDAO extends AbstractDAO{
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            return 0;
+            return "FETAL ERROR";
         }
-        return 1;
+        return "Register success";
     }
 
     public int RecoverPass(String username, String email){

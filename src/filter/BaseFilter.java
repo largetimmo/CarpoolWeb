@@ -22,7 +22,6 @@ public class BaseFilter implements Filter {
         String uri = req.getRequestURI();
         uri = StringUtils.remove(uri,contextpath);
         System.out.println(uri);
-        System.out.println(contextpath);
         if(uri.startsWith("/user") && req.getSession().getAttribute("uid")==null){
             //user login detect
             req.setAttribute("msg","Session expired");
@@ -39,7 +38,8 @@ public class BaseFilter implements Filter {
         }else if(uri.startsWith("/fore_")){
             String method = StringUtils.substringAfterLast(uri,"_");
             req.getSession().setAttribute("invMethod",method);
-            req.getRequestDispatcher("/"+"foreServlet").forward(req,res);
+            req.getRequestDispatcher("/foreServlet").forward(req,res);
+            return;
         }
         filterChain.doFilter(req,res);
     }

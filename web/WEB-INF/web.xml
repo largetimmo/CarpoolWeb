@@ -12,58 +12,12 @@
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>LoginHandler</servlet-name>
-        <servlet-class>web.LoginHandler</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LoginHandler</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LoginHandler</servlet-name>
-        <url-pattern>/user/logout</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>VerifyLogingInHandler</servlet-name>
-        <servlet-class>web.VerifyLogingInHandler</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>VerifyLogingInHandler</servlet-name>
-        <url-pattern>/verify</url-pattern>
-    </servlet-mapping>
-    
-    <servlet>
-        <servlet-name>PostBookingInfoHandler</servlet-name>
-        <servlet-class>web.PostBookingInfoHandler</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PostBookingInfoHandler</servlet-name>
-        <url-pattern>/user/postcarpool</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>BookingHandler</servlet-name>
         <servlet-class>web.BookingHandler</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>BookingHandler</servlet-name>
         <url-pattern>/user/booking</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>RegisterHandler</servlet-name>
-        <servlet-class>web.RegisterHandler</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>RegisterHandler</servlet-name>
-        <url-pattern>/register</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>SearchBookedCarpoolHandler</servlet-name>
-        <servlet-class>web.SearchBookedCarpoolHandler</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SearchBookedCarpoolHandler</servlet-name>
-        <url-pattern>/user/searchbooking</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>ForgetPass</servlet-name>
@@ -80,14 +34,6 @@
     <servlet-mapping>
         <servlet-name>ResetPass</servlet-name>
         <url-pattern>/resetpass.do</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>UserProfile</servlet-name>
-        <servlet-class>web.UserInformationHandler</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UserProfile</servlet-name>
-        <url-pattern>/user/profile.do</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>DeatilBookingInfo</servlet-name>
@@ -120,6 +66,15 @@
     <servlet-mapping>
         <servlet-name>CarpoolServlet</servlet-name>
         <url-pattern>/carpoolServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ForeServlet</servlet-name>
+        <servlet-class>web.ForeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ForeServlet</servlet-name>
+        <url-pattern>/foreServlet</url-pattern>
     </servlet-mapping>
     <!-- filter Below-->
 
