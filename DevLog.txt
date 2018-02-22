@@ -6,12 +6,16 @@ New Driver verify
 Add footer to all pages
 CarpoolInfo Detail Dialog
 Message
+Change Message feature to Servlet + JSP+ reflection and avoid AJAX
+ForeServlet
 
 Priority 0(DO IT IMMEDIATELY):
 
 
 Priority 1(CURRENTLY WORKING ON):
-TODO: Change Message feature to Servlet + JSP+ reflection and avoid AJAX
+TODO: Post Carpool Page
+TODO:Carpool cancel
+TODO: ForeServlet
 
 Priority 2(Short Term):
 TODO: create better ui
@@ -20,7 +24,7 @@ TODO: Administrator page
 TODO: ERROR Checking
 
 Priority 3(Long Term):
-TODO:Use Spring + Spring MVC+ Mybatis
+TODO:Use Spring + Spring MVC+ Hibernate
 
 
 Priority 100:

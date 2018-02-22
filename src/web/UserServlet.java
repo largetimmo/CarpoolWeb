@@ -2,7 +2,9 @@ package web;
 
 
 import dao.UserManagementDAO;
+import dao.VehicleOwnerInfoDAO;
 import pojo.UserReg;
+import pojo.VehicleOwnerInfo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,4 +52,18 @@ public class UserServlet extends BaseServlet {
         return "/index.jsp";
         //return "forehome";
     }
+
+    public String updatevehicle(HttpServletRequest req, HttpServletResponse res){
+        String msg = "";
+        String platenum = req.getParameter("platenum");
+        String vehicletype = req.getParameter("vehicletype");
+        String uid = req.getSession().getAttribute("uid").toString();
+        if(VehicleOwnerInfoDAO.getInstance().AddVehicleOwner(uid,vehicletype,platenum)){
+            return "#/user/postinfo.jsp?msg=Success";
+        }else {
+            return "#/user/verifydriver.jsp?msg=failed";
+        }
+    }
+
+
 }
