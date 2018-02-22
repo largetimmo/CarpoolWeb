@@ -11,7 +11,8 @@
     <%@include file="include/header.jsp" %>
     <link href="css/firstpage.css" rel="stylesheet">
     <link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
-    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="/js/moment-with-locales.js"></script>
+    <script src="/js/bootstrap-datetimepicker.js"></script>
     <script src="js/firstpage.js"></script>
     <script>
         if (getParameterByName('code') === '1') {

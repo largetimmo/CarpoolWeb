@@ -23,8 +23,8 @@
         </div>
         <script type="text/javascript">
             $(function () {
-                $('#datepicker').datepicker({
-                    format: 'yyyy-mm-dd'
+                $('#datepicker').datetimepicker({
+                    format: 'YYYY-MM-DD'
                 });
             })
         </script>
