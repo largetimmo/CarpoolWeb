@@ -1,5 +1,7 @@
 package web;
 
+import org.apache.commons.lang.StringUtils;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +19,11 @@ public class BaseServlet extends HttpServlet{
             }
             if (redirAddr.startsWith("@")){
                 res.sendRedirect(redirAddr.substring(1));
-            }else {
+            }else if(redirAddr.startsWith("#")){
+                req.setAttribute("msg", StringUtils.substringAfter(redirAddr,"msg="));
+                req.getRequestDispatcher(StringUtils.substringBetween(redirAddr,"#","?")).forward(req,res);
+            }
+            else {
                 req.getRequestDispatcher(redirAddr).forward(req,res);
             }
         } catch (Exception e) {

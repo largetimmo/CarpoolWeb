@@ -25,6 +25,11 @@ public class VehicleOwnerInfo {
         this.vehicle = vehicle;
     }
 
+
+    public VehicleOwnerInfo() {
+
+    }
+
     public int getUid() {
         return uid;
     }
@@ -39,5 +44,21 @@ public class VehicleOwnerInfo {
 
     public String getVehicle() {
         return vehicle;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public void setUserlevel(int userlevel) {
+        this.userlevel = userlevel;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void setVehicle(String vehicle) {
+        this.vehicle = vehicle;
     }
 }

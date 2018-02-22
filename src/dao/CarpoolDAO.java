@@ -204,4 +204,24 @@ public class CarpoolDAO extends AbstractDAO<CarpoolInfo>{
         }
         return allinfos;
     }
+
+    public boolean addCarpool(CarpoolInfo carpoolInfo){
+        boolean flag = false;
+        String sqlquery = "INSERT INTO CARPOOL(uid, date, price, capacity, departure, destination, remainseat) VALUES (?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getInstance().getCarpoolConnection().prepareStatement(sqlquery);
+            preparedStatement.setInt(1,carpoolInfo.getUser().getUid());
+            preparedStatement.setString(2,carpoolInfo.getDateTime().toString());
+            preparedStatement.setInt(3,carpoolInfo.getPrice());
+            preparedStatement.setInt(4,carpoolInfo.getCapacity());
+            preparedStatement.setString(5,carpoolInfo.getDeparture());
+            preparedStatement.setString(6,carpoolInfo.getDestination());
+            preparedStatement.setInt(7,carpoolInfo.getCapacity());
+            preparedStatement.execute();
+            flag = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
 }

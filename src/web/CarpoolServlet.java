@@ -2,9 +2,8 @@ package web;
 
 import dao.BookedCarpoolDAO;
 import dao.CarpoolDAO;
-import pojo.BookedCarpoolDetail;
-import pojo.BookedCarpoolInfo;
-import pojo.CarpoolInfo;
+import dao.VehicleOwnerInfoDAO;
+import pojo.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,30 +48,33 @@ public class CarpoolServlet extends BaseServlet {
 
     //jump to post carpool info page
     public String postinfo(HttpServletRequest req, HttpServletResponse res) {
-        Object driver = req.getSession().getAttribute("driver");
-        if (driver == null) {
-            return "@user_driver_verifydriver";
+        if(VehicleOwnerInfoDAO.getInstance().verifyCarpoolOwner(req.getSession().getAttribute("uid").toString())){
+            //have submited vehicle info
+            return "/user/postinfo.jsp";
+        }else{
+            return "#/user/verifydriver.jsp?msg=please provide your vehicle information first";
         }
-        if (driver.toString().equals("0")) {
-            return "@user_driver_addvehivleinfo";
-        }
-        req.setAttribute("msg","failed");
-        String uid = req.getSession().getAttribute("uid").toString();
-        String departure = req.getParameter("from");
-        String destination = req.getParameter("to");
-        String passenger = req.getParameter("passengers");
-        String date = req.getParameter("date");
-        String price = req.getParameter("price");
-        Boolean success = CarpoolDAO.getInstance().storageCarpoolInfo(departure,destination,passenger,price,date,uid);
-        if (success){
-            req.setAttribute("msg","success");
-        }
-        return "@user_carpool_ridelist";
     }
     //add carpool information
     public String add(HttpServletRequest req, HttpServletResponse res) {
-
-        return null;
+        String uid = req.getSession().getAttribute("uid").toString();
+        String dep = req.getParameter("departure");
+        String des = req.getParameter("destination");
+        String price = req.getParameter("price");
+        String date = req.getParameter("date");
+        String seat = req.getParameter("seat");
+        DateTime date_obj = new DateTime(date);
+        CarpoolInfo carpoolInfo = new CarpoolInfo();
+        VehicleOwnerInfo vehicleOwnerInfo = new VehicleOwnerInfo();
+        vehicleOwnerInfo.setUid(Integer.parseInt(uid));
+        carpoolInfo.setUser(vehicleOwnerInfo);
+        carpoolInfo.setFrom(dep);
+        carpoolInfo.setTo(des);
+        carpoolInfo.setCapacity(Integer.parseInt(seat));
+        carpoolInfo.setPrice(Integer.parseInt(price));
+        carpoolInfo.setDateTime(date_obj);
+        CarpoolDAO.getInstance().addCarpool(carpoolInfo);
+        return "@user_carpool_drivelist";
     }
 
 
