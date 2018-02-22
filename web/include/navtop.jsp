@@ -18,7 +18,7 @@
             <c:if test="${empty uid}">
                 <ul class="nav navbar-right navbar-nav">
                     <li>
-                        <a class="navtext" href="login.jsp">Login</a>
+                        <a class="navtext" href="/login.jsp">Login</a>
                     </li>
                 </ul>
             </c:if>
