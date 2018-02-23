@@ -22,8 +22,8 @@ public class VerifyInput {
     private static final String REG_EXP_USERNAME_PASSWORD = "^[A-Za-z0-9]+$";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm";
-    private static final SimpleDateFormat sdtf =  new SimpleDateFormat(DATETIME_FORMAT);
-    private static final SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+    public static final SimpleDateFormat sdtf =  new SimpleDateFormat(DATETIME_FORMAT);
+    public static final SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
     private static Pattern pattern = null;
     private static Matcher matcher = null;
     //Method to verify username or password

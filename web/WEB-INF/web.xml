@@ -4,22 +4,6 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
     <servlet>
-        <servlet-name>SearchingHandler</servlet-name>
-        <servlet-class>web.SearchingHandler</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SearchingHandler</servlet-name>
-        <url-pattern>/search</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>BookingHandler</servlet-name>
-        <servlet-class>web.BookingHandler</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>BookingHandler</servlet-name>
-        <url-pattern>/user/booking</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>ForgetPass</servlet-name>
         <servlet-class>web.ForgetPassHandler</servlet-class>
     </servlet>
@@ -34,14 +18,6 @@
     <servlet-mapping>
         <servlet-name>ResetPass</servlet-name>
         <url-pattern>/resetpass.do</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>DeatilBookingInfo</servlet-name>
-        <servlet-class>web.DetailBookingInfoHandler</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DeatilBookingInfo</servlet-name>
-        <url-pattern>/user/detailBookinginfo.do</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>MessageServlet</servlet-name>

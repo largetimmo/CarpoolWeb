@@ -25,7 +25,7 @@ public class BookedCarpoolDAO extends AbstractDAO {
         return instance;
     }
 
-    public boolean BookCarpool(String carpool_id, String user_id, String seat) {
+    protected boolean BookCarpool(String carpool_id, String user_id, String seat) {
         boolean flag = false;
         try {
             Connection connection = ConnectionPool.getInstance().getBookedCarpoolConnection();

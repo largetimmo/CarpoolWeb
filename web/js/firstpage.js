@@ -4,7 +4,7 @@
 $(document).ready(function () {
     $("#results_area").on('click', '.book', function () {
         console.log($(this).attr("bookid"));
-        $.post("user/booking", {"bookid": $(this).attr("bookid")}, function (data) {
+        $.post("/fore_booking", {"bookid": $(this).attr("bookid")}, function (data) {
             var data_json = JSON.parse(data);
             if (data_json.code === 1) {
                 alert("Booking success");
@@ -43,6 +43,7 @@ $(document).ready(function () {
                         $("#results_area").append(
                             "<div class = 'list-group-item result'>" +
                             "<div class='row'> " +
+                            "<form action= '/fore_book?bookid="+result_json.id+"' method='post'> "+
                             "<div class = 'col-sm-8'>" +
                             "<label class = 'username'> NickName:" + result_json.nickname + "</label>" +
                             "<br>" +
@@ -57,8 +58,9 @@ $(document).ready(function () {
                             "<br>" +
                             "<label class = 'departuretime'>Departure Time: " + result_json.date + "</label>" +
                             "<br>" +
-                            "<button bookid = '" + result_json.id + "' class = 'book btn btn-success'>Book</button>" +
+                            "<input type='submit' class = ' btn btn-success'>" +
                             "</div>" +
+                            "</form>"+
                             "</div>" +
                             "</div>"
                         )

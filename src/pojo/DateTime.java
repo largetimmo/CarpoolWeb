@@ -1,10 +1,15 @@
 package pojo;
 
 
+import util.VerifyInput;
+
+import java.text.ParseException;
+import java.util.Date;
+
 /**
  * Created by admin on 2017/8/25.
  */
-public class DateTime {
+public class DateTime implements Comparable<DateTime>{
     private int year;
     private int month;
     private int day;
@@ -72,5 +77,24 @@ public class DateTime {
 
     public int getMinute() {
         return minute;
+    }
+
+    @Override
+    public int compareTo(DateTime o) {
+        try {
+            Date thisdate = VerifyInput.sdtf.parse(toString());
+            Date odate = VerifyInput.sdtf.parse(o.toString());
+            if(thisdate.before(odate)){
+                return -1;
+            }else if(thisdate.after(odate)){
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
