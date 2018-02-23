@@ -25,8 +25,9 @@ public class BaseServlet extends HttpServlet{
                 //only support when uri with no prefix
                 req.setAttribute("msg", StringUtils.substringAfter(redirAddr,"msg="));
                 req.getRequestDispatcher(StringUtils.substringBetween(redirAddr,"#","?")).forward(req,res);
-            }
-            else {
+            }else if(redirAddr.startsWith("^")){
+                res.getWriter().print(StringUtils.substring(redirAddr,1));
+            }else {
                 //client go to another page
                 req.getRequestDispatcher(redirAddr).forward(req,res);
             }

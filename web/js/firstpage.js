@@ -26,7 +26,7 @@ $(document).ready(function () {
             "date": $("#date").val(),
             "passengers": $("#passenger").val()
         };
-        $.post("search", jsonobj, function (data) {
+        $.post("/fore_search", jsonobj, function (data) {
             console.log("ajax post start");
             var data_json = JSON.parse(data);
             var result_array = data_json.results;

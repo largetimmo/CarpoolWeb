@@ -11,6 +11,7 @@ import java.util.List;
 
 public class CarpoolServlet extends BaseServlet {
     //jump to ride history
+    //page
     public String ridelist(HttpServletRequest req, HttpServletResponse res) {
         String uid = req.getSession().getAttribute("uid").toString();
         List<BookedCarpoolInfo> allinfos = BookedCarpoolDAO.getInstance().getCarpoolInfoAsPassenger(uid);
@@ -18,6 +19,7 @@ public class CarpoolServlet extends BaseServlet {
         return "/user/checkriding.jsp";
     }
     //jump to drive history
+    //page
     public String drivelist(HttpServletRequest req, HttpServletResponse res) {
         String uid = req.getSession().getAttribute("uid").toString();
         List<CarpoolInfo> allinfo = CarpoolDAO.getInstance().getCarpoolInfoAsDriver(uid);
@@ -25,6 +27,7 @@ public class CarpoolServlet extends BaseServlet {
         return "/user/checkdriving.jsp";
     }
     //get carpool detail
+    //page
     public String detail(HttpServletRequest req, HttpServletResponse res){
         String uid = req.getSession().getAttribute("uid").toString();
         String ref = req.getParameter("ref");//As passenger

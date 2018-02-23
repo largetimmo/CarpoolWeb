@@ -27,7 +27,7 @@ public class SearchingHandler extends HttpServlet{
         int passenger = Integer.parseInt(req.getParameter("passengers"));
         String date = req.getParameter("date");
         JSONObject jsonresult = new JSONObject();
-        //ERROR CHECKING BELOW
+        //ERROR CHECKING START
             //verify input param valid or not
             if (!(VerifyInput.verifyCity(departure) & VerifyInput.verifyCity(destination) & VerifyInput.dateAfterToday(date))){
                 //Input Error
@@ -36,7 +36,7 @@ public class SearchingHandler extends HttpServlet{
                 res.getWriter().write(jsonresult.toString());
                 return;
             }
-        //ERROR CHECKING UP
+        //ERROR CHECKING END
         departure = departure.toUpperCase();
         destination = destination.toUpperCase();
         /*
