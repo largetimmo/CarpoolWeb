@@ -97,8 +97,7 @@ public class UserManagementDAO extends AbstractDAO{
         /*
         checking password length
          */
-        if(userReg.getPassword().length()!=32){
-            System.out.println("Fatal ERROR!!!!! FROM UserManagementDAO");
+        if(userReg.getPassword().length()<6 || userReg.getPassword().length()>16){
             return "Invalid password length";
         }
 

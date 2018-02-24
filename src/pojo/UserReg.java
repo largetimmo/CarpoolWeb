@@ -14,7 +14,7 @@ public class UserReg extends UserInfo{
     private String cell;
     public UserReg (String username, String password, String email, String nickname, String cell) {
         this.username = username;
-        this.password = (password != null)?util.Md5encrypt.getMd5(password):password;
+        this.password = password;
         this.email = email;
         this.nickname = nickname;
         this.cell = cell;
@@ -36,5 +36,16 @@ public class UserReg extends UserInfo{
 
     public String getCell() {
         return cell;
+    }
+
+    @Override
+    public String toString() {
+        return "UserReg{" +
+                "email='" + email + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", cell='" + cell + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

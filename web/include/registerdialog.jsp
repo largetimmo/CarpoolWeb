@@ -7,7 +7,7 @@
             <form action="/fore_register" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input id="reg_username" class="username form-control" placeholder="Username (8 to 30 characters)"
+                        <input name="username" id="reg_username" class="username form-control" placeholder="Username (8 to 30 characters)"
                                autocomplete="off" spellcheck="off">
                         <br>
                         <input id="reg_password" class="password form-control" type="password" name="password"
