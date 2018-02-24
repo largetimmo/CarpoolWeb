@@ -8,8 +8,10 @@ import pojo.DateTime;
 import pojo.UserReg;
 import util.VerifyInput;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +20,25 @@ public class ForeServlet extends BaseServlet {
         //page
         return "/index.jsp";
     }
-    public String forgetpass(HttpServletRequest req, HttpServletResponse res){
-        //action
-        return null;
+    public String forgetpassverify(HttpServletRequest req, HttpServletResponse res){
+        //page
+        String username = req.getParameter("username");
+        String email = req.getParameter("email");
+        if (UserManagementDAO.getInstance().RecoverPass(username,email) == 1){
+            req.setAttribute("USERNAME_TEMP",username);
+            return "/recoverypass.jsp";
+        }else {
+            return "#/forgetpass.jsp?msg=Sorry, we cannot find realted username and the email";
+        }
+    }
+    public String resetpass(HttpServletRequest req, HttpServletResponse res){
+        String password = req.getParameter("password");
+        String username = req.getParameter("username");
+        if (username!=null & UserManagementDAO.getInstance().setPass(username,password)){
+            return "#/login.jsp?msg=Reset password success";
+        }else {
+            return "/forgetpass.jsp?msg=Reset password failed";
+        }
     }
     public String login(HttpServletRequest req, HttpServletResponse res){
         //action

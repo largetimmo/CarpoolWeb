@@ -8,14 +8,13 @@ CarpoolInfo Detail Dialog
 Message
 Change Message feature to Servlet + JSP+ reflection and avoid AJAX
 ForeServlet
+Post Carpool Page
 
 Priority 0(DO IT IMMEDIATELY):
 
 
 Priority 1(CURRENTLY WORKING ON):
-TODO: Post Carpool Page
 TODO:Carpool cancel
-TODO: ForeServlet
 
 Priority 2(Short Term):
 TODO: create better ui

@@ -152,12 +152,11 @@ public class UserManagementDAO extends AbstractDAO{
     }
     public boolean setPass(String username, String password){
         if (VerifyInput.verifyUNPS(username) && VerifyInput.verifyUNPS(password)){
-            String pass_md5 = Md5encrypt.getMd5(password);
             String sqlquery = "UPDATE USER_REG SET password = ? WHERE username = ?";
             try {
                 Connection connection = ConnectionPool.getInstance().getUserManagementConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlquery);
-                preparedStatement.setString(1,pass_md5);
+                preparedStatement.setString(1,password);
                 preparedStatement.setString(2,username);
                 preparedStatement.execute();
                 return true;

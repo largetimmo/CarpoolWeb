@@ -4,22 +4,6 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
     <servlet>
-        <servlet-name>ForgetPass</servlet-name>
-        <servlet-class>web.ForgetPassHandler</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ForgetPass</servlet-name>
-        <url-pattern>/forgetpass.do</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>ResetPass</servlet-name>
-        <servlet-class>web.Resetpass</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ResetPass</servlet-name>
-        <url-pattern>/resetpass.do</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>MessageServlet</servlet-name>
         <servlet-class>web.MessageServlet</servlet-class>
     </servlet>

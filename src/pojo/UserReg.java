@@ -1,8 +1,13 @@
 package pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * Created by admin on 2017/8/15.
  */
+@Entity
+@Table(name = "USER_REG")
 public class UserReg extends UserInfo{
     private String email;
     private String nickname;

@@ -1,4 +1,4 @@
-<form action="/forgetpass.do" method="post">
+<form action="/fore_forgetpassverify" method="post">
     <div class="container">
         <div class="col-sm-6 form " style="margin-left: 25%;margin-top: 5em;">
             <h2>Forget Password</h2>
