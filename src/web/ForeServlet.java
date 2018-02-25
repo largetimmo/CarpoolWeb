@@ -132,7 +132,7 @@ public class ForeServlet extends BaseServlet {
     public String book(HttpServletRequest req, HttpServletResponse res){
         //action
         if(req.getSession().getAttribute("uid")==null){
-            return "@fore_login?msg=Please login first";
+            return "#/login.jsp?msg=Please login first";
         }
         String id = req.getParameter("bookid");
         String uid = req.getSession().getAttribute("uid").toString();
