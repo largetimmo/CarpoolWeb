@@ -29,6 +29,9 @@ public class UserReg{
         this.nickname = nickname;
         this.cell = cell;
     }
+    public UserReg(){
+
+    }
     @Column(name = "username")
     public String getUsername() {
         return username;
