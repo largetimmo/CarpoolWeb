@@ -4,6 +4,7 @@ import dao.BookedCarpoolDAO;
 import dao.CarpoolDAO;
 import dao.VehicleOwnerInfoDAO;
 import pojo.*;
+import util.Pair;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,8 +45,32 @@ public class CarpoolServlet extends BaseServlet {
         }
         return "/user/bookedcarpooldetail.jsp";
     }
+
+    /**
+     * carpool detail entrance
+     * will identify user is passenger or driver
+     * @param req
+     * @param res
+     * @return
+     */
+    public String detailverify(HttpServletRequest req, HttpServletResponse res){
+        String uid = req.getSession().getAttribute("uid").toString();
+        String cid = req.getParameter("cid");
+        if(CarpoolDAO.getInstance().driverVerify(uid,cid)){
+            //driver
+            return "@user_carpool_detail?id="+cid;
+        }
+        if(BookedCarpoolDAO.getInstance().passengerVerify(uid,cid)){
+            //passenger
+            return "@user_carpool_detail?ref="+cid;
+        }
+        return "@user_carpool_ridelist?msg=invalid request";
+
+    }
     //cancel carpool
     public String cancel(HttpServletRequest req, HttpServletResponse res) {
+        String uid = req.getSession().getAttribute("uid").toString();
+
         return null;
     }
 

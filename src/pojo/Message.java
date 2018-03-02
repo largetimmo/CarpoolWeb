@@ -1,12 +1,9 @@
 package pojo;
 
-import javax.persistence.*;
 
 /**
  * Created by chenjunhao on 2017/11/15.
  */
-@Entity
-@Table(name = "MESSAGE")
 public class Message {
     private String M_ID;
     private String sender_uid;
@@ -68,40 +65,27 @@ public class Message {
         this.replied = relied;
         this.sender_name = sender_name;
     }
-    @Id
-    @Column(name = "M_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public String getID() {
         return M_ID;
     }
-
-    @Column(name = "sender_uid")
     public String getSender_uid() {
         return sender_uid;
     }
-    @Column(name = "receiver_uid")
     public String getReceiver_uid() {
         return receiver_uid;
     }
-    @Column(name = "message")
     public String getMessage() {
         return message;
     }
-    @Column(name = "Carpool_ID")
     public String getRef() {
         return Carpool_ID;
     }
-    @Column(name = "read")
     public String getRead() {
         return read;
     }
-    @Column(name = "replied")
     public String getReplied() {
         return replied;
     }
-    @ManyToOne(targetEntity = UserReg.class)
-    @JoinColumn(name = "sender_uid")
-    @Column(name = "USER_REG.nickname")
     public String getSender_name() {
         return sender_name;
     }

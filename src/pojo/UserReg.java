@@ -1,14 +1,11 @@
 package pojo;
 
-import org.hibernate.annotations.Generated;
 
-import javax.persistence.*;
 
 /**
  * Created by admin on 2017/8/15.
  */
-@Entity
-@Table(name = "USER_REG")
+
 public class UserReg{
     private int uid;
     private String username;
@@ -32,29 +29,22 @@ public class UserReg{
     public UserReg(){
 
     }
-    @Column(name = "username")
+
     public String getUsername() {
         return username;
     }
-    @Column(name = "uid")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
     public int getUid() {
         return uid;
     }
-    @Column(name = "password")
     public String getPassword() {
         return password;
     }
-    @Column(name = "email")
     public String getEmail() {
         return email;
     }
-    @Column(name = "nickname")
     public String getNickname() {
         return nickname;
     }
-    @Column(name = "cell")
     public String getCell() {
         return cell;
     }

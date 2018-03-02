@@ -85,7 +85,6 @@ public class BookedCarpoolDAO extends AbstractDAO {
                     userlist.add(new Pair<>(nickname,cuid));
                 }while (resultSet.next());
                 bookedCarpoolDetail = new BookedCarpoolDetail(dep, des, date, userlist);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -136,5 +135,23 @@ public class BookedCarpoolDAO extends AbstractDAO {
     @Override
     protected Object parseCursor(ResultSet resultSet) {
         return null;
+    }
+
+    public boolean passengerVerify(String uid,String bookingref){
+        boolean flag = false;
+        String sqlquery = "SELECT COUNT(*) FROM BOOKED_CARPOOL WHERE uid = ? AND booking_ref = ?";
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getInstance().getCarpoolConnection().prepareStatement(sqlquery);
+            preparedStatement.setString(1,uid);
+            preparedStatement.setString(2,bookingref);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            if (resultSet.getInt(1)==1){
+                flag = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
     }
 }

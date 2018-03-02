@@ -58,7 +58,7 @@
                 <td>${c.carpoolInfo.price}</td>
                 <td>${c.carpoolInfo.user.nickname}</td>
                 <td>
-                    <a class="btn btn-primary" href="/user_carpool_detail?ref=${c.ref}">Detail</a>
+                    <a class="btn btn-primary" href="/user_carpool_detailverify?cid=${c.ref}">Detail</a>
                 </td>
             </tr>
         </c:forEach>

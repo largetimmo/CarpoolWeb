@@ -39,6 +39,7 @@ public class CarpoolDAO extends AbstractDAO<CarpoolInfo>{
         }
         return carpoolInfoList;
     }
+
     public boolean storageCarpoolInfo(String departure, String destination,String capacity,String price,String date, String userid){
         try{
             Connection connection = ConnectionPool.getInstance().getCarpoolConnection();
@@ -111,7 +112,7 @@ public class CarpoolDAO extends AbstractDAO<CarpoolInfo>{
                 preparedStatement.setString(2,id);
                 preparedStatement.execute();
                 preparedStatement.close();
-                if (BookedCarpoolDAO.getInstance().BookCarpool(uid,id,seat_string)){
+                if (BookedCarpoolDAO.getInstance().BookCarpool(id,uid,seat_string)){
                     flag = true;
                 }
             }
@@ -220,6 +221,23 @@ public class CarpoolDAO extends AbstractDAO<CarpoolInfo>{
             preparedStatement.execute();
             flag = true;
         }catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+    public boolean driverVerify(String uid, String carpoolid){
+        boolean flag = false;
+        String sqlquery =  "SELECT COUNT(*) FROM CARPOOL WHERE uid = ? AND id = ?";
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getInstance().getCarpoolConnection().prepareStatement(sqlquery);
+            preparedStatement.setString(1,uid);
+            preparedStatement.setString(2,carpoolid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            if(resultSet.getInt(1)==1){
+                flag = true;
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return flag;

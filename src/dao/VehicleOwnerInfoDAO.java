@@ -32,7 +32,7 @@ public class VehicleOwnerInfoDAO {
                 String vehicle = resultSet.getString(resultSet.findColumn("vehicletype"));
                 vehicleOwnerInfo = new VehicleOwnerInfo(uid,userlevel,nickname,vehicle);
             }
-            preparedStatement.close();;
+            preparedStatement.close();
 
         }catch (SQLException e) {
             e.printStackTrace();

@@ -3,7 +3,7 @@
  */
 $(document).ready(function () {
     $.get("/user/newvehicaluser.do",function (data) {
-        var json_result = JSON.parse(data)
+        var json_result = JSON.parse(data);
         if (json_result.code === '-1'){
             $("#dialog").modal();
         }

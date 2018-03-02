@@ -53,7 +53,7 @@
                 <td>${c.remainseat}</td>
                 <td>${c.price}</td>
                 <td>
-                    <a class="btn btn-primary" href="/user_carpool_detail?id=${c.id}">Detail</a>
+                    <a class="btn btn-primary" href="/user_carpool_detailverify?cid=${c.id}">Detail</a>
                 </td>
             </tr>
         </c:forEach>

@@ -37,7 +37,15 @@
         <url-pattern>/foreServlet</url-pattern>
     </servlet-mapping>
     <!-- filter Below-->
-
+    <!--Higher priority-->
+    <filter>
+        <filter-name>IPF</filter-name>
+        <filter-class>filter.IPFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>IPF</filter-name>
+        <url-pattern>/</url-pattern>
+    </filter-mapping>
     <filter>
         <filter-name>BaseFilter</filter-name>
         <filter-class>filter.BaseFilter</filter-class>
@@ -46,6 +54,7 @@
         <filter-name>BaseFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
     <!--
     <filter>
         <filter-name>UserManagementAccessFilter</filter-name>

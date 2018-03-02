@@ -32,18 +32,12 @@ public class VerifyInput {
     public static boolean verifyUNPS(String str){
         pattern = Pattern.compile(REG_EXP_USERNAME_PASSWORD);
         matcher = pattern.matcher(str);
-        if (matcher.find()){
-            return true;
-        }
-        return false;
+        return matcher.find();
     }
     public static boolean verifyEmail(String str){
         pattern = Pattern.compile(REG_EXP_EMAIL);
         matcher = pattern.matcher(str);
-        if (matcher.find()){
-            return  true;
-        }
-        return false;
+        return matcher.find();
     }
     //verifyDate only validate the format
     public static boolean verifyDate(String datestr){

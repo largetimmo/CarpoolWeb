@@ -26,7 +26,7 @@
             <label id="msg_sender_label">From: ${message.sender_name}</label>
         </div>
         <div id="msg_ref_div">
-            <label>Related Carpool Reference#:<a id="msg_ref_span" href="#"> ${message.ref}</a></label>
+            <label>Related Carpool Reference#:<a id="msg_ref_span" href="/user_carpool_detail?ref=${message.ref}"> ${message.ref}</a></label>
         </div>
     </div>
 
